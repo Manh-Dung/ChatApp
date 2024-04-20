@@ -1,0 +1,4 @@
+{
+  "envName": "Development",
+  "baseUrl": "https://api.themoviedb.org/3"
+}

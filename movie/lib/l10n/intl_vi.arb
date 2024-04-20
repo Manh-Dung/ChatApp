@@ -1,0 +1,19 @@
+{
+  "movies": "Movies",
+  "tapAgainToLeave": "Nhấn lại để thoát",
+  "loading": "Đang tải",
+  "message": "Thông báo",
+  "do_you_want_to_delete": "Bạn chắc chắn muốn xoá bộ phim này?",
+  "delete": "Xoá",
+  "cancel": "Huỷ bỏ",
+  "setting": "Cài đặt",
+  "logout": "Đăng xuất",
+  "english": "Tiếng Anh",
+  "vietnamese": "Tiếng Việt",
+  "setting_language": "Cài đặt ngôn ngữ",
+  "home": "Trang chủ",
+  "notification": "Thông báo",
+  "dark": "Tối",
+  "light": "Sáng",
+  "setting_theme": "Cài đặt giao diện"
+}

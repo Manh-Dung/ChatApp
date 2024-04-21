@@ -19,7 +19,7 @@ class SettingTabCubit extends BaseCubit<SettingTabState> {
       repository.removeToken();
       await Future.delayed(Duration(seconds: 2));
       emit(SignedOutSuccessfully());
-    } on Exception catch (e) {
+    } on Exception {
       ///todo do something here
     }
   }

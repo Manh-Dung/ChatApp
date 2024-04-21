@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vinhcine/models/entities/index.dart';
-import 'package:vinhcine/models/enums/load_status.dart';
 import 'package:vinhcine/repositories/auth_repository.dart';
 import 'package:vinhcine/utils/logger.dart';
 

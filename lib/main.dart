@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:torch_controller/torch_controller.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/commons/app_environment.dart';
 import 'package:vinhcine/commons/app_themes.dart';
@@ -22,6 +23,7 @@ void main() async {
 }
 
 Future<void> loadApp() async {
+  TorchController().initialize();
   WidgetsFlutterBinding.ensureInitialized();
   if (currentEnvironment == Environment.dev) {
     await GlobalConfiguration().loadFromAsset("configurations");

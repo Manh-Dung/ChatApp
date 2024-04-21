@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/commons/app_colors.dart';
-import 'package:vinhcine/router/application.dart';
 import 'package:vinhcine/router/routers.dart';
 import 'package:vinhcine/ui/pages/splash/splash_cubit.dart';
 import 'package:vinhcine/ui/widgets/loading_indicator_widget.dart';
@@ -65,7 +64,7 @@ class _SplashPageState extends State<SplashPage> {
 
   ///Navigate
   void showSignIn() async {
-    await Application.router?.navigateTo(context, Routes.signIn);
+    Navigator.pushNamedAndRemoveUntil(context, Routes.signIn, (route) => false);
     _cubit.checkLogin();
   }
 

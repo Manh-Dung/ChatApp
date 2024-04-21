@@ -52,6 +52,9 @@ dependencies:
 #  dio: ^5.4.3+1
   dio: ^4.0.0
   jwt_decoder: ^2.0.1
+  flutter_local_notifications: ^17.0.1
+  torch_controller:
+#  sensors_plus: ^5.0.1
   #Json
   json_annotation: ^4.0.0
   #Hive

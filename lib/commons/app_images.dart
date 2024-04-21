@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 class AppImages {
   static final icBack = 'assets/images/ic_back.png';

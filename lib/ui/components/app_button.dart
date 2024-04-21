@@ -11,7 +11,7 @@ class _AppButton extends StatelessWidget {
   Color? textColor;
   Color? backgroundColor;
 
-  _AppButton({this.title = '', this.isLoading = false, this.onPressed});
+  _AppButton();
 
   @override
   Widget build(BuildContext context) {

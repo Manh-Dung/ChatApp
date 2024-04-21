@@ -7,7 +7,7 @@ class AppThemes {
   static ThemeData theme = ThemeData(
     primaryColor: AppColors.main,
     primarySwatch: Colors.blue,
-    primaryTextTheme: TextTheme(button: TextStyle(color: Colors.white)),
+    primaryTextTheme: TextTheme(labelLarge: TextStyle(color: Colors.white)),
     appBarTheme: AppBarTheme(
         elevation: 0,
         color: Colors.white,

@@ -62,7 +62,7 @@ class MovieTabCubit extends BaseCubit<MovieTabState> {
         totalPages: currentState.totalPages,
         canLoadMore: currentState.canLoadMore,
       ));
-    } on Exception catch (e) {
+    } on Exception {
       emit(DidAnythingFail());
     }
   }
@@ -90,7 +90,7 @@ class MovieTabCubit extends BaseCubit<MovieTabState> {
         totalPages: currentState.totalPages,
         canLoadMore: currentState.canLoadMore,
       ));
-    } on Exception catch (e) {
+    } on Exception {
       ///todo do something here
     }
   }
@@ -114,7 +114,7 @@ class MovieTabCubit extends BaseCubit<MovieTabState> {
         return true;
       }
       return false;
-    } on Exception catch (e) {
+    } on Exception {
       return false;
     }
   }

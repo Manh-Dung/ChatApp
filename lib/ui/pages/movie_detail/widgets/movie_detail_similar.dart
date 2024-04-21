@@ -25,44 +25,47 @@ class MovieDetailSimilar extends StatelessWidget {
           const SizedBox(height: 8),
           Container(
               constraints: BoxConstraints(maxHeight: 200),
-              child: ListView.separated(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.all(0),
-                itemBuilder: (BuildContext context, int index) {
-                  final movie = listMovie?[index];
-                  return Container(
-                    constraints: BoxConstraints(maxWidth: 150),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, Routes.movieDetail,
-                                arguments: {"movie": movie});
-                          },
-                          child: MyLoadingImage(
-                            borderRadius: 8,
-                            imageUrl:
-                                BaseUrl.imageUrl + (movie?.posterUrl ?? ""),
-                            size: 150,
+              child: (listMovie?.length ?? 0) > 0
+                  ? ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.all(0),
+                      itemBuilder: (BuildContext context, int index) {
+                        final movie = listMovie?[index];
+                        return Container(
+                          constraints: BoxConstraints(maxWidth: 150),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, Routes.movieDetail,
+                                      arguments: {"movie": movie});
+                                },
+                                child: MyLoadingImage(
+                                  borderRadius: 8,
+                                  imageUrl: BaseUrl.imageUrl +
+                                      (movie?.posterUrl ?? ""),
+                                  size: 150,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Flexible(
+                                child: Text(
+                                  movie?.title ?? "",
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        Flexible(
-                          child: Text(
-                            movie?.title ?? "",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: 8,
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(width: 8),
-              )),
+                        );
+                      },
+                      itemCount: 8,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(width: 8),
+                    )
+                  : Container()),
         ],
       ),
     );

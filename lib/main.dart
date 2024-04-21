@@ -7,7 +7,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/commons/app_environment.dart';
 import 'package:vinhcine/commons/app_themes.dart';
-import 'package:vinhcine/network/api.dart';
 import 'package:vinhcine/network/api_util.dart';
 import 'package:vinhcine/repositories/auth_repository.dart';
 import 'package:vinhcine/repositories/movie_repository.dart';

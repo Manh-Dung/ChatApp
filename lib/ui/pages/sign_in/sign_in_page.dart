@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vinhcine/commons/app_colors.dart';
 import 'package:vinhcine/commons/app_text_styles.dart';
 import 'package:vinhcine/ui/components/app_button.dart';
 import 'package:vinhcine/ui/pages/sign_in/sign_in_cubit.dart';
+
+import '../../../configs/app_colors.dart';
+import '../../../router/routers.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -26,7 +28,8 @@ class _SignInPageState extends State<SignInPage> {
       if (state.signInStatus == SignInStatus.FAILURE) {
         _showMessage('Login failure');
       } else if (state.signInStatus == SignInStatus.SUCCESS) {
-        Navigator.pop(context);
+        // Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, Routers.home);
       } else if (state.signInStatus == SignInStatus.USERNAME_PASSWORD_INVALID) {
         _showMessage('Wrong Username or Password');
       }

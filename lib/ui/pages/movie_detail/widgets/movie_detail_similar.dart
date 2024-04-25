@@ -40,7 +40,7 @@ class MovieDetailSimilar extends StatelessWidget {
                               InkWell(
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, Routes.movieDetail,
+                                      context, Routers.movieDetail,
                                       arguments: {"movie": movie});
                                 },
                                 child: MyLoadingImage(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vinhcine/commons/app_colors.dart';
 import 'package:vinhcine/commons/app_shadow.dart';
 import 'package:vinhcine/ui/widgets/loading_indicator_widget.dart';
+
+import '../../configs/app_colors.dart';
 
 class _AppButton extends StatelessWidget {
   String? title;
@@ -11,7 +12,13 @@ class _AppButton extends StatelessWidget {
   Color? textColor;
   Color? backgroundColor;
 
-  _AppButton();
+  _AppButton({
+    this.title,
+    this.isLoading,
+    this.onPressed,
+    this.textColor,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,8 @@ class _AppButton extends StatelessWidget {
         child: TextButton(
           child: _buildBodyWidget(),
           style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0))),
           ),
           onPressed: onPressed,
         ),

@@ -24,18 +24,18 @@ class Pages {
 
   static Map<String, WidgetBuilder> get pages {
     return {
-      Routes.root: _blocProvider(
+      Routers.root: _blocProvider(
           (context) => SplashCubit(
               repository: RepositoryProvider.of<AuthRepository>(context)),
           SplashPage()),
-      Routes.signIn: _blocProvider(
+      Routers.signIn: _blocProvider(
           (context) => SignInCubit(
               repository: RepositoryProvider.of<AuthRepository>(context)),
           SignInPage()),
-      Routes.signUp: (context) => SignUpPage(),
-      Routes.forgotPassword: (context) => ForgotPasswordPage(),
-      Routes.home: _blocProvider((context) => HomeCubit(), HomePage()),
-      Routes.movieDetail: _blocProvider(
+      Routers.signUp: (context) => SignUpPage(),
+      Routers.forgotPassword: (context) => ForgotPasswordPage(),
+      Routers.home: _blocProvider((context) => HomeCubit(), HomePage()),
+      Routers.movieDetail: _blocProvider(
           (context) => MovieDetailCubit(
               repository: RepositoryProvider.of<MovieRepository>(context)),
           MovieDetailPage()),

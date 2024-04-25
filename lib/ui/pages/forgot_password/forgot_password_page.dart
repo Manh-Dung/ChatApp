@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vinhcine/commons/app_colors.dart';
+
+import '../../../configs/app_colors.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   @override

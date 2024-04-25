@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:torch_controller/torch_controller.dart';
-import 'package:vinhcine/commons/app_colors.dart';
 
+import '../../../../../configs/app_colors.dart';
 import '../../../../../notifications/notification_widget.dart';
 
 class NotificationTabPage extends StatefulWidget {

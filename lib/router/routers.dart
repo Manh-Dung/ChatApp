@@ -1,4 +1,4 @@
-class Routes {
+class Routers {
   static String root = "/";
 
   ///Auth

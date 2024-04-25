@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart' as refresh;
-import 'package:vinhcine/commons/app_colors.dart';
 import 'package:vinhcine/generated/l10n.dart';
 import 'package:vinhcine/repositories/movie_repository.dart';
 import 'package:vinhcine/ui/components/loading_footer_widget.dart';
@@ -13,6 +12,7 @@ import 'package:vinhcine/ui/widgets/customized_scaffold_widget.dart';
 import 'package:vinhcine/ui/widgets/error_list_widget.dart';
 import 'package:vinhcine/ui/widgets/loading_list_widget.dart';
 
+import '../../../../../configs/app_colors.dart';
 import '../../../../../models/entities/movie.dart';
 import '../../../../../router/routers.dart';
 
@@ -147,7 +147,7 @@ class MovieTabPage extends StatelessWidget {
   }
 
   void _goToMovieDetail(BuildContext context, Movie? movie) {
-    Navigator.pushNamed(context, Routes.movieDetail, arguments: {
+    Navigator.pushNamed(context, Routers.movieDetail, arguments: {
       "movie": movie,
     });
   }

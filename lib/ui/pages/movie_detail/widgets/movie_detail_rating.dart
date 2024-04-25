@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../configs/app_color.dart';
+import '../../../../configs/app_colors.dart';
 
 class MovieDetailRating extends StatelessWidget {
   const MovieDetailRating({super.key, required this.rating});
@@ -14,12 +14,12 @@ class MovieDetailRating extends StatelessWidget {
       children: [
         Icon(
           Icons.star,
-          color: AppColor.yellow,
+          color: AppColors.yellow,
           size: 12,
         ),
         Text(
           "${rating}/10 IMDb",
-          style: TextStyle(fontSize: 15, color: AppColor.borderColor),
+          style: TextStyle(fontSize: 15, color: AppColors.borderColor),
         ),
       ],
     );

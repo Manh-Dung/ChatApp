@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vinhcine/commons/app_colors.dart';
 import 'package:vinhcine/commons/app_text_styles.dart';
+
+import '../../configs/app_colors.dart';
 
 class EmptyListWidget extends StatelessWidget {
   String text;

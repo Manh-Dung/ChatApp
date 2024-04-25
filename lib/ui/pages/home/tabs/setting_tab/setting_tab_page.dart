@@ -4,7 +4,6 @@ import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/commons/app_dimens.dart';
 import 'package:vinhcine/commons/app_text_styles.dart';
 import 'package:vinhcine/generated/l10n.dart';
-import 'package:vinhcine/router/application.dart';
 import 'package:vinhcine/router/routers.dart';
 import 'package:vinhcine/ui/components/app_button.dart';
 import 'package:vinhcine/ui/pages/home/tabs/setting_tab/setting_tab_cubit.dart';
@@ -255,6 +254,8 @@ class _SettingTabPageState extends State<SettingTabPage> {
   }
 
   void _onSignOutSuccess() {
-    Application.router?.navigateTo(context, Routes.root, clearStack: true);
+    // Application.router?.navigateTo(context, Routes.root, clearStack: true);
+    Navigator.pushNamedAndRemoveUntil(
+        context, Routers.root, (route) => route.settings.name == Routers.root);
   }
 }

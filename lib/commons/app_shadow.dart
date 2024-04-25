@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'app_colors.dart';
+import '../configs/app_colors.dart';
+
 
 class AppShadow {
   static final boxShadow = [

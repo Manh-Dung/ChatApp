@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColor {
+class AppColors {
   /// Common Colors
   static final Color primaryColor = Color(0xFF22A121);
   static final Color primaryColor1 = Color(0xFF22A121);
@@ -71,4 +71,27 @@ class AppColor {
   static final black_80 = Color(0xFF000000).withOpacity(0.8);
   static final black = Color(0xFF000000);
   static final white = Color(0xFFFFFFFF);
+
+  ///Common
+  static const Color main = Color(0xFF00C8A0);
+
+  ///Gradient
+  static const Color gradientEnd = Color(0xFF00C8A0);
+  static const Color gradientStart = Color(0xFF00AFA5);
+
+  ///Shadow
+  static const Color shadowColor = Color(0x25606060);
+
+  ///Text
+  static const Color textTint = Color(0xFF00C8A0);
+  static const Color textDart = Color(0xFF000000);
+  static const Color textGray = Color(0xFF979ca8);
+
+  ///Button
+  static const Color buttonGreen = Color(0xFF00FF00);
+  static const Color buttonRed = Color(0xFFFF0000);
+
+  ///Other
+  static const Color lightGray = Color(0x1A606060);
+  static const Color gray = Color(0xFF606060);
 }

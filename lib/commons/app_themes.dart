@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vinhcine/commons/app_text_styles.dart';
 
-import 'app_colors.dart';
+import '../configs/app_colors.dart';
+
 
 class AppThemes {
   static ThemeData theme = ThemeData(

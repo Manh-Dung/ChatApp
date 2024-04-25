@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vinhcine/commons/app_colors.dart';
 import 'package:vinhcine/commons/screen_size.dart';
+
+import '../../configs/app_colors.dart';
 
 class StatusBarWidget extends StatelessWidget {
   final Color color;

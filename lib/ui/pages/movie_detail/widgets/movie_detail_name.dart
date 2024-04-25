@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../configs/app_color.dart';
+import '../../../../configs/app_colors.dart';
 
 class MovieDetailName extends StatelessWidget {
   const MovieDetailName({super.key, required this.name, required this.onTap});
@@ -34,7 +34,7 @@ class MovieDetailName extends StatelessWidget {
             child: Icon(
               Icons.bookmark_add_outlined,
               size: 24,
-              color: AppColor.black,
+              color: AppColors.black,
             ),
           )
         ],

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
-import 'package:vinhcine/commons/app_colors.dart';
 import 'package:vinhcine/router/routers.dart';
 import 'package:vinhcine/ui/pages/splash/splash_cubit.dart';
 import 'package:vinhcine/ui/widgets/loading_indicator_widget.dart';
+
+import '../../../configs/app_colors.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -64,11 +65,12 @@ class _SplashPageState extends State<SplashPage> {
 
   ///Navigate
   void showSignIn() async {
-    Navigator.pushNamedAndRemoveUntil(context, Routes.signIn, (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, Routers.signIn,
+        (route) => route.settings.name == Routers.signIn);
     _cubit.checkLogin();
   }
 
   void showHome() {
-    Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
+    Navigator.pushReplacementNamed(context, Routers.home);
   }
 }

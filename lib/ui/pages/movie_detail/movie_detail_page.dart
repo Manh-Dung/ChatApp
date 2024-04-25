@@ -6,7 +6,7 @@ import 'package:vinhcine/ui/pages/movie_detail/widgets/movie_detail_property.dar
 import 'package:vinhcine/ui/pages/movie_detail/widgets/movie_detail_rating.dart';
 import 'package:vinhcine/ui/pages/movie_detail/widgets/movie_detail_tag.dart';
 
-import '../../../configs/app_color.dart';
+import '../../../configs/app_colors.dart';
 import '../../../models/entities/movie.dart';
 import '../../../router/routers.dart';
 import '../../../utils/widgets/my_loading_image.dart';
@@ -25,7 +25,7 @@ class MovieDetailPage extends StatelessWidget {
     if (movieTemp != null) _cubit.getMovieById(id: movieTemp.id ?? 0);
 
     return Scaffold(
-      backgroundColor: AppColor.white,
+      backgroundColor: AppColors.white,
       body: BlocBuilder<MovieDetailCubit, MovieDetailState>(
         buildWhen: (prev, current) => current is MovieDetailLoaded,
         builder: (context, state) {
@@ -89,7 +89,7 @@ class MovieDetailPage extends StatelessWidget {
 
   Widget _buildMoreButton(BuildContext context) => InkWell(
       onTap: () => Navigator.popUntil(
-          context, (route) => route.settings.name == Routes.home),
+          context, (route) => route.settings.name == Routers.home),
       child: Icon(Icons.home, color: Colors.white));
 
   Widget _buildSubBanner(Movie? movie) => Container(
@@ -106,7 +106,7 @@ class MovieDetailPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColor.white, width: 2),
+                    border: Border.all(color: AppColors.white, width: 2),
                   ),
                   child: MyLoadingImage(
                       imageUrl: BaseUrl.imageUrl + (movie?.posterUrl ?? ""),
@@ -143,7 +143,7 @@ class MovieDetailPage extends StatelessWidget {
                                       ? "English"
                                       : "Vietnamese"),
                               style: TextStyle(
-                                  fontSize: 15, color: AppColor.borderColor)),
+                                  fontSize: 15, color: AppColors.borderColor)),
                         ],
                       ),
                     ),
@@ -196,7 +196,7 @@ class MovieDetailPage extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Text(movie?.overview ?? "Overview",
-                style: TextStyle(fontSize: 12, color: AppColor.borderColor)),
+                style: TextStyle(fontSize: 12, color: AppColors.borderColor)),
           ],
         ),
       );

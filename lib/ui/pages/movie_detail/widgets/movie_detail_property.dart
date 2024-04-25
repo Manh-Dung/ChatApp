@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../configs/app_color.dart';
+import '../../../../configs/app_colors.dart';
 
 class MovieDetailProperty extends StatelessWidget {
   final String tag;
@@ -18,11 +18,11 @@ class MovieDetailProperty extends StatelessWidget {
         children: [
           Text(
             tag,
-            style: TextStyle(color: AppColor.borderColor, fontSize: 12),
+            style: TextStyle(color: AppColors.borderColor, fontSize: 12),
           ),
           Text(
             value,
-            style: TextStyle(color: AppColor.black, fontSize: 12),
+            style: TextStyle(color: AppColors.black, fontSize: 12),
           ),
         ],
       ),

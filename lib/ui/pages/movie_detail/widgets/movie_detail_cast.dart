@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vinhcine/configs/app_uri.dart';
 
-import '../../../../configs/app_color.dart';
+import '../../../../configs/app_colors.dart';
 import '../../../../models/entities/movie.dart';
 
 class MovieDetailAvailable extends StatelessWidget {
@@ -28,7 +28,7 @@ class MovieDetailAvailable extends StatelessWidget {
             children: [
               _labelWidget(
                   label: "Netflix",
-                  color: AppColor.black,
+                  color: AppColors.black,
                   imageString: XR().assetsImage.ic_netflix),
               const SizedBox(width: 10),
               _labelWidget(
@@ -68,7 +68,7 @@ class MovieDetailAvailable extends StatelessWidget {
             "Tom Holland",
             style: TextStyle(
               fontSize: 12,
-              color: AppColor.black,
+              color: AppColors.black,
             ),
           ),
         )
@@ -97,7 +97,7 @@ class MovieDetailAvailable extends StatelessWidget {
             label,
             style: TextStyle(
               fontSize: 16,
-              color: AppColor.white,
+              color: AppColors.white,
               fontWeight: FontWeight.bold,
             ),
           )

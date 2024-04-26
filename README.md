@@ -1,2 +1,2 @@
-# MovieApp
+# E-Commerce Application
 Flutter Project

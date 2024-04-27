@@ -1,10 +1,29 @@
 part of 'sign_up_cubit.dart';
 
-abstract class SignUpState extends Equatable {
-  const SignUpState();
+enum SignUpStatus {
+  INITIAL,
+  LOADING,
+  SUCCESS,
+  FAILURE,
+  EMAIL_PASSWORD_INVALID,
 }
 
-class SignUpInitial extends SignUpState {
+class SignUpState extends Equatable {
+  final SignUpStatus? signUpStatus;
+
+  const SignUpState({
+    this.signUpStatus = SignUpStatus.INITIAL,
+  });
+
+  SignUpState copyWith({
+    SignUpStatus? signUpStatus,
+  }) {
+    return SignUpState(
+      signUpStatus: signUpStatus ?? this.signUpStatus,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  // TODO: implement props
+  List<Object?> get props => [signUpStatus ?? SignUpStatus.INITIAL];
 }

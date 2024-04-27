@@ -22,103 +22,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  final _pageController = PageController(initialPage: 0, keepPage: true);
-
-  final tabs = [Tabs.HOME, Tabs.NOTIFICATION, Tabs.SETTING];
-
   late HomeCubit _cubit;
 
   @override
   void initState() {
     _cubit = context.read<HomeCubit>();
     super.initState();
-    _cubit.stream.listen((state) {
-      logger.d('Change tab1 ${state.currentTabIndex}');
-      _pageController.jumpToPage(state.currentTabIndex ?? 0);
-    });
+    _cubit.stream.listen((state) {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: _buildPageView(),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+      body: Container(),
     );
-  }
-
-  Widget _buildPageView() {
-    return PageView(
-      controller: _pageController,
-      children: tabs.map((e) => e.page).toList(),
-      onPageChanged: (index) {
-        _cubit.changeTab(index);
-      },
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return BlocBuilder<HomeCubit, HomeState>(
-      buildWhen: (prev, current) {
-        return prev.currentTabIndex != current.currentTabIndex;
-      },
-      builder: (context, state) {
-        return Theme(
-          data: ThemeData(),
-          child: BottomNavigationBar(
-            currentIndex: state.currentTabIndex ?? 0,
-            unselectedItemColor: Colors.black54,
-            selectedItemColor: AppColors.primary,
-            items: tabs.map((e) => e.tab).toList(),
-            onTap: (index) {
-              _cubit.changeTab(index);
-            },
-          ),
-        );
-      },
-    );
-  }
-}
-
-enum Tabs {
-  HOME,
-  NOTIFICATION,
-  SETTING,
-}
-
-extension TabsExtension on Tabs {
-  Widget get page {
-    switch (this) {
-      case Tabs.HOME:
-        return KeepAlivePage(child: MovieTabPage());
-      case Tabs.NOTIFICATION:
-        return NotificationTabPage();
-      case Tabs.SETTING:
-        // BlocProvider tạo 1 instance của SettingTabCubit cho SettingTabPage
-        return BlocProvider(
-          create: (context) {
-            final repository = RepositoryProvider.of<AuthRepository>(context);
-            return SettingTabCubit(repository: repository);
-          },
-          child: SettingTabPage(),
-        );
-    }
-  }
-
-  BottomNavigationBarItem get tab {
-    switch (this) {
-      case Tabs.HOME:
-        return BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: S.of(AppContext.navigatorKey.currentContext!).home);
-      case Tabs.NOTIFICATION:
-        return BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: S.of(AppContext.navigatorKey.currentContext!).notification);
-      case Tabs.SETTING:
-        return BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: S.of(AppContext.navigatorKey.currentContext!).setting);
-    }
   }
 }

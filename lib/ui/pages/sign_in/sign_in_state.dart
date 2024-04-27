@@ -9,7 +9,7 @@ enum SignInStatus {
 }
 
 class SignInState extends Equatable {
-  User? token;
+  String? token;
   SignInStatus? signInStatus;
 
   SignInState({
@@ -18,7 +18,7 @@ class SignInState extends Equatable {
   });
 
   SignInState copyWith({
-    User? token,
+    String? token,
     SignInStatus? signInStatus,
   }) {
     return SignInState(

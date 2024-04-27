@@ -1,13 +1,12 @@
 import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vinhcine/generated/l10n.dart';
 
 import '../models/base/base_cubit.dart';
-import '../models/entities/index.dart';
-import '../models/entities/user.dart';
 
 part 'app_state.dart';
 
@@ -32,7 +31,7 @@ class AppCubit extends BaseCubit<AppState> {
     var currentLocale = await getLanguageFromLocalStorage();
     var currentTheme = await getThemeFromLocalStorage();
     emit(FetchedFullDataSuccessfully(
-        token: User(),
+        token: FirebaseAuth.instance.currentUser,
         currentLocale: currentLocale,
         currentTheme: currentTheme));
   }

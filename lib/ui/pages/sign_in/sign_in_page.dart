@@ -15,8 +15,8 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final _usernameController = TextEditingController(text: 'quanth');
-  final _passwordController = TextEditingController(text: '12345678');
+  final _usernameController = TextEditingController(text: "acc1@gmail.com");
+  final _passwordController = TextEditingController(text: "123456");
 
   late SignInCubit _cubit;
 
@@ -54,6 +54,15 @@ class _SignInPageState extends State<SignInPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Text(
+          'Sign In',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 36,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 64),
         Container(
           height: 48,
           margin: EdgeInsets.symmetric(horizontal: 20),
@@ -93,6 +102,15 @@ class _SignInPageState extends State<SignInPage> {
         ),
         SizedBox(height: 32),
         _buildSignButton(),
+        const SizedBox(height: 16),
+        InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, Routers.signUp);
+          },
+          child: Text("Don't have an account? Sign up",
+              style: AppTextStyle.poppins14Medium
+                  .copyWith(color: AppColors.white)),
+        ),
       ],
     );
   }

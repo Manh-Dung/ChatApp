@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/repositories/movie_repository.dart';
 import 'package:vinhcine/ui/pages/movie_detail/movie_detail_cubit.dart';
 import 'package:vinhcine/ui/pages/movie_detail/movie_detail_page.dart';
+import 'package:vinhcine/ui/pages/sign_up/sign_up_cubit.dart';
 
 import '../repositories/auth_repository.dart';
 import '../ui/pages/forgot_password/forgot_password_page.dart';
@@ -32,7 +33,10 @@ class Pages {
           (context) => SignInCubit(
               repository: RepositoryProvider.of<AuthRepository>(context)),
           SignInPage()),
-      Routers.signUp: (context) => SignUpPage(),
+      Routers.signUp: _blocProvider((p0) {
+        return SignUpCubit(
+            repository: RepositoryProvider.of<AuthRepository>(p0));
+      }, SignUpPage()),
       Routers.forgotPassword: (context) => ForgotPasswordPage(),
       Routers.home: _blocProvider((context) => HomeCubit(), HomePage()),
       Routers.movieDetail: _blocProvider(

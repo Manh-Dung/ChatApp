@@ -19,7 +19,7 @@ class SplashCubit extends BaseCubit<SplashState> {
       : super(WaitingForWarmingUp(), repository);
 
   void checkLogin() async {
-    User? token = await repository.getToken();
+    String? token = await repository.getToken();
     if (token == null) {
       logger.d('emit LOGGED_OUT');
       emit(NeedToSignOut());

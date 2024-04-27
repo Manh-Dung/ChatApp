@@ -254,8 +254,9 @@ class _SettingTabPageState extends State<SettingTabPage> {
   }
 
   void _onSignOutSuccess() {
-    // Application.router?.navigateTo(context, Routes.root, clearStack: true);
     Navigator.pushNamedAndRemoveUntil(
         context, Routers.root, (route) => route.settings.name == Routers.root);
+
+
   }
 }

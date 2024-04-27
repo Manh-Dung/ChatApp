@@ -9,7 +9,7 @@ abstract class AppState extends Equatable {
 
   @override
   List<Object> get props => [
-        token ?? User(token: "", refreshToken: ""),
+        token ?? FirebaseAuth.instance,
         currentLocale ?? Locale.fromSubtags(languageCode: 'vi'),
         currentTheme ?? ThemeMode.light,
       ];

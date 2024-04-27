@@ -6,7 +6,5 @@ part 'home_state.dart';
 class HomeCubit extends BaseCubit<HomeState> {
   HomeCubit() : super(HomeState(), null);
 
-  void changeTab(int index) {
-    emit(state.copyWith(currentTabIndex: index));
-  }
+
 }

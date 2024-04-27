@@ -17,8 +17,11 @@ import 'package:vinhcine/ui/components/app_context.dart';
 
 import 'generated/l10n.dart';
 import 'network/api_client.dart';
+import 'network/firebase/firebase_api.dart';
 import 'router/pages.dart';
 import 'router/routers.dart';
+
+
 
 void main() async {
   await loadApp();
@@ -28,6 +31,8 @@ Future<void> loadApp() async {
   TorchController().initialize();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await FirebaseApi().initialize();
   if (currentEnvironment == Environment.dev) {
     await GlobalConfiguration().loadFromAsset("configurations");
   } else {

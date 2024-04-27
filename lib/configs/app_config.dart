@@ -9,7 +9,7 @@ class AppConfig {
   static final String APP_NAME = "-- FLUTTER BASE APP --";
   static final String TOKEN_STRING_KEY = 'TOKEN_STRING_KEY';
   static final String EMAIL_KEY = 'EMAIL_KEY';
-  static final String FCM_TOKEN_KEY = 'EMAIL_KEY';
+  // static final String FCM_TOKEN_KEY = 'EMAIL_KEY';
   static final String ACCESS_TOKEN_KEY = 'ACCESS_TOKEN_KEY';
   static final String REFRESH_TOKEN_KEY = 'REFRESH_TOKEN_KEY';
   static final String USER_ID = 'USER_ID';

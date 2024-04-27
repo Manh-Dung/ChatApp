@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:vinhcine/commons/app_text_styles.dart';
 
+import '../../commons/app_text_styles.dart';
 import '../../configs/app_colors.dart';
 
 class EmptyListWidget extends StatelessWidget {
-  String text;
-  RefreshCallback onRefresh;
+  final String text;
+  final RefreshCallback onRefresh;
 
   EmptyListWidget({this.text = 'Không có data', required this.onRefresh});
 
@@ -21,7 +21,8 @@ class EmptyListWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     text,
-                    style: AppTextStyle.roboto18W800.copyWith(color: AppColors.textGray),
+                    style: AppTextStyle.poppins18W800.copyWith(color: AppColors
+                        .textGray),
                   ),
                 ),
               );

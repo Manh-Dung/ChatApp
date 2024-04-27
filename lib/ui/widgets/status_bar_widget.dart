@@ -7,7 +7,7 @@ import '../../configs/app_colors.dart';
 class StatusBarWidget extends StatelessWidget {
   final Color color;
 
-  StatusBarWidget({this.color = AppColors.main});
+  StatusBarWidget({this.color = AppColors.primary});
 
   @override
   Widget build(BuildContext context) {

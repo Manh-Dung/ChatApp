@@ -96,7 +96,7 @@ class MovieDetailAvailable extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 12,
               color: AppColors.white,
               fontWeight: FontWeight.bold,
             ),

@@ -6,7 +6,7 @@ class LoadingMoreRowWidget extends StatelessWidget {
   final double height;
   final Color color;
 
-  LoadingMoreRowWidget({this.height = 80, this.color = AppColors.main});
+  LoadingMoreRowWidget({this.height = 80, this.color = AppColors.primary});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class LoadingMoreRowWidget extends StatelessWidget {
           height: 24,
           child: CircularProgressIndicator(
             backgroundColor: color,
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.gradientStart),
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
           ),
         ),
       ),

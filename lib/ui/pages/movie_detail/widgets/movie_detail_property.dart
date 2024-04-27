@@ -18,7 +18,7 @@ class MovieDetailProperty extends StatelessWidget {
         children: [
           Text(
             tag,
-            style: TextStyle(color: AppColors.borderColor, fontSize: 12),
+            style: TextStyle(color: AppColors.gray, fontSize: 12),
           ),
           Text(
             value,

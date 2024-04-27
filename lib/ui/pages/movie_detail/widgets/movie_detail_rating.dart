@@ -19,7 +19,7 @@ class MovieDetailRating extends StatelessWidget {
         ),
         Text(
           "${rating}/10 IMDb",
-          style: TextStyle(fontSize: 15, color: AppColors.borderColor),
+          style: TextStyle(fontSize: 15, color: AppColors.gray),
         ),
       ],
     );

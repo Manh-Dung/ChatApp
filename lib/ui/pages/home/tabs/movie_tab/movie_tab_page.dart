@@ -32,7 +32,7 @@ class MovieTabPage extends StatelessWidget {
         body: _buildBodyWidget(),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          backgroundColor: AppColors.main,
+          backgroundColor: AppColors.primary,
           onPressed: () {
             context.read<MovieTabCubit>().addNewMovie();
           },

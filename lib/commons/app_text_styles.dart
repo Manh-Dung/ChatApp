@@ -1,60 +1,72 @@
 import 'package:flutter/material.dart';
 
 class AppTextStyle {
-  static final roboto = TextStyle(fontFamily: 'Roboto');
+  static final poppins = TextStyle(fontFamily: 'Poppins');
 
   //s12
-  static final roboto12 = roboto.copyWith(fontSize: 12);
-  static final roboto12W800 = roboto12.copyWith(fontWeight: FontWeight.w800);
-  static final roboto12Bold = roboto12.copyWith(fontWeight: FontWeight.bold);
-  static final roboto12Medium = roboto12.copyWith(fontWeight: FontWeight.w500);
-  static final roboto12Regular = roboto12.copyWith(fontWeight: FontWeight.w400);
-  static final roboto12Light = roboto12.copyWith(fontWeight: FontWeight.w300);
-  static final roboto12Thin = roboto12.copyWith(fontWeight: FontWeight.w100);
+  static final poppins12 = poppins.copyWith(fontSize: 12);
+  static final poppins12W800 = poppins12.copyWith(fontWeight: FontWeight.w800);
+  static final poppins12Bold = poppins12.copyWith(fontWeight: FontWeight.bold);
+  static final poppins12Medium =
+      poppins12.copyWith(fontWeight: FontWeight.w500);
+  static final poppins12Regular =
+      poppins12.copyWith(fontWeight: FontWeight.w400);
+  static final poppins12Light = poppins12.copyWith(fontWeight: FontWeight.w300);
+  static final poppins12Thin = poppins12.copyWith(fontWeight: FontWeight.w100);
 
   //s14
-  static final roboto14 = roboto.copyWith(fontSize: 14);
-  static final roboto14Bold = roboto14.copyWith(fontWeight: FontWeight.bold);
-  static final roboto14W800 = roboto14.copyWith(fontWeight: FontWeight.w800);
-  static final roboto14Medium = roboto14.copyWith(fontWeight: FontWeight.w500);
-  static final roboto14Regular = roboto14.copyWith(fontWeight: FontWeight.w400);
-  static final roboto14Light = roboto14.copyWith(fontWeight: FontWeight.w300);
-  static final roboto14Thin = roboto14.copyWith(fontWeight: FontWeight.w100);
+  static final poppins14 = poppins.copyWith(fontSize: 14);
+  static final poppins14Bold = poppins14.copyWith(fontWeight: FontWeight.bold);
+  static final poppins14W800 = poppins14.copyWith(fontWeight: FontWeight.w800);
+  static final poppins14Medium =
+      poppins14.copyWith(fontWeight: FontWeight.w500);
+  static final poppins14Regular =
+      poppins14.copyWith(fontWeight: FontWeight.w400);
+  static final poppins14Light = poppins14.copyWith(fontWeight: FontWeight.w300);
+  static final poppins14Thin = poppins14.copyWith(fontWeight: FontWeight.w100);
 
   //s16
-  static final roboto16 = roboto.copyWith(fontSize: 16);
-  static final roboto16W800 = roboto16.copyWith(fontWeight: FontWeight.w800);
-  static final roboto16W700 = roboto16.copyWith(fontWeight: FontWeight.w700);
-  static final roboto16Bold = roboto16.copyWith(fontWeight: FontWeight.bold);
-  static final roboto16Medium = roboto16.copyWith(fontWeight: FontWeight.w500);
-  static final roboto16Regular = roboto16.copyWith(fontWeight: FontWeight.w400);
-  static final roboto16Light = roboto16.copyWith(fontWeight: FontWeight.w300);
-  static final roboto16Thin = roboto16.copyWith(fontWeight: FontWeight.w100);
+  static final poppins16 = poppins.copyWith(fontSize: 16);
+  static final poppins16W800 = poppins16.copyWith(fontWeight: FontWeight.w800);
+  static final poppins16W700 = poppins16.copyWith(fontWeight: FontWeight.w700);
+  static final poppins16Bold = poppins16.copyWith(fontWeight: FontWeight.bold);
+  static final poppins16Medium =
+      poppins16.copyWith(fontWeight: FontWeight.w500);
+  static final poppins16Regular =
+      poppins16.copyWith(fontWeight: FontWeight.w400);
+  static final poppins16Light = poppins16.copyWith(fontWeight: FontWeight.w300);
+  static final poppins16Thin = poppins16.copyWith(fontWeight: FontWeight.w100);
 
   //s18
-  static final roboto18 = roboto.copyWith(fontSize: 18);
-  static final roboto18W800 = roboto18.copyWith(fontWeight: FontWeight.w800);
-  static final roboto18Bold = roboto18.copyWith(fontWeight: FontWeight.bold);
-  static final roboto18Medium = roboto18.copyWith(fontWeight: FontWeight.w500);
-  static final roboto18Regular = roboto18.copyWith(fontWeight: FontWeight.w400);
-  static final roboto18Light = roboto18.copyWith(fontWeight: FontWeight.w300);
-  static final roboto18Thin = roboto18.copyWith(fontWeight: FontWeight.w100);
+  static final poppins18 = poppins.copyWith(fontSize: 18);
+  static final poppins18W800 = poppins18.copyWith(fontWeight: FontWeight.w800);
+  static final poppins18Bold = poppins18.copyWith(fontWeight: FontWeight.bold);
+  static final poppins18Medium =
+      poppins18.copyWith(fontWeight: FontWeight.w500);
+  static final poppins18Regular =
+      poppins18.copyWith(fontWeight: FontWeight.w400);
+  static final poppins18Light = poppins18.copyWith(fontWeight: FontWeight.w300);
+  static final poppins18Thin = poppins18.copyWith(fontWeight: FontWeight.w100);
 
   //s20
-  static final roboto20 = roboto.copyWith(fontSize: 20);
-  static final roboto20W800 = roboto20.copyWith(fontWeight: FontWeight.w800);
-  static final roboto20Bold = roboto20.copyWith(fontWeight: FontWeight.bold);
-  static final roboto20Medium = roboto20.copyWith(fontWeight: FontWeight.w500);
-  static final roboto20Regular = roboto20.copyWith(fontWeight: FontWeight.w400);
-  static final roboto20Light = roboto20.copyWith(fontWeight: FontWeight.w300);
-  static final roboto20Thin = roboto20.copyWith(fontWeight: FontWeight.w100);
+  static final poppins20 = poppins.copyWith(fontSize: 20);
+  static final poppins20W800 = poppins20.copyWith(fontWeight: FontWeight.w800);
+  static final poppins20Bold = poppins20.copyWith(fontWeight: FontWeight.bold);
+  static final poppins20Medium =
+      poppins20.copyWith(fontWeight: FontWeight.w500);
+  static final poppins20Regular =
+      poppins20.copyWith(fontWeight: FontWeight.w400);
+  static final poppins20Light = poppins20.copyWith(fontWeight: FontWeight.w300);
+  static final poppins20Thin = poppins20.copyWith(fontWeight: FontWeight.w100);
 
   //s24
-  static final roboto24 = roboto.copyWith(fontSize: 24);
-  static final roboto24W800 = roboto24.copyWith(fontWeight: FontWeight.w800);
-  static final roboto24Bold = roboto24.copyWith(fontWeight: FontWeight.bold);
-  static final roboto24Medium = roboto24.copyWith(fontWeight: FontWeight.w500);
-  static final roboto24Regular = roboto24.copyWith(fontWeight: FontWeight.w400);
-  static final roboto24Light = roboto24.copyWith(fontWeight: FontWeight.w300);
-  static final roboto24Thin = roboto24.copyWith(fontWeight: FontWeight.w100);
+  static final poppins24 = poppins.copyWith(fontSize: 24);
+  static final poppins24W800 = poppins24.copyWith(fontWeight: FontWeight.w800);
+  static final poppins24Bold = poppins24.copyWith(fontWeight: FontWeight.bold);
+  static final poppins24Medium =
+      poppins24.copyWith(fontWeight: FontWeight.w500);
+  static final poppins24Regular =
+      poppins24.copyWith(fontWeight: FontWeight.w400);
+  static final poppins24Light = poppins24.copyWith(fontWeight: FontWeight.w300);
+  static final poppins24Thin = poppins24.copyWith(fontWeight: FontWeight.w100);
 }

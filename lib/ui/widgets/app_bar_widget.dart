@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vinhcine/commons/app_dimens.dart';
-import 'package:vinhcine/commons/app_images.dart';
-import 'package:vinhcine/commons/app_text_styles.dart';
 
+import '../../commons/app_dimens.dart';
+import '../../commons/app_images.dart';
+import '../../commons/app_text_styles.dart';
 import '../../configs/app_colors.dart';
 
 class AppBarWidget extends StatelessWidget {
@@ -33,12 +33,12 @@ class AppBarWidget extends StatelessWidget {
           Text(
             title ?? "",
             style:
-                AppTextStyle.roboto18W800.copyWith(color: AppColors.background),
+                AppTextStyle.poppins18W800.copyWith(color: AppColors.white),
           )
         ],
       ),
       decoration: BoxDecoration(
-        color: AppColors.main,
+        color: AppColors.primary,
       ),
     );
   }

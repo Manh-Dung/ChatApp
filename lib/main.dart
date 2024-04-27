@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:torch_controller/torch_controller.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/commons/app_environment.dart';
 import 'package:vinhcine/commons/app_themes.dart';
+import 'package:vinhcine/firebase_options.dart';
 import 'package:vinhcine/network/api_util.dart';
 import 'package:vinhcine/repositories/auth_repository.dart';
 import 'package:vinhcine/repositories/movie_repository.dart';
@@ -25,6 +27,7 @@ void main() async {
 Future<void> loadApp() async {
   TorchController().initialize();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   if (currentEnvironment == Environment.dev) {
     await GlobalConfiguration().loadFromAsset("configurations");
   } else {
@@ -100,6 +103,7 @@ class _MyAppState extends State<MyApp> {
           current is FetchedLanguageSuccessfully,
       builder: (context, state) {
         return MaterialApp(
+          themeMode: ThemeMode.system,
           locale: state.currentLocale,
           navigatorKey: AppContext.navigatorKey,
           theme: AppThemes.theme,

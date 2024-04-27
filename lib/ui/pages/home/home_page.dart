@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.main,
+      backgroundColor: AppColors.primary,
       body: _buildPageView(),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage>
           child: BottomNavigationBar(
             currentIndex: state.currentTabIndex ?? 0,
             unselectedItemColor: Colors.black54,
-            selectedItemColor: AppColors.main,
+            selectedItemColor: AppColors.primary,
             items: tabs.map((e) => e.tab).toList(),
             onTap: (index) {
               _cubit.changeTab(index);

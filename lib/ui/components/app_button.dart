@@ -72,7 +72,7 @@ class AppWhiteButton extends _AppButton {
     this.isLoading = isLoading;
     this.onPressed = onPressed;
     //SetupUI
-    textColor = AppColors.main;
+    textColor = AppColors.primary;
     backgroundColor = Colors.white;
   }
 }
@@ -88,6 +88,6 @@ class AppTintButton extends _AppButton {
     this.onPressed = onPressed;
     //SetupUI
     textColor = Colors.white;
-    backgroundColor = AppColors.main;
+    backgroundColor = AppColors.primary;
   }
 }

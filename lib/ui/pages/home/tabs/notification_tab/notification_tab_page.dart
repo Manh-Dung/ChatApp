@@ -23,7 +23,7 @@ class _NotificationTabPageState extends State<NotificationTabPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.main,
+      backgroundColor: AppColors.primary,
       body: Center(
         child: ElevatedButton(
             onPressed: () {

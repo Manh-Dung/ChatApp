@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vinhcine/commons/app_text_styles.dart';
 import 'package:vinhcine/ui/components/app_button.dart';
 import 'package:vinhcine/ui/pages/sign_in/sign_in_cubit.dart';
 
+import '../../../commons/app_text_styles.dart';
 import '../../../configs/app_colors.dart';
 import '../../../router/routers.dart';
 
@@ -45,7 +45,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.main,
+      backgroundColor: AppColors.primary,
       body: buildBodyWidget(),
     );
   }
@@ -62,7 +62,7 @@ class _SignInPageState extends State<SignInPage> {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               hintText: 'Username',
-              hintStyle: AppTextStyle.roboto16Medium
+              hintStyle: AppTextStyle.poppins16Medium
                   .copyWith(color: AppColors.textGray),
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
             ),
@@ -81,7 +81,7 @@ class _SignInPageState extends State<SignInPage> {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               hintText: 'Password',
-              hintStyle: AppTextStyle.roboto16Medium
+              hintStyle: AppTextStyle.poppins16Medium
                   .copyWith(color: AppColors.textGray),
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
             ),

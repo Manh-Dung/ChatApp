@@ -143,7 +143,7 @@ class MovieDetailPage extends StatelessWidget {
                                       ? "English"
                                       : "Vietnamese"),
                               style: TextStyle(
-                                  fontSize: 15, color: AppColors.borderColor)),
+                                  fontSize: 15, color: AppColors.gray)),
                         ],
                       ),
                     ),
@@ -196,7 +196,7 @@ class MovieDetailPage extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Text(movie?.overview ?? "Overview",
-                style: TextStyle(fontSize: 12, color: AppColors.borderColor)),
+                style: TextStyle(fontSize: 12, color: AppColors.gray)),
           ],
         ),
       );

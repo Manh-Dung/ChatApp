@@ -6,7 +6,7 @@ import '../configs/app_colors.dart';
 
 class AppThemes {
   static ThemeData theme = ThemeData(
-    primaryColor: AppColors.main,
+    primaryColor: AppColors.primary,
     primarySwatch: Colors.blue,
     primaryTextTheme: TextTheme(labelLarge: TextStyle(color: Colors.white)),
     appBarTheme: AppBarTheme(
@@ -16,11 +16,11 @@ class AppThemes {
         centerTitle: true,
         shadowColor: AppColors.shadowColor),
     buttonTheme: ButtonThemeData(
-      buttonColor: AppColors.main,
+      buttonColor: AppColors.primary,
     ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    fontFamily: 'Muli',
-    focusColor: AppColors.main,
+    fontFamily: 'Poppins',
+    focusColor: AppColors.primary,
     inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -37,9 +37,9 @@ class AppThemes {
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide.none),
-        fillColor: AppColors.main.withOpacity(0.1),
-        hintStyle: AppTextStyle.roboto16Medium,
-        focusColor: AppColors.main,
+        fillColor: AppColors.primary.withOpacity(0.1),
+        hintStyle: AppTextStyle.poppins16Medium,
+        focusColor: AppColors.primary,
         errorStyle: TextStyle(color: Colors.red),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -47,18 +47,20 @@ class AppThemes {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
       elevation: 10,
-      selectedItemColor: AppColors.main,
-      selectedLabelStyle: AppTextStyle.roboto16Medium.copyWith(color: AppColors.textTint),
+      selectedItemColor: AppColors.primary,
+      selectedLabelStyle: AppTextStyle.poppins16Medium.copyWith(color: AppColors
+          .textTint),
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
-      selectedIconTheme: IconThemeData(color: AppColors.main, size: 24),
+      selectedIconTheme: IconThemeData(color: AppColors.primary, size: 24),
       showUnselectedLabels: true,
       unselectedIconTheme: IconThemeData(
-        color: AppColors.main,
+        color: AppColors.primary,
         size: 24,
       ),
-      unselectedItemColor: AppColors.main,
-      unselectedLabelStyle: AppTextStyle.roboto12Medium.copyWith(color: AppColors.textDart),
+      unselectedItemColor: AppColors.primary,
+      unselectedLabelStyle: AppTextStyle.poppins12Medium.copyWith(color: AppColors
+          .textDart),
     ),
   );
 }

@@ -96,7 +96,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
             children: [
               Text(
                 S.of(context).setting_language,
-                style: AppTextStyle.roboto18Medium,
+                style: AppTextStyle.poppins18Medium,
               ),
               SizedBox(height: AppDimens.S),
               DebounceGestureDetector(
@@ -123,7 +123,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
                       ),
                       SizedBox(width: 10),
                       Text(S.of(context).english,
-                          style: AppTextStyle.roboto16Regular
+                          style: AppTextStyle.poppins16Regular
                               .copyWith(color: Colors.black)),
                     ],
                   ),
@@ -153,7 +153,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
                       ),
                       SizedBox(width: 10),
                       Text(S.of(context).vietnamese,
-                          style: AppTextStyle.roboto16Regular
+                          style: AppTextStyle.poppins16Regular
                               .copyWith(color: Colors.black)),
                     ],
                   ),
@@ -181,7 +181,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
             children: [
               Text(
                 S.of(context).setting_theme,
-                style: AppTextStyle.roboto18Medium,
+                style: AppTextStyle.poppins18Medium,
               ),
               SizedBox(height: AppDimens.S),
               DebounceGestureDetector(
@@ -207,7 +207,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
                       ),
                       SizedBox(width: 10),
                       Text(S.of(context).light,
-                          style: AppTextStyle.roboto16Regular
+                          style: AppTextStyle.poppins16Regular
                               .copyWith(color: Colors.black)),
                     ],
                   ),
@@ -236,7 +236,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
                       ),
                       SizedBox(width: 10),
                       Text(S.of(context).dark,
-                          style: AppTextStyle.roboto16Regular
+                          style: AppTextStyle.poppins16Regular
                               .copyWith(color: Colors.black)),
                     ],
                   ),

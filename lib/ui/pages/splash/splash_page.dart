@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.main,
+      backgroundColor: AppColors.primary,
       body: MultiBlocListener(
         listeners: [
           BlocListener<AppCubit, AppState>(

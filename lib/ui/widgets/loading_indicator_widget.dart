@@ -5,7 +5,7 @@ import '../../configs/app_colors.dart';
 class LoadingIndicatorWidget extends StatelessWidget {
   final Color color;
 
-  LoadingIndicatorWidget({this.color = AppColors.main});
+  LoadingIndicatorWidget({this.color = AppColors.primary});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class LoadingIndicatorWidget extends StatelessWidget {
         height: 24,
         child: CircularProgressIndicator(
           backgroundColor: color,
-          valueColor: AlwaysStoppedAnimation<Color>(AppColors.gradientStart),
+          valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
         ),
       ),
     );

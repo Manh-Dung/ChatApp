@@ -94,7 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: 'Username',
+              hintText: 'Email',
               hintStyle: AppTextStyle.poppins16Medium
                   .copyWith(color: AppColors.textGray),
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),

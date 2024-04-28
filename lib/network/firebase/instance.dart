@@ -6,6 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 class Instances {
   Instances._();
 
+  Instances();
+
   static final FirebaseMessaging messaging = FirebaseMessaging.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static final FirebaseAuth auth = FirebaseAuth.instance;

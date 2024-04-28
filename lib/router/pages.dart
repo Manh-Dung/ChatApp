@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vinhcine/repositories/movie_repository.dart';
-import 'package:vinhcine/ui/pages/movie_detail/movie_detail_cubit.dart';
-import 'package:vinhcine/ui/pages/movie_detail/movie_detail_page.dart';
 import 'package:vinhcine/ui/pages/sign_up/sign_up_cubit.dart';
 
 import '../repositories/auth_repository.dart';
@@ -39,10 +36,6 @@ class Pages {
       }, SignUpPage()),
       Routers.forgotPassword: (context) => ForgotPasswordPage(),
       Routers.home: _blocProvider((context) => HomeCubit(), HomePage()),
-      Routers.movieDetail: _blocProvider(
-          (context) => MovieDetailCubit(
-              repository: RepositoryProvider.of<MovieRepository>(context)),
-          MovieDetailPage()),
     };
   }
 }

@@ -12,6 +12,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit({required this.repository}) : super(SignUpState());
 
   void signUp(String fullName,String email, String password) async {
+    emit(state.copyWith(signUpStatus: SignUpStatus.LOADING));
     try {
       var res = await repository.signUp(fullName, email, password);
       await repository.saveToken(res.uid);

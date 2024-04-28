@@ -12,7 +12,7 @@ import 'package:vinhcine/commons/app_themes.dart';
 import 'package:vinhcine/firebase_options.dart';
 import 'package:vinhcine/network/api_util.dart';
 import 'package:vinhcine/repositories/auth_repository.dart';
-import 'package:vinhcine/repositories/movie_repository.dart';
+import 'package:vinhcine/repositories/user_repository.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
 
 import 'generated/l10n.dart';
@@ -20,8 +20,6 @@ import 'network/api_client.dart';
 import 'network/firebase/firebase_api.dart';
 import 'router/pages.dart';
 import 'router/routers.dart';
-
-
 
 void main() async {
   await loadApp();
@@ -91,8 +89,8 @@ class _MyAppState extends State<MyApp> {
       providers: [
         RepositoryProvider<AuthRepository>(
             create: (context) => AuthRepositoryImpl(_apiClient)),
-        RepositoryProvider<MovieRepository>(
-            create: (context) => MovieRepositoryImpl(_apiClient)),
+        RepositoryProvider<UserRepository>(
+            create: (context) => UserRepositoryImpl()),
       ],
       child: MultiBlocProvider(
         providers: [BlocProvider<AppCubit>(create: (context) => AppCubit())],

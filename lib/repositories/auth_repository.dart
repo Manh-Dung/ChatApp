@@ -27,9 +27,6 @@ abstract class AuthRepository {
 class AuthRepositoryImpl extends AuthRepository {
   ApiClient? _apiClient;
 
-  final _authInstance = Instances.auth;
-  final firestoreInstance = Instances.firestore;
-
   AuthRepositoryImpl(ApiClient? client) {
     _apiClient = client;
     setUpCollectionReference();
@@ -56,8 +53,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<User> signIn(String username, String password) async {
     try {
-      var res = await _authInstance.signInWithEmailAndPassword(
-          email: username, password: password);
+      var res = await Instances.auth
+          .signInWithEmailAndPassword(email: username, password: password);
 
       if (res.user == null) {
         throw ('User not found');
@@ -75,15 +72,19 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<UserModel> signUp(
       String fullName, String email, String password) async {
     try {
-      var res = await _authInstance.createUserWithEmailAndPassword(
-          email: email, password: password);
+      var res = await Instances.auth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       await createUser(
           user: UserModel(
-              uid: res.user?.uid ?? "", name: res.user?.displayName ?? ""));
+              uid: res.user?.uid ?? "",
+              name: res.user?.displayName ?? "",
+              email: email));
 
       return UserModel(
-          uid: res.user?.uid ?? "", name: res.user?.displayName ?? "");
+          uid: res.user?.uid ?? "",
+          name: res.user?.displayName ?? "",
+          email: email);
     } catch (e) {
       throw (e);
     }
@@ -92,7 +93,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<void> signOut() async {
     try {
-      await _authInstance.signOut();
+      await Instances.auth.signOut();
       await removeToken();
     } catch (e) {
       throw (e);
@@ -100,7 +101,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   void setUpCollectionReference() {
-    _userCollection = firestoreInstance
+    _userCollection = Instances.firestore
         .collection(CollectionTag.users)
         .withConverter<UserModel>(
             fromFirestore: (snapshot, _) =>

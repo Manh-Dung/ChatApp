@@ -60,15 +60,12 @@ class _SignUpPageState extends State<SignUpPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'Sign Up',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 36,
-            fontWeight: FontWeight.w600,
-          ),
+        CircleAvatar(
+          radius: 48,
+          backgroundImage: NetworkImage("https://cdn.pixabay"
+              ".com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
         ),
-        const SizedBox(height: 64),
+        const SizedBox(height: 48),
         Container(
           height: 48,
           margin: EdgeInsets.symmetric(horizontal: 20),

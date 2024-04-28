@@ -23,4 +23,14 @@ class ListUserCubit extends Cubit<ListUserState> {
       throw e;
     }
   }
+
+  Future<bool> checkChatExist(
+      {required String? uid1, required String? uid2}) async {
+    return await repository.checkChatExist(uid1: uid1, uid2: uid2);
+  }
+
+  Future<void> createChat(
+      {required String? uid1, required String? uid2}) async {
+    await repository.createChat(uid1: uid1, uid2: uid2);
+  }
 }

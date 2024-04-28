@@ -69,6 +69,9 @@ class _HomePageState extends State<HomePage>
           data: ThemeData(),
           child: BottomNavigationBar(
             currentIndex: state.currentTabIndex ?? 0,
+            selectedLabelStyle:
+                TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            unselectedLabelStyle: TextStyle(fontSize: 12),
             unselectedItemColor: Colors.black54,
             selectedItemColor: AppColors.primary,
             items: tabs.map((e) => e.tab).toList(),

@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/configs/app_colors.dart';
+import 'package:vinhcine/network/firebase/instance.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/list_user_cubit.dart';
 import 'package:vinhcine/ui/widgets/customized_scaffold_widget.dart';
 
 import '../../../../../models/entities/index.dart';
+import '../../../../../router/routers.dart';
 import '../../../../widgets/app_bar_widget.dart';
 import 'widgets/user_widget.dart';
 
@@ -15,10 +17,7 @@ class ListUserTabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomizedScaffold(
-        body: _buildBody(context),
-        appBar: AppBarWidget(
-            title: "Message"
-                "s"));
+        body: _buildBody(context), appBar: AppBarWidget(title: "Messages"));
   }
 
   Widget _buildBody(BuildContext context) {
@@ -42,23 +41,28 @@ class ListUserTabPage extends StatelessWidget {
                     final user = snapshot.data!.docs[index].data();
                     return UserWidget(
                       user: user,
-                      onTap: () {},
+                      onTap: () async {
+                        var isExist = await cubit.checkChatExist(
+                          uid1: Instances.auth.currentUser?.uid,
+                          uid2: user.uid,
+                        );
+
+                        if (!isExist) {
+                          await cubit.createChat(
+                            uid1: Instances.auth.currentUser!.uid,
+                            uid2: user.uid,
+                          );
+                        } else {
+                          Navigator.pushNamed(context, Routers.chat,
+                              arguments: {"user": user});
+                        }
+                      },
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
                       const SizedBox(height: 8),
                   itemCount: snapshot.data!.docs.length,
                 );
-                // return ListView(
-                //   children:
-                //       snapshot.data!.docs.map((DocumentSnapshot document) {
-                //     UserModel user = document.data()! as UserModel;
-                //     return ListTile(
-                //       title: Text(user.name!), // user.name
-                //       subtitle: Text(user.email!),
-                //     );
-                //   }).toList(),
-                // );
               }
               return const Center(child: Text('Failed to fetch users'));
             },

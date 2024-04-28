@@ -11,4 +11,7 @@ class Routers {
 
   /// Movie Detail
   static String movieDetail = "/movieDetail";
+
+  /// Chat
+  static String chat = "/chat";
 }

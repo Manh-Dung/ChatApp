@@ -31,15 +31,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
   #bloc
-  flutter_bloc: ^7.1.0
+  flutter_bloc: ^8.1.5
   #router
   fluro: ^2.0.5
   #Cache image
   cached_network_image: ^3.3.1
   #Permission
-  permission_handler: ^6.0.1
+  permission_handler: ^11.3.1
   #Shimmer
-  shimmer: ^2.0.0
+  shimmer: ^3.0.0
   # Share
   share:
   #Equatable
@@ -50,7 +50,7 @@ dependencies:
   cookie_jar: ^4.0.8
 #  dio_cookie_manager: ^3.1.1
 #  dio: ^5.4.3+1
-  dio: ^4.0.0
+  dio: ^5.4.3+1
   jwt_decoder: ^2.0.1
   flutter_local_notifications: ^17.0.1
   torch_controller:

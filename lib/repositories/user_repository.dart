@@ -24,10 +24,18 @@ class UserRepositoryImpl extends UserRepository {
             toFirestore: (user, _) => user.toJson());
   }
 
+  /// [QuerySnapshot<UserModel>] is a list of [UserModel]
   @override
   Stream<QuerySnapshot<UserModel>> getUsers() {
-    return _userCollection!
-        .where("uid", isNotEqualTo: Instances.auth.currentUser?.uid)
-        .snapshots() as Stream<QuerySnapshot<UserModel>>;
+    try {
+      var res = _userCollection!
+              .where("uid", isNotEqualTo: Instances.auth.currentUser?.uid)
+              .snapshots(includeMetadataChanges: true)
+          as Stream<QuerySnapshot<UserModel>>;
+      return res;
+    } catch (e) {
+      print(e);
+      throw e;
+    }
   }
 }

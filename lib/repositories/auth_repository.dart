@@ -77,9 +77,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
       await createUser(
           user: UserModel(
-              uid: res.user?.uid ?? "",
-              name: res.user?.displayName ?? "",
-              email: email));
+              uid: res.user?.uid ?? "", name: fullName, email: email));
 
       return UserModel(
           uid: res.user?.uid ?? "",

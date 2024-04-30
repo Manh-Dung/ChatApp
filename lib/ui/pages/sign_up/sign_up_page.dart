@@ -33,6 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
       if (state.signUpStatus == SignUpStatus.FAILURE) {
         _showMessage('Sign up failure');
       } else if (state.signUpStatus == SignUpStatus.SUCCESS) {
+        _showMessage('Sign up success');
         Navigator.pop(context);
       }
     });
@@ -173,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  void _signUp() {
+  void _signUp() async {
     final fullName = _fullNameController.text;
     final username = _emailController.text;
     final password = _passwordController.text;
@@ -185,7 +186,7 @@ class _SignUpPageState extends State<SignUpPage> {
       _showMessage('Password is invalid');
       return;
     }
-    _cubit.signUp(
+    await _cubit.signUp(
         file: selectedImage ?? null,
         fullName: fullName,
         email: username,

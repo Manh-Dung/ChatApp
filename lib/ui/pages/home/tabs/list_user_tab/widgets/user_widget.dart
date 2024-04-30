@@ -21,8 +21,9 @@ class UserWidget extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 24,
-                backgroundImage: NetworkImage(
-                    user?.imageUrl ?? ConstantUrls.placeholderImageUrl),
+                backgroundImage: NetworkImage(user?.imageUrl == ""
+                    ? ConstantUrls.placeholderImageUrl
+                    : user?.imageUrl ?? ConstantUrls.placeholderImageUrl),
               ),
               const SizedBox(width: 8),
               Column(

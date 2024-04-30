@@ -82,8 +82,11 @@ class AuthRepositoryImpl extends AuthRepository {
           .createUserWithEmailAndPassword(email: email, password: password);
 
       if (res.user != null) {
-        filePath =
-            await storageRepository.uploadImage(file: file!, uid: res.user!.uid);
+        if (file != null) {
+          filePath = await storageRepository.uploadImage(
+              file: file, uid: res.user?.uid ?? "");
+        }
+
         await createUser(
             user: UserModel(
                 imageUrl: filePath ?? "",

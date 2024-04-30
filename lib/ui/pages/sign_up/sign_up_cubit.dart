@@ -15,7 +15,7 @@ class SignUpCubit extends BaseCubit<SignUpState> {
 
   SignUpCubit({required this.repository}) : super(SignUpState(), repository);
 
-  void signUp(
+  Future<void> signUp(
       {required File? file,
       required String fullName,
       required String email,

@@ -11,13 +11,12 @@ import 'package:vinhcine/commons/app_environment.dart';
 import 'package:vinhcine/commons/app_themes.dart';
 import 'package:vinhcine/firebase_options.dart';
 import 'package:vinhcine/network/api_util.dart';
-import 'package:vinhcine/repositories/auth_repository.dart';
-import 'package:vinhcine/repositories/user_repository.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
 
 import 'generated/l10n.dart';
 import 'network/api_client.dart';
 import 'network/firebase/firebase_api.dart';
+import 'repositories/repositories.dart';
 import 'router/pages.dart';
 import 'router/routers.dart';
 
@@ -91,6 +90,8 @@ class _MyAppState extends State<MyApp> {
             create: (context) => AuthRepositoryImpl(_apiClient)),
         RepositoryProvider<UserRepository>(
             create: (context) => UserRepositoryImpl()),
+        RepositoryProvider<MessageRepository>(
+            create: (context) => MessageRepositoryImpl()),
       ],
       child: MultiBlocProvider(
         providers: [BlocProvider<AppCubit>(create: (context) => AppCubit())],

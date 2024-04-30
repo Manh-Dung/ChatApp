@@ -41,8 +41,7 @@ class Pages {
       Routers.home: _blocProvider((context) => HomeCubit(), HomePage()),
       Routers.chat: _blocProvider((context) {
         return MessageCubit(
-          repository: RepositoryProvider.of<MessageRepository>(context),
-        );
+            repository: RepositoryProvider.of<MessageRepository>(context));
       }, MessagePage())
     };
   }

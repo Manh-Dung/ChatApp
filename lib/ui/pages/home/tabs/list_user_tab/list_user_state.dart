@@ -15,7 +15,6 @@ final class ListUserLoading extends ListUserState {
 }
 
 final class ListUserSuccess extends ListUserState {
-
   ListUserSuccess();
 
   @override

@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// sender_id : "user_002@example.com"
-/// content : "I'm doing well, thanks for asking!"
-/// timestamp : "2023-04-28T10:16:45Z"
+/// sender_id : ""
+/// content : ""
+/// send_at : ""
 
 Message messageFromJson(String str) => Message.fromJson(json.decode(str));
 
@@ -14,45 +14,45 @@ class Message {
   Message({
     String? senderId,
     String? content,
-    Timestamp? timestamp,
+    Timestamp? sendAt,
   }) {
     _senderId = senderId;
     _content = content;
-    _timestamp = timestamp;
+    _sendAt = sendAt;
   }
 
   Message.fromJson(dynamic json) {
     _senderId = json['sender_id'];
     _content = json['content'];
-    _timestamp = json['timestamp'];
+    _sendAt = json['send_at'];
   }
 
   String? _senderId;
   String? _content;
-  Timestamp? _timestamp;
+  Timestamp? _sendAt;
 
   Message copyWith({
     String? senderId,
     String? content,
-    Timestamp? timestamp,
+    Timestamp? sendAt,
   }) =>
       Message(
         senderId: senderId ?? _senderId,
         content: content ?? _content,
-        timestamp: timestamp ?? _timestamp,
+        sendAt: sendAt ?? _sendAt,
       );
 
   String? get senderId => _senderId;
 
   String? get content => _content;
 
-  Timestamp? get timestamp => _timestamp;
+  Timestamp? get sendAt => _sendAt;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['sender_id'] = _senderId;
     map['content'] = _content;
-    map['timestamp'] = _timestamp;
+    map['send_at'] = _sendAt;
     return map;
   }
 }

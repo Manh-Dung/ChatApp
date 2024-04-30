@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vinhcine/models/entities/message.dart';
 import 'package:vinhcine/network/constants/collection_tag.dart';
 
 import '../models/entities/chat.dart';
@@ -14,10 +15,16 @@ abstract class MessageRepository {
   Future<bool> checkChatExist({required String? uid1, required String? uid2});
 
   Future<void> createChat({required String? uid1, required String? uid2});
+
+  Future<void> sendChat(
+      {required String? uid1, required String? uid2, required Message message});
+
+  Stream<DocumentSnapshot<Chat>> getMessages(
+      {required String uid1, required String uid2});
 }
 
-class UserRepositoryImpl extends MessageRepository {
-  UserRepositoryImpl() {
+class MessageRepositoryImpl extends MessageRepository {
+  MessageRepositoryImpl() {
     setUpCollectionReference();
   }
 
@@ -25,15 +32,15 @@ class UserRepositoryImpl extends MessageRepository {
     _userCollection = Instances.firestore
         .collection(CollectionTag.users)
         .withConverter<UserModel>(
-        fromFirestore: (snapshot, _) =>
-            UserModel.fromJson(snapshot.data()!),
-        toFirestore: (user, _) => user.toJson());
+            fromFirestore: (snapshot, _) =>
+                UserModel.fromJson(snapshot.data()!),
+            toFirestore: (user, _) => user.toJson());
 
     _chatCollection = Instances.firestore
         .collection(CollectionTag.chats)
         .withConverter<Chat>(
-        fromFirestore: (snapshot, _) => Chat.fromJson(snapshot.data()!),
-        toFirestore: (chat, _) => chat.toJson());
+            fromFirestore: (snapshot, _) => Chat.fromJson(snapshot.data()!),
+            toFirestore: (chat, _) => chat.toJson());
   }
 
   /// [QuerySnapshot<UserModel>] is a list of [UserModel]
@@ -41,9 +48,9 @@ class UserRepositoryImpl extends MessageRepository {
   Stream<QuerySnapshot<UserModel>> getUsers() {
     try {
       var res = _userCollection!
-          .where("uid", isNotEqualTo: Instances.auth.currentUser?.uid)
-          .snapshots(includeMetadataChanges: true)
-      as Stream<QuerySnapshot<UserModel>>;
+              .where("uid", isNotEqualTo: Instances.auth.currentUser?.uid)
+              .snapshots(includeMetadataChanges: true)
+          as Stream<QuerySnapshot<UserModel>>;
       return res;
     } catch (e) {
       print(e);
@@ -63,10 +70,41 @@ class UserRepositoryImpl extends MessageRepository {
       {required String? uid1, required String? uid2}) async {
     try {
       await _chatCollection!.doc("$uid1$uid2").set(Chat(
-        id: "$uid1$uid2",
-        participants: [uid1 ?? "", uid2 ?? ""],
-        messages: [],
-      ));
+            id: "$uid1$uid2",
+            participants: [uid1 ?? "", uid2 ?? ""],
+            messages: [],
+          ));
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+  }
+
+  @override
+  Future<void> sendChat(
+      {required String? uid1,
+      required String? uid2,
+      required Message message}) async {
+    try {
+      await _chatCollection!.doc("$uid1$uid2").update({
+        "messages": FieldValue.arrayUnion([message.toJson()])
+      });
+
+      await _chatCollection!.doc("$uid2$uid1").update({
+        "messages": FieldValue.arrayUnion([message.toJson()])
+      });
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+  }
+
+  @override
+  Stream<DocumentSnapshot<Chat>> getMessages(
+      {required String uid1, required String uid2}) {
+    try {
+      return _chatCollection!.doc("$uid1$uid2").snapshots()
+          as Stream<DocumentSnapshot<Chat>>;
     } catch (e) {
       print(e);
       throw e;

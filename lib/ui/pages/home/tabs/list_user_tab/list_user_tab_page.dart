@@ -25,48 +25,49 @@ class ListUserTabPage extends StatelessWidget {
 
     return SafeArea(
       child: Container(
-          color: AppColors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: StreamBuilder<QuerySnapshot<UserModel>>(
-            stream: cubit.fetchUsers(),
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot<UserModel>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (snapshot.hasData) {
-                return ListView.separated(
-                  itemBuilder: (BuildContext context, int index) {
-                    final user = snapshot.data!.docs[index].data();
-                    return UserWidget(
-                      user: user,
-                      onTap: () async {
-                        var isExist = await cubit.checkChatExist(
-                          uid1: Instances.auth.currentUser?.uid,
+        color: AppColors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: StreamBuilder<QuerySnapshot<UserModel>>(
+          stream: cubit.fetchUsers(),
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot<UserModel>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              return ListView.separated(
+                itemBuilder: (BuildContext context, int index) {
+                  final user = snapshot.data!.docs[index].data();
+                  return UserWidget(
+                    user: user,
+                    onTap: () async {
+                      var isExist = await cubit.checkChatExist(
+                        uid1: Instances.auth.currentUser?.uid,
+                        uid2: user.uid,
+                      );
+
+                      if (!isExist) {
+                        await cubit.createChat(
+                          uid1: Instances.auth.currentUser!.uid,
                           uid2: user.uid,
                         );
-
-                        if (!isExist) {
-                          await cubit.createChat(
-                            uid1: Instances.auth.currentUser!.uid,
-                            uid2: user.uid,
-                          );
-                        } else {
-                          Navigator.pushNamed(context, Routers.chat,
-                              arguments: {"user": user});
-                        }
-                      },
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(height: 8),
-                  itemCount: snapshot.data!.docs.length,
-                );
-              }
-              return const Center(child: Text('Failed to fetch users'));
-            },
-          )),
+                      } else {
+                        Navigator.pushNamed(context, Routers.chat,
+                            arguments: {"user": user});
+                      }
+                    },
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 8),
+                itemCount: snapshot.data!.docs.length,
+              );
+            }
+            return const Center(child: Text('Failed to fetch users'));
+          },
+        ),
+      ),
     );
   }
 }

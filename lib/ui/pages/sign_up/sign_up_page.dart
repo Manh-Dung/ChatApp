@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../commons/app_text_styles.dart';
 import '../../../configs/app_colors.dart';
+import '../../../network/constants/constant_urls.dart';
 import '../../components/app_button.dart';
 import 'sign_up_cubit.dart';
 
@@ -14,9 +17,10 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final _fullnameController = TextEditingController();
+  final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  File? selectedImage;
 
   late SignUpCubit _cubit;
 
@@ -60,17 +64,31 @@ class _SignUpPageState extends State<SignUpPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircleAvatar(
-          radius: 48,
-          backgroundImage: NetworkImage("https://cdn.pixabay"
-              ".com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+        BlocBuilder<SignUpCubit, SignUpState>(
+          buildWhen: (prev, current) {
+            return prev.pickImageStatus != current.pickImageStatus;
+          },
+          builder: (context, state) {
+            return InkWell(
+              onTap: () async {
+                selectedImage = await _cubit.pickImage();
+              },
+              child: CircleAvatar(
+                radius: MediaQuery.of(context).size.width * 0.15,
+                backgroundImage: selectedImage != null
+                    ? FileImage(selectedImage!)
+                    : NetworkImage(ConstantUrls.placeholderImageUrl)
+                        as ImageProvider,
+              ),
+            );
+          },
         ),
         const SizedBox(height: 48),
         Container(
           height: 48,
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: TextFormField(
-            controller: _fullnameController,
+            controller: _fullNameController,
             decoration: InputDecoration(
               hintText: 'Full Name',
               hintStyle: AppTextStyle.poppins16Medium
@@ -156,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _signUp() {
-    final fullname = _fullnameController.text;
+    final fullName = _fullNameController.text;
     final username = _emailController.text;
     final password = _passwordController.text;
     if (username.isEmpty) {
@@ -167,6 +185,10 @@ class _SignUpPageState extends State<SignUpPage> {
       _showMessage('Password is invalid');
       return;
     }
-    _cubit.signUp(fullname, username, password);
+    _cubit.signUp(
+        file: selectedImage ?? null,
+        fullName: fullName,
+        email: username,
+        password: password);
   }
 }

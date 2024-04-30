@@ -1,15 +1,19 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vinhcine/configs/app_config.dart';
 import 'package:vinhcine/database/preferences.dart';
 import 'package:vinhcine/network/api_client.dart';
 import 'package:vinhcine/network/constants/collection_tag.dart';
+import 'package:vinhcine/repositories/storage_repository.dart';
 
 import '../models/entities/user_model.dart';
 import '../network/firebase/instance.dart';
 
 abstract class AuthRepository {
   late final CollectionReference? _userCollection;
+  final StorageRepository storageRepository = StorageRepositoryImpl();
 
   Future<String?> getToken();
 
@@ -19,7 +23,8 @@ abstract class AuthRepository {
 
   Future<User> signIn(String username, String password);
 
-  Future<UserModel> signUp(String fullName, String email, String password);
+  Future<UserModel> signUp(
+      File? file, String fullName, String email, String password);
 
   Future<void> signOut();
 }
@@ -70,18 +75,27 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<UserModel> signUp(
-      String fullName, String email, String password) async {
+      File? file, String fullName, String email, String password) async {
     try {
+      var filePath;
       var res = await Instances.auth
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      await createUser(
-          user: UserModel(
-              uid: res.user?.uid ?? "", name: fullName, email: email));
+      if (res.user != null) {
+        filePath =
+            await storageRepository.uploadImage(file: file!, uid: res.user!.uid);
+        await createUser(
+            user: UserModel(
+                imageUrl: filePath ?? "",
+                uid: res.user?.uid ?? "",
+                name: fullName,
+                email: email));
+      }
 
       return UserModel(
           uid: res.user?.uid ?? "",
           name: res.user?.displayName ?? "",
+          imageUrl: filePath ?? "",
           email: email);
     } catch (e) {
       throw (e);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vinhcine/models/entities/index.dart';
+import 'package:vinhcine/network/constants/constant_urls.dart';
 
 class UserWidget extends StatelessWidget {
   final UserModel? user;
@@ -14,15 +15,14 @@ class UserWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8)),
+            color: Colors.white, borderRadius: BorderRadius.circular(8)),
         child: IntrinsicHeight(
           child: Row(
             children: [
               CircleAvatar(
                 radius: 24,
-                backgroundImage: NetworkImage("https://cdn.pixabay"
-                    ".com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+                backgroundImage: NetworkImage(
+                    user?.imageUrl ?? ConstantUrls.placeholderImageUrl),
               ),
               const SizedBox(width: 8),
               Column(

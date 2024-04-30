@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:vinhcine/models/responses/array_response.dart';
-import 'package:vinhcine/network/constants/base_url.dart';
+import 'package:vinhcine/network/constants/constant_urls.dart';
 
 import '../models/entities/movie.dart';
 import 'constants/endpoints.dart';

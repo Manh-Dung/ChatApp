@@ -67,6 +67,11 @@ class UserRepositoryImpl extends UserRepository {
             participants: [uid1 ?? "", uid2 ?? ""],
             messages: [],
           ));
+      await _chatCollection!.doc("$uid2$uid1").set(Chat(
+            id: "$uid1$uid2",
+            participants: [uid1 ?? "", uid2 ?? ""],
+            messages: [],
+          ));
     } catch (e) {
       print(e);
       throw e;

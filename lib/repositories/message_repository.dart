@@ -16,7 +16,7 @@ abstract class MessageRepository {
 
   Future<void> createChat({required String? uid1, required String? uid2});
 
-  Future<void> sendChat(
+  Future<void> sendMessage(
       {required String? uid1, required String? uid2, required Message message});
 
   Stream<DocumentSnapshot<Chat>> getMessages(
@@ -81,7 +81,7 @@ class MessageRepositoryImpl extends MessageRepository {
   }
 
   @override
-  Future<void> sendChat(
+  Future<void> sendMessage(
       {required String? uid1,
       required String? uid2,
       required Message message}) async {

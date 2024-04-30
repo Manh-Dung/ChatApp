@@ -6,7 +6,7 @@
 // import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 // import 'package:jwt_decoder/jwt_decoder.dart';
 // import 'package:vinhcine/configs/app_config.dart';
-// import 'package:vinhcine/network/constants/base_url.dart';
+// import 'package:vinhcine/network/constants/constant_urls.dart';
 //
 // import '../utils/connection_util.dart';
 // import '../utils/failure.dart';

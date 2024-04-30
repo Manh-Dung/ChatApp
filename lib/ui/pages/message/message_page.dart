@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinhcine/configs/app_colors.dart';
 
 import '../../../models/entities/chat.dart';
 import '../../../models/entities/message.dart';
@@ -17,7 +18,7 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
-  // late MessageCubit _cubit;
+  late MessageCubit _cubit;
   ChatUser? currentUser, otherUser;
 
   UserModel? user;
@@ -29,6 +30,7 @@ class _MessagePageState extends State<MessagePage> {
 
   @override
   Widget build(BuildContext context) {
+    _cubit = context.read<MessageCubit>();
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, UserModel?>;
     user = args['user'];
@@ -51,9 +53,9 @@ class _MessagePageState extends State<MessagePage> {
           backgroundColor: Colors.white,
           title: Text(user?.name ?? ''),
           centerTitle: false,
-          leading: InkWell(
-            child: Icon(Icons.arrow_back, color: Colors.black),
-            onTap: () {
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () {
               Navigator.pop(context);
             },
           ),
@@ -62,8 +64,6 @@ class _MessagePageState extends State<MessagePage> {
   }
 
   Widget _buildUI(BuildContext context) {
-    final MessageCubit _cubit = context.read<MessageCubit>();
-
     return StreamBuilder(
         stream:
             _cubit.fetchMessages(currentUser?.id ?? "", otherUser?.id ?? ""),
@@ -72,7 +72,7 @@ class _MessagePageState extends State<MessagePage> {
           List<ChatMessage> messages = [];
 
           if (chat != null && chat.messages != null) {
-            messages = _generateMessage(chat.messages!);
+            messages = _generateMessageList(chat.messages!);
           }
 
           return DashChat(
@@ -80,34 +80,82 @@ class _MessagePageState extends State<MessagePage> {
               showOtherUsersAvatar: true,
               showTime: true,
             ),
-            inputOptions: InputOptions(
-              alwaysShowSend: true,
-            ),
+            inputOptions: InputOptions(alwaysShowSend: true, trailing: <Widget>[
+              IconButton(
+                onPressed: () async {
+                  var url = await _cubit.uploadImage(
+                      currentUser?.id ?? "", otherUser?.id ?? "");
+
+                  if (url != null) {
+                    ChatMessage message = ChatMessage(
+                      user: currentUser!,
+                      medias: [
+                        ChatMedia(url: url, fileName: "", type: MediaType.image)
+                      ],
+                      createdAt: DateTime.now(),
+                    );
+                    await _sendMessage(message);
+                  }
+                },
+                icon: Icon(
+                  Icons.image,
+                  color: AppColors.primary,
+                ),
+              ),
+            ]),
             currentUser: currentUser!,
             onSend: (messages) async {
-              Message message = Message(
-                senderId: currentUser?.id,
-                content: messages.text,
-                sendAt: Timestamp.fromDate(messages.createdAt),
-              );
-              await _cubit.sendMessage(
-                  currentUser?.id ?? "", otherUser?.id ?? "", message);
+              await _sendMessage(messages);
             },
             messages: messages,
           );
         });
   }
 
-  List<ChatMessage> _generateMessage(List<Message> messages) {
+  List<ChatMessage> _generateMessageList(List<Message> messages) {
     List<ChatMessage> chatMessages = messages.map((m) {
-      return ChatMessage(
-          user: m.senderId == currentUser?.id ? currentUser! : otherUser!,
-          text: m.content ?? '',
-          createdAt: m.sendAt!.toDate());
+      if (m.messageType == MessageType.Image) {
+        return ChatMessage(
+            user: m.senderId == currentUser?.id ? currentUser! : otherUser!,
+            medias: [
+              ChatMedia(
+                  url: m.content ?? '', fileName: '', type: MediaType.image)
+            ],
+            createdAt: m.sendAt!.toDate());
+      } else {
+        return ChatMessage(
+            user: m.senderId == currentUser?.id ? currentUser! : otherUser!,
+            text: m.content ?? '',
+            createdAt: m.sendAt!.toDate());
+      }
     }).toList();
 
     chatMessages.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     return chatMessages;
+  }
+
+  Future<void> _sendMessage(ChatMessage message) async {
+    if (message.medias?.isNotEmpty ?? false) {
+      if (message.medias?.first.type == MediaType.image) {
+        Message m = Message(
+          senderId: currentUser?.id,
+          content: message.medias?.first.url,
+          messageType: MessageType.Image,
+          sendAt: Timestamp.fromDate(message.createdAt),
+        );
+
+        await _cubit.sendMessage(currentUser?.id ?? "", otherUser?.id ?? "", m);
+      }
+    } else {
+      Message m = Message(
+        senderId: currentUser?.id,
+        content: message.text,
+        messageType: MessageType.Text,
+        sendAt: Timestamp.fromDate(message.createdAt),
+      );
+
+      await _cubit.sendMessage(currentUser?.id ?? "", otherUser?.id ?? "", m);
+    }
   }
 }

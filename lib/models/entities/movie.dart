@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../../network/constants/base_url.dart';
+import '../../network/constants/constant_urls.dart';
 
 Movie movieFromJson(String str) => Movie.fromJson(json.decode(str));
 
@@ -297,7 +297,7 @@ class Movie {
   }
 
   String get posterUrl {
-    return BaseUrl.imageUrl + (posterPath ?? "");
+    return ConstantUrls.imageUrl + (posterPath ?? "");
   }
 }
 

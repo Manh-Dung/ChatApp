@@ -52,6 +52,8 @@ class ListUserTabPage extends StatelessWidget {
                           uid1: Instances.auth.currentUser!.uid,
                           uid2: user.uid,
                         );
+                        Navigator.pushNamed(context, Routers.chat,
+                            arguments: {"user": user});
                       } else {
                         Navigator.pushNamed(context, Routers.chat,
                             arguments: {"user": user});

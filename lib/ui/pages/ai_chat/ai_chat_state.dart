@@ -1,28 +1,38 @@
 part of 'ai_chat_cubit.dart';
 
 sealed class AIChatState extends Equatable {
-  // final List<ChatMessage> messages;
+  List<ChatMessage> messages;
 
-  const AIChatState();
+  AIChatState({this.messages = const []});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [messages];
 }
 
 final class AIChatInitial extends AIChatState {
+  AIChatInitial({super.messages});
+
   @override
   List<Object> get props => [];
 }
 
 final class AIChatLoading extends AIChatState {
+  AIChatLoading({super.messages});
+
   @override
   List<Object> get props => [];
 }
 
 final class AIChatSuccess extends AIChatState {
-  // final List<ChatMessage> messages;
+  AIChatSuccess({super.messages});
 
-  // AIChatSuccess(this.messages);
+  @override
+  List<Object> get props => [];
+}
+
+final class AIChatWaiting extends AIChatState {
+  AIChatWaiting({super.messages});
+
   @override
   List<Object> get props => [];
 }
@@ -30,8 +40,8 @@ final class AIChatSuccess extends AIChatState {
 final class AIChatFailure extends AIChatState {
   final String message;
 
-  AIChatFailure(this.message);
+  AIChatFailure(this.message, {super.messages});
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [...super.props, message];
 }

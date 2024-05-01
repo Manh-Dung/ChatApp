@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'vi';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "cancel": MessageLookupByLibrary.simpleMessage("Huỷ bỏ"),
         "dark": MessageLookupByLibrary.simpleMessage("Tối"),
@@ -42,6 +43,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cài đặt giao diện"),
         "tapAgainToLeave":
             MessageLookupByLibrary.simpleMessage("Nhấn lại để thoát"),
-        "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt")
+        "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
+        "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
+        "write_a_message":
+            MessageLookupByLibrary.simpleMessage("Nhập tin nhắn..."),
+        "chats": MessageLookupByLibrary.simpleMessage("Trò chuyện"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Đăng Nhập"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("Đăng Ký"),
+        "password": MessageLookupByLibrary.simpleMessage("Mật Khẩu"),
+        "full_name": MessageLookupByLibrary.simpleMessage("Họ và Tên"),
+        "dont_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Chưa có tài khoản? Đăng Ký"),
+        "already_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Đã có tài khoản? Đăng Nhập"),
+        "sign_up_success":
+            MessageLookupByLibrary.simpleMessage("Đăng ký thành công"),
+        "sign_up_failure":
+            MessageLookupByLibrary.simpleMessage("Đăng ký thất bại"),
+        "email_is_invalid":
+            MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
+        "password_is_invalid":
+            MessageLookupByLibrary.simpleMessage("Mật khẩu không hợp lệ"),
       };
 }

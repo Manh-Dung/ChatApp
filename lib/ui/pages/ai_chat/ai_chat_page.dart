@@ -49,6 +49,9 @@ class AIChatPage extends StatelessWidget {
             showOtherUsersName: false,
             showTime: true,
           ),
+          inputOptions: InputOptions(
+            textCapitalization: TextCapitalization.sentences,
+          ),
           currentUser: currentUser!,
           onSend: (messages) async {
             await _cubit.sendMessage(messages);

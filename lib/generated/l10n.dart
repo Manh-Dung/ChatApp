@@ -219,6 +219,137 @@ class S {
       args: [],
     );
   }
+
+  /// Search
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Chats
+  String get chats {
+    return Intl.message(
+      'Chats',
+      name: 'chats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Write a message...
+  String get write_a_message {
+    return Intl.message(
+      'Write a message...',
+      name: 'write_a_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Sign In
+  String get sign_in {
+    return Intl.message(
+      'Sign In',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Sign Up
+  String get sign_up {
+    return Intl.message(
+      'Sign Up',
+      name: 'sign_up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Don't have an account? Sign Up
+  String get dont_have_an_account {
+    return Intl.message(
+      "Don't have an account? Sign Up",
+      name: 'dont_have_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+
+  /// Already have an account? Sign In
+  String get already_have_an_account {
+    return Intl.message(
+      'Already have an account? Sign In',
+      name: 'already_have_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Full Name
+  String get full_name {
+    return Intl.message(
+      'Full Name',
+      name: 'full_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Password
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Sign up failure
+  String get sign_up_failure {
+    return Intl.message(
+      'Sign up failure',
+      name: 'sign_up_failure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Sign up success
+  String get sign_up_success {
+    return Intl.message(
+      'Sign up success',
+      name: 'sign_up_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Email is invalid
+  String get email_is_invalid {
+    return Intl.message(
+      'Email is invalid',
+      name: 'email_is_invalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// Password is invalid
+  String get password_is_invalid {
+    return Intl.message(
+      'Password is invalid',
+      name: 'password_is_invalid',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

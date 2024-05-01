@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../configs/app_colors.dart';
+import '../../../../../../generated/l10n.dart';
 import '../../../../../../models/entities/index.dart';
 import '../../../../../../network/constants/constant_urls.dart';
 import 'list_user_button.dart';
@@ -61,7 +62,7 @@ class ListUserHeader extends StatelessWidget {
                     : user?.imageUrl ?? ConstantUrls.placeholderImageUrl),
               ),
               const SizedBox(width: 12),
-              Text("Chats",
+              Text(S.of(context).chats,
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))
             ],
           ),

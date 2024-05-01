@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../commons/app_text_styles.dart';
 import '../../../configs/app_colors.dart';
+import '../../../generated/l10n.dart';
 import '../../../network/constants/constant_urls.dart';
 import '../../components/app_button.dart';
 import 'sign_up_cubit.dart';
@@ -31,9 +32,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
     _cubit.stream.listen((state) {
       if (state.signUpStatus == SignUpStatus.FAILURE) {
-        _showMessage('Sign up failure');
+        _showMessage(S.of(context).sign_up_failure);
       } else if (state.signUpStatus == SignUpStatus.SUCCESS) {
-        _showMessage('Sign up success');
+        _showMessage(S.of(context).sign_up_success);
         Navigator.pop(context);
       }
     });
@@ -91,7 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
           child: TextFormField(
             controller: _fullNameController,
             decoration: InputDecoration(
-              hintText: 'Full Name',
+              hintText: S.of(context).full_name,
               hintStyle: AppTextStyle.poppins16Medium
                   .copyWith(color: AppColors.textGray),
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
@@ -129,7 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
             controller: _passwordController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: 'Password',
+              hintText: S.of(context).password,
               hintStyle: AppTextStyle.poppins16Medium
                   .copyWith(color: AppColors.textGray),
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
@@ -147,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Text("Already have an account? Sign in",
+          child: Text(S.of(context).already_have_an_account,
               style: AppTextStyle.poppins14Medium
                   .copyWith(color: AppColors.white)),
         ),
@@ -165,7 +166,7 @@ class _SignUpPageState extends State<SignUpPage> {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: AppWhiteButton(
-            title: 'Sign Up',
+            title: S.of(context).sign_up,
             onPressed: isLoading ? null : _signUp,
             isLoading: isLoading,
           ),
@@ -179,11 +180,11 @@ class _SignUpPageState extends State<SignUpPage> {
     final username = _emailController.text;
     final password = _passwordController.text;
     if (username.isEmpty) {
-      _showMessage('Email is invalid');
+      _showMessage(S.of(context).email_is_invalid);
       return;
     }
     if (password.isEmpty) {
-      _showMessage('Password is invalid');
+      _showMessage(S.of(context).password_is_invalid);
       return;
     }
     await _cubit.signUp(

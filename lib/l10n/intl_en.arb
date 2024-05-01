@@ -16,4 +16,18 @@
   "dark": "Dark",
   "light": "Light",
   "setting_theme": "Setting theme"
+  "search": "Search",
+  "write_a_message": "Write a message...",
+  "chats": "Chats",
+  "sign_in": "Sign In",
+  "sign_up": "Sign Up",
+  "dont_have_an_account": "Don't have an account? Sign Up",
+  "already_have_an_account": "Already have an account? Sign In",
+  "password": "Password",
+  "full_name": "Full Name",
+  "sign_up_failure": "Sign up failure",
+  "sign_up_success": "Sign up success",
+  "email_is_invalid": "Email is invalid",
+  "password_is_invalid": "Password is invalid",
+
 }

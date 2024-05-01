@@ -5,6 +5,7 @@ import 'package:vinhcine/ui/pages/sign_in/sign_in_cubit.dart';
 
 import '../../../commons/app_text_styles.dart';
 import '../../../configs/app_colors.dart';
+import '../../../generated/l10n.dart';
 import '../../../router/routers.dart';
 
 class SignInPage extends StatefulWidget {
@@ -55,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Sign In',
+          S.of(context).sign_in,
           style: TextStyle(
             color: Colors.white,
             fontSize: 36,
@@ -107,7 +108,7 @@ class _SignInPageState extends State<SignInPage> {
           onTap: () {
             Navigator.pushNamed(context, Routers.signUp);
           },
-          child: Text("Don't have an account? Sign up",
+          child: Text(S.of(context).dont_have_an_account,
               style: AppTextStyle.poppins14Medium
                   .copyWith(color: AppColors.white)),
         ),
@@ -125,7 +126,7 @@ class _SignInPageState extends State<SignInPage> {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: AppWhiteButton(
-            title: 'Sign In',
+            title: S.of(context).sign_in,
             onPressed: isLoading ? null : _signIn,
             isLoading: isLoading,
           ),

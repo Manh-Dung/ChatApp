@@ -11,6 +11,8 @@ abstract class UserRepository {
 
   Stream<QuerySnapshot<UserModel>> getUsers();
 
+  Stream<QuerySnapshot<UserModel>> getCurrentUser();
+
   Future<bool> checkChatExist({required String? uid1, required String? uid2});
 
   Future<void> createChat({required String? uid1, required String? uid2});
@@ -72,6 +74,20 @@ class UserRepositoryImpl extends UserRepository {
             participants: [uid1 ?? "", uid2 ?? ""],
             messages: [],
           ));
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+  }
+
+  @override
+  Stream<QuerySnapshot<UserModel>> getCurrentUser() {
+    try {
+      var res = _userCollection!
+              .where("uid", isEqualTo: Instances.auth.currentUser?.uid)
+              .snapshots(includeMetadataChanges: true)
+          as Stream<QuerySnapshot<UserModel>>;
+      return res;
     } catch (e) {
       print(e);
       throw e;

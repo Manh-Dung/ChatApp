@@ -72,6 +72,7 @@ dependencies:
   shared_preferences: ^2.0.5
 
   flutter_svg: ^2.0.10+1
+
   #firebase
   firebase_core: ^2.30.1
   firebase_auth: ^4.19.4
@@ -84,7 +85,12 @@ dependencies:
 
   #Dash chat
   dash_chat_2: ^0.0.20
+
+  #Path
   path: ^1.9.0
+
+  #Flutter Gemini
+  flutter_gemini: ^2.0.3
 
 #---------------------------- Dependency for dev ------------------------------#
 

@@ -38,4 +38,11 @@ class AppColors {
   static const Color success = Color(0xFF388e3c);
   static const Color warning = Color(0xFFf57c00);
   static const Color info = Color(0xFF1976d2);
+
+  /// Shimmer color
+  static const Color baseColor = Color(0xFFE0E0E0);
+  static const Color highlightColor = Color(0xFFF5F5F5);
+
+  /// Search hint color
+  static const Color searchHintColor = Color(0xFF8E8E93);
 }

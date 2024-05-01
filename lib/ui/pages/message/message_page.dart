@@ -7,6 +7,7 @@ import 'package:vinhcine/configs/app_colors.dart';
 import '../../../models/entities/chat.dart';
 import '../../../models/entities/message.dart';
 import '../../../models/entities/user_model.dart';
+import '../../../network/constants/constant_urls.dart';
 import '../../../network/firebase/instance.dart';
 import 'message_cubit.dart';
 
@@ -49,67 +50,153 @@ class _MessagePageState extends State<MessagePage> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(user?.name ?? ''),
-          centerTitle: false,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.white,
+        //   title: Text(user?.name ?? ''),
+        //   centerTitle: false,
+        //   leading: IconButton(
+        //     icon: Icon(Icons.arrow_back, color: AppColors.primary),
+        //     onPressed: () {
+        //       Navigator.pop(context);
+        //     },
+        //   ),
+        // ),
         body: _buildUI(context));
   }
 
   Widget _buildUI(BuildContext context) {
-    return StreamBuilder(
-        stream:
-            _cubit.fetchMessages(currentUser?.id ?? "", otherUser?.id ?? ""),
-        builder: (context, snapshot) {
-          Chat? chat = snapshot.data?.data();
-          List<ChatMessage> messages = [];
-
-          if (chat != null && chat.messages != null) {
-            messages = _generateMessageList(chat.messages!);
-          }
-
-          return DashChat(
-            messageOptions: const MessageOptions(
-              showOtherUsersAvatar: true,
-              showTime: true,
-            ),
-            inputOptions: InputOptions(alwaysShowSend: true, trailing: <Widget>[
+    return Column(
+      children: [
+        const SizedBox(height: 36),
+        Container(
+          child: Row(
+            children: [
               IconButton(
-                onPressed: () async {
-                  var url = await _cubit.uploadImage(
-                      currentUser?.id ?? "", otherUser?.id ?? "");
-
-                  if (url != null) {
-                    ChatMessage message = ChatMessage(
-                      user: currentUser!,
-                      medias: [
-                        ChatMedia(url: url, fileName: "", type: MediaType.image)
-                      ],
-                      createdAt: DateTime.now(),
-                    );
-                    await _sendMessage(message);
-                  }
-                },
                 icon: Icon(
-                  Icons.image,
+                  Icons.arrow_back_rounded,
                   color: AppColors.primary,
+                  size: 28,
                 ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-            ]),
-            currentUser: currentUser!,
-            onSend: (messages) async {
-              await _sendMessage(messages);
+              CircleAvatar(
+                radius: 18,
+                backgroundImage: NetworkImage(user?.imageUrl ?? ''),
+              ),
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    user?.name ?? '',
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'Messenger',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.black.withOpacity(0.35),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              Spacer(),
+              IconButton(
+                icon: Icon(
+                  Icons.phone,
+                  color: AppColors.primary,
+                  size: 28,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.videocam_rounded,
+                  color: AppColors.primary,
+                  size: 28,
+                ),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: StreamBuilder(
+            stream: _cubit.fetchMessages(
+                currentUser?.id ?? "", otherUser?.id ?? ""),
+            builder: (context, snapshot) {
+              Chat? chat = snapshot.data?.data();
+              List<ChatMessage> messages = [];
+
+              if (chat != null && chat.messages != null) {
+                messages = _generateMessageList(chat.messages!);
+              }
+
+              return DashChat(
+                messageOptions: MessageOptions(
+                  showOtherUsersAvatar: true,
+                  showOtherUsersName: false,
+                  showTime: true,
+                  avatarBuilder: (chatUser, onPressAvatar, onLongPressAvatar) {
+                    return Row(
+                      children: [
+                        const SizedBox(width: 12),
+                        CircleAvatar(
+                          radius: 14,
+                          backgroundImage: NetworkImage(user?.imageUrl == ""
+                              ? ConstantUrls.placeholderImageUrl
+                              : user?.imageUrl ??
+                                  ConstantUrls.placeholderImageUrl),
+                        ),
+                        const SizedBox(width: 12),
+                      ],
+                    );
+                  },
+                ),
+                inputOptions: InputOptions(
+                  textCapitalization: TextCapitalization.sentences,
+                  leading: <Widget>[
+                    IconButton(
+                      onPressed: () async {
+                        var url = await _cubit.uploadImage(
+                            currentUser?.id ?? "", otherUser?.id ?? "");
+
+                        if (url != null) {
+                          ChatMessage message = ChatMessage(
+                            user: currentUser!,
+                            medias: [
+                              ChatMedia(
+                                  url: url, fileName: "", type: MediaType.image)
+                            ],
+                            createdAt: DateTime.now(),
+                          );
+                          await _sendMessage(message);
+                        }
+                      },
+                      icon: Icon(
+                        Icons.image,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ],
+                ),
+                currentUser: currentUser!,
+                onSend: (messages) async {
+                  await _sendMessage(messages);
+                },
+                messages: messages,
+              );
             },
-            messages: messages,
-          );
-        });
+          ),
+        ),
+      ],
+    );
   }
 
   List<ChatMessage> _generateMessageList(List<Message> messages) {

@@ -24,6 +24,10 @@ class ListUserCubit extends Cubit<ListUserState> {
     }
   }
 
+  Stream<QuerySnapshot<UserModel>> getCurrentUser() {
+    return repository.getCurrentUser();
+  }
+
   Future<bool> checkChatExist(
       {required String? uid1, required String? uid2}) async {
     return await repository.checkChatExist(uid1: uid1, uid2: uid2);

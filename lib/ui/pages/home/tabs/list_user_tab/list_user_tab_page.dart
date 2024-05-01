@@ -9,6 +9,7 @@ import '../../../../../models/entities/index.dart';
 import '../../../../../network/firebase/instance.dart';
 import '../../../../../router/routers.dart';
 import 'widgets/list_user_avatar_widget.dart';
+import 'widgets/list_user_gemini.dart';
 import 'widgets/list_user_header.dart';
 import 'widgets/list_user_search_bar.dart';
 
@@ -53,11 +54,11 @@ class ListUserTabPage extends StatelessWidget {
               stream: cubit.fetchUsers(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return _buildUserListAvatar();
+                  return _buildUserListHorizontal();
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.hasData) {
-                  return _buildUserListAvatar(users: snapshot.data!.docs);
+                  return _buildUserListHorizontal(users: snapshot.data!.docs);
                 }
                 return SizedBox();
               },
@@ -67,11 +68,11 @@ class ListUserTabPage extends StatelessWidget {
             stream: cubit.fetchUsers(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return _buildUserList();
+                return _buildUserListVertical();
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (snapshot.hasData) {
-                return _buildUserList(users: snapshot.data!.docs);
+                return _buildUserListVertical(users: snapshot.data!.docs);
               }
               return SizedBox();
             },
@@ -81,7 +82,24 @@ class ListUserTabPage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserList({List<DocumentSnapshot>? users}) {
+  void _userOnTap(BuildContext context, UserModel? user) async {
+    final cubit = context.read<ListUserCubit>();
+    final isExist = await cubit.checkChatExist(
+      uid1: Instances.auth.currentUser?.uid,
+      uid2: user?.uid,
+    );
+
+    if (!isExist) {
+      await cubit.createChat(
+        uid1: Instances.auth.currentUser!.uid,
+        uid2: user?.uid,
+      );
+    }
+
+    Navigator.pushNamed(context, Routers.chat, arguments: {"user": user});
+  }
+
+  Widget _buildUserListVertical({List<DocumentSnapshot>? users}) {
     if (users == null) {
       return ListView.builder(
           itemBuilder: (_, __) => UserWidget(isShimmer: true),
@@ -91,35 +109,23 @@ class ListUserTabPage extends StatelessWidget {
 
     return ListView.builder(
       itemBuilder: (context, index) {
-        final user = users[index].data() as UserModel;
-        return UserWidget(
-          user: user,
-          onTap: () => _userOnTap(context, user),
-        );
+        if (index == 0) {
+          return ListUserGemini();
+        } else {
+          final user = users[index - 1].data() as UserModel;
+          return UserWidget(
+            user: user,
+            onTap: () => _userOnTap(context, user),
+          );
+        }
       },
       padding: EdgeInsets.zero,
-      itemCount: users.length ?? 0,
+      itemCount: users.length,
+      shrinkWrap: true,
     );
   }
 
-  void _userOnTap(BuildContext context, UserModel user) async {
-    final cubit = context.read<ListUserCubit>();
-    final isExist = await cubit.checkChatExist(
-      uid1: Instances.auth.currentUser?.uid,
-      uid2: user.uid,
-    );
-
-    if (!isExist) {
-      await cubit.createChat(
-        uid1: Instances.auth.currentUser!.uid,
-        uid2: user.uid,
-      );
-    }
-
-    Navigator.pushNamed(context, Routers.chat, arguments: {"user": user});
-  }
-
-  Widget _buildUserListAvatar({List<DocumentSnapshot>? users}) {
+  Widget _buildUserListHorizontal({List<DocumentSnapshot>? users}) {
     if (users == null) {
       return ListView.separated(
           separatorBuilder: (_, __) => const SizedBox(width: 24),

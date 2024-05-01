@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -11,6 +12,7 @@ import 'package:vinhcine/commons/app_environment.dart';
 import 'package:vinhcine/commons/app_themes.dart';
 import 'package:vinhcine/firebase_options.dart';
 import 'package:vinhcine/network/api_util.dart';
+import 'package:vinhcine/network/constants/constant_urls.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
 
 import 'generated/l10n.dart';
@@ -35,6 +37,10 @@ Future<void> loadApp() async {
   } else {
     await GlobalConfiguration().loadFromAsset("configurations_prod");
   }
+
+  await Gemini.init(
+    apiKey: ConstantUrls.apiKey,
+  );
 
   /// AWAIT SERVICES INITIALIZATION.
   await initServices();

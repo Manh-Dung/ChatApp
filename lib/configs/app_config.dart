@@ -62,6 +62,4 @@ class DatabaseConfig {
 
 class MovieAPIConfig {
   static const String APIKey = 'fdec237ed56cb8462b2d225560650eb9';
-  // static const String APIKey =
-  //     'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZGVjMjM3ZWQ1NmNiODQ2MmIyZDIyNTU2MDY1MGViOSIsInN1YiI6IjY2MWQxMjFjMzg5ZGExMDE4NjM2NjRiYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y_IR74DKpGcdQ0E3wbLpnU4HydFlKXTkZm_ZmH-z1SM';
 }

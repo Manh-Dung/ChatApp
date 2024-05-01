@@ -27,6 +27,7 @@ class _AssetsImage {
   String ic_netflix = images + 'ic_netflix.png';
   String ic_disney_plus = images + 'ic_disney_plus.png';
   String ic_youtube = images + 'ic_youtube.png';
+  String ic_gemini = images + 'ic_gemini.png';
 }
 
 class _SVGImage {

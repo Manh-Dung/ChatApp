@@ -1,4 +1,6 @@
 class Routers {
+  Routers._();
+
   static String root = "/";
 
   ///Auth
@@ -14,4 +16,7 @@ class Routers {
 
   /// Chat
   static String chat = "/chat";
+
+  /// AI Chat
+  static String aiChat = "/aiChat";
 }

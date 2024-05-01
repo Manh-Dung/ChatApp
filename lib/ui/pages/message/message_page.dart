@@ -7,34 +7,23 @@ import 'package:vinhcine/configs/app_colors.dart';
 import '../../../models/entities/chat.dart';
 import '../../../models/entities/message.dart';
 import '../../../models/entities/user_model.dart';
-import '../../../network/constants/constant_urls.dart';
 import '../../../network/firebase/instance.dart';
 import 'message_cubit.dart';
+import 'widgets/message_button.dart';
 
-class MessagePage extends StatefulWidget {
+class MessagePage extends StatelessWidget {
   MessagePage({super.key});
 
-  @override
-  State<MessagePage> createState() => _MessagePageState();
-}
-
-class _MessagePageState extends State<MessagePage> {
   late MessageCubit _cubit;
+
   ChatUser? currentUser, otherUser;
-
-  UserModel? user;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     _cubit = context.read<MessageCubit>();
     final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, UserModel?>;
-    user = args['user'];
+        ModalRoute.of(context)?.settings.arguments as Map<String, UserModel?>?;
+    final UserModel? user = args?['user'];
 
     currentUser = ChatUser(
       id: Instances.auth.currentUser?.uid ?? '',
@@ -43,89 +32,20 @@ class _MessagePageState extends State<MessagePage> {
 
     if (user != null) {
       otherUser = ChatUser(
-        id: user?.uid ?? "",
-        firstName: user?.name,
+        id: user.uid ?? "",
+        firstName: user.name,
+        profileImage: user.imageUrl,
       );
     }
 
-    return Scaffold(
-        backgroundColor: Colors.white,
-        // appBar: AppBar(
-        //   backgroundColor: Colors.white,
-        //   title: Text(user?.name ?? ''),
-        //   centerTitle: false,
-        //   leading: IconButton(
-        //     icon: Icon(Icons.arrow_back, color: AppColors.primary),
-        //     onPressed: () {
-        //       Navigator.pop(context);
-        //     },
-        //   ),
-        // ),
-        body: _buildUI(context));
+    return Scaffold(backgroundColor: Colors.white, body: _buildUI(context));
   }
 
   Widget _buildUI(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: 36),
-        Container(
-          child: Row(
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: AppColors.primary,
-                  size: 28,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              CircleAvatar(
-                radius: 18,
-                backgroundImage: NetworkImage(user?.imageUrl ?? ''),
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    user?.name ?? '',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'Messenger',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.black.withOpacity(0.35),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              Spacer(),
-              IconButton(
-                icon: Icon(
-                  Icons.phone,
-                  color: AppColors.primary,
-                  size: 28,
-                ),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.videocam_rounded,
-                  color: AppColors.primary,
-                  size: 28,
-                ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
+        _buildHeader(context),
         Expanded(
           child: StreamBuilder(
             stream: _cubit.fetchMessages(
@@ -140,24 +60,8 @@ class _MessagePageState extends State<MessagePage> {
 
               return DashChat(
                 messageOptions: MessageOptions(
-                  showOtherUsersAvatar: true,
                   showOtherUsersName: false,
                   showTime: true,
-                  avatarBuilder: (chatUser, onPressAvatar, onLongPressAvatar) {
-                    return Row(
-                      children: [
-                        const SizedBox(width: 12),
-                        CircleAvatar(
-                          radius: 14,
-                          backgroundImage: NetworkImage(user?.imageUrl == ""
-                              ? ConstantUrls.placeholderImageUrl
-                              : user?.imageUrl ??
-                                  ConstantUrls.placeholderImageUrl),
-                        ),
-                        const SizedBox(width: 12),
-                      ],
-                    );
-                  },
                 ),
                 inputOptions: InputOptions(
                   textCapitalization: TextCapitalization.sentences,
@@ -197,6 +101,44 @@ class _MessagePageState extends State<MessagePage> {
         ),
       ],
     );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Row(children: [
+      MessageButton(
+          icon: Icons.arrow_back_rounded,
+          onPressed: () {
+            Navigator.pop(context);
+          }),
+      CircleAvatar(
+        radius: 18,
+        backgroundImage: NetworkImage(otherUser?.profileImage ?? ''),
+      ),
+      const SizedBox(width: 10),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            otherUser?.firstName ?? '',
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            'Messenger',
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.black.withOpacity(0.35),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+      Spacer(),
+      MessageButton(icon: Icons.phone_rounded, onPressed: () {}),
+      MessageButton(icon: Icons.videocam_rounded, onPressed: () {}),
+    ]);
   }
 
   List<ChatMessage> _generateMessageList(List<Message> messages) {

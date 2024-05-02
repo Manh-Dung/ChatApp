@@ -9,6 +9,25 @@
       "client_info": {
         "mobilesdk_app_id": "1:521165091954:android:da704c69c4357c718b3eeb",
         "android_client_info": {
+          "package_name": "com.binhnd.vinhcine"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa7O1Cc76-n4UVPw7rn8ASdbyh2xW5UAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521165091954:android:7fa62bdf886624758b3eeb",
+        "android_client_info": {
           "package_name": "com.binhnd.vinhcine.dev"
         }
       },

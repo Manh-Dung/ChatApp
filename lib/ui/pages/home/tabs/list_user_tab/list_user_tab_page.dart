@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/list_user_cubit.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/widgets/user_widget.dart';
 
@@ -27,58 +27,54 @@ class ListUserTabPage extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
     final cubit = context.read<ListUserCubit>();
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        const SizedBox(height: 32),
-        StreamBuilder<QuerySnapshot>(
-          stream: cubit.getCurrentUser(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return ListUserHeader(isShimmer: true);
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (snapshot.hasData) {
-              final user = snapshot.data!.docs.first.data() as UserModel;
-              return ListUserHeader(user: user);
-            }
-            return SizedBox();
-          },
-        ),
-        ListUserSearchBar(),
-        Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            constraints: BoxConstraints(maxHeight: 120),
-            child: StreamBuilder<QuerySnapshot>(
-              stream: cubit.fetchUsers(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return _buildUserListHorizontal();
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else if (snapshot.hasData) {
-                  return _buildUserListHorizontal(users: snapshot.data!.docs);
-                }
-                return SizedBox();
-              },
-            )),
-        Expanded(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: cubit.fetchUsers(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return _buildUserListVertical();
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (snapshot.hasData) {
-                return _buildUserListVertical(users: snapshot.data!.docs);
-              }
-              return SizedBox();
-            },
-          ),
-        ),
-      ],
+    return BlocBuilder<ListUserCubit, ListUserState>(
+      buildWhen: (previous, current) {
+        return current is ListUserLoaded || current is ListUserInitial;
+      },
+      builder: (context, state) {
+        if (state is ListUserInitial) {
+          cubit.listenUsers();
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const SizedBox(height: 32),
+              ListUserHeader(isShimmer: true),
+              Shimmer.fromColors(
+                  baseColor: AppColors.baseColor,
+                  highlightColor: AppColors.highlightColor,
+                  child: ListUserSearchBar()),
+              Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  constraints: BoxConstraints(maxHeight: 120),
+                  child: _buildUserListHorizontal()),
+              Expanded(child: _buildUserListVertical()),
+            ],
+          );
+        }
+        if (state is ListUserFailure) {
+          return Center(child: Text(state.message));
+        }
+        if (state is ListUserLoaded) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const SizedBox(height: 32),
+              ListUserHeader(user: state.currentUser?.first),
+              ListUserSearchBar(),
+              Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  constraints: BoxConstraints(maxHeight: 120),
+                  child: _buildUserListHorizontal(users: state.users)),
+              Expanded(child: _buildUserListVertical(users: state.users)),
+            ],
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 
@@ -99,7 +95,7 @@ class ListUserTabPage extends StatelessWidget {
     Navigator.pushNamed(context, Routers.chat, arguments: {"user": user});
   }
 
-  Widget _buildUserListVertical({List<DocumentSnapshot>? users}) {
+  Widget _buildUserListVertical({List<UserModel>? users}) {
     if (users == null) {
       return ListView.builder(
           itemBuilder: (_, __) => UserWidget(isShimmer: true),
@@ -112,7 +108,7 @@ class ListUserTabPage extends StatelessWidget {
         if (index == 0) {
           return ListUserGemini();
         } else {
-          final user = users[index - 1].data() as UserModel;
+          final user = users[index - 1];
           return UserWidget(
             user: user,
             onTap: () => _userOnTap(context, user),
@@ -125,7 +121,7 @@ class ListUserTabPage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserListHorizontal({List<DocumentSnapshot>? users}) {
+  Widget _buildUserListHorizontal({List<UserModel>? users}) {
     if (users == null) {
       return ListView.separated(
           separatorBuilder: (_, __) => const SizedBox(width: 24),
@@ -139,7 +135,7 @@ class ListUserTabPage extends StatelessWidget {
       separatorBuilder: (_, __) => const SizedBox(width: 24),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        final user = users[index].data() as UserModel;
+        final user = users[index];
         return ListUserAvatartWidget(
           user: user,
           onPressed: () => _userOnTap(context, user),

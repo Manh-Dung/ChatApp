@@ -3,6 +3,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/configs/app_colors.dart';
+import 'package:vinhcine/network/constants/constant_urls.dart';
 
 import '../../../models/entities/chat.dart';
 import '../../../models/entities/message.dart';
@@ -112,7 +113,9 @@ class MessagePage extends StatelessWidget {
           }),
       CircleAvatar(
         radius: 18,
-        backgroundImage: NetworkImage(otherUser?.profileImage ?? ''),
+        backgroundImage: NetworkImage(otherUser?.profileImage == ""
+            ? ConstantUrls.placeholderImageUrl
+            : otherUser?.profileImage ?? ConstantUrls.placeholderImageUrl),
       ),
       const SizedBox(width: 10),
       Column(

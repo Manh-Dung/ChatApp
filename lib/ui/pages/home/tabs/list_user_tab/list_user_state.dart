@@ -29,3 +29,13 @@ final class ListUserFailure extends ListUserState {
   @override
   List<Object> get props => [message];
 }
+
+final class ListUserLoaded extends ListUserState {
+  final List<UserModel>? currentUser;
+  final List<UserModel>? users;
+
+  ListUserLoaded({this.users, this.currentUser});
+
+  @override
+  List<Object> get props => [];
+}

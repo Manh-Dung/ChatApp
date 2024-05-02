@@ -1,18 +1,16 @@
-# Realtime Chat Application
+# Chat App
 
-## Thời gian: 4/2024 - 5/2024
+## Time Frame: April 2024 - May 2024
 
-## Loại dự án: Dự án cá nhân
+## Introduction
+Chat App is a messaging application offering a simple and flexible chatting experience. Users can register accounts and engage in direct conversations with friends or participate in group chats with Gemini.
 
-### Mô tả
-Chat App là một ứng dụng nhắn tin cho phép người dùng đăng ký tài khoản và trò chuyện trực tiếp với người dùng khác. Ngoài ra, người dùng cũng có thể tham gia trò chuyện với Gemini.
+## Technologies and Tools
+- **Flutter**: Utilizing Flutter to build beautiful and responsive user interfaces.
+- **Firebase Storage**: Storing multimedia data securely and flexibly.
+- **Bloc Pattern**: Implementing the Bloc Pattern to efficiently manage the application state.
+- **Gemini**: Integrating Gemini to support convenient and flexible group chatting.
+- **Hive**: Using Hive for fast and easy local data storage.
 
-### Công nghệ
-- Cubit
-- Firebase Storage
-- BloC Pattern
-- Gemini
-- Hive
-
-### URL
+## Links
 [GitHub Repository](https://github.com/Manh-Dung/ChatApp)

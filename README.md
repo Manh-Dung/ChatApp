@@ -12,5 +12,10 @@ Chat App is a messaging application offering a simple and flexible chatting expe
 - **Gemini**: Integrating Gemini to support convenient and flexible group chatting.
 - **Hive**: Using Hive for fast and easy local data storage.
 
+### Installation Guide:
+1. Clone the repository from this URL: https://github.com/Manh-Dung/ChatApp.git
+2. Install dependencies using the command: flutter pub get
+3. Run the app on an emulator or physical device using: flutter run
+
 ## Links
 [GitHub Repository](https://github.com/Manh-Dung/ChatApp)

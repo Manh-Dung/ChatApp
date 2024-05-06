@@ -64,8 +64,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _buildBodyWidget() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const SizedBox(height: 150),
         BlocBuilder<SignUpCubit, SignUpState>(
           buildWhen: (prev, current) {
             return prev.pickImageStatus != current.pickImageStatus;
@@ -103,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Container(
           height: 48,
           margin: EdgeInsets.symmetric(horizontal: 20),
@@ -122,13 +122,14 @@ class _SignUpPageState extends State<SignUpPage> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Container(
           height: 48,
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: TextFormField(
             controller: _passwordController,
             keyboardType: TextInputType.emailAddress,
+            obscureText: true,
             decoration: InputDecoration(
               hintText: S.of(context).password,
               hintStyle: AppTextStyle.poppins16Medium
@@ -141,9 +142,10 @@ class _SignUpPageState extends State<SignUpPage> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        SizedBox(height: 32),
+
+        const SizedBox(height: 24),
         _buildSignUpButton(),
-        const SizedBox(height: 16),
+        Spacer(),
         InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -152,6 +154,7 @@ class _SignUpPageState extends State<SignUpPage> {
               style: AppTextStyle.poppins14Medium
                   .copyWith(color: AppColors.white)),
         ),
+        const SizedBox(height: 16),
       ],
     );
   }

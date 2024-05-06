@@ -15,7 +15,9 @@ final class ListUserLoading extends ListUserState {
 }
 
 final class ListUserSuccess extends ListUserState {
-  ListUserSuccess();
+  final List<UserModel>? currentUser;
+
+  ListUserSuccess({this.currentUser});
 
   @override
   List<Object> get props => [];

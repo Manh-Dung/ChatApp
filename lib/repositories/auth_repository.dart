@@ -19,6 +19,10 @@ abstract class AuthRepository {
 
   Future<void> saveToken(String? token);
 
+  Future<void> savePassword(String? email, String? password);
+
+  Future<void> removePassword();
+
   Future<void> removeToken();
 
   Future<User> signIn(String username, String password);
@@ -130,5 +134,19 @@ class AuthRepositoryImpl extends AuthRepository {
     } catch (e) {
       throw (e);
     }
+  }
+
+  @override
+  Future<void> savePassword(String? email, String? password) async {
+    final preferences = await Preferences.getInstance();
+    preferences.setValue(AppConfig.EMAIL_KEY, email);
+    preferences.setValue(AppConfig.PASSWORD, password);
+  }
+
+  @override
+  Future<void> removePassword() async {
+    final preferences = await Preferences.getInstance();
+    preferences.removeValue(AppConfig.EMAIL_KEY);
+    preferences.removeValue(AppConfig.PASSWORD);
   }
 }

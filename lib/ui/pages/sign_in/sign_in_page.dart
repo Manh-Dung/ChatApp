@@ -29,7 +29,6 @@ class _SignInPageState extends State<SignInPage> {
       if (state.signInStatus == SignInStatus.FAILURE) {
         _showMessage('Login failure');
       } else if (state.signInStatus == SignInStatus.SUCCESS) {
-        // Navigator.pop(context);
         Navigator.pushReplacementNamed(context, Routers.home);
       } else if (state.signInStatus == SignInStatus.USERNAME_PASSWORD_INVALID) {
         _showMessage('Wrong Username or Password');
@@ -55,6 +54,7 @@ class _SignInPageState extends State<SignInPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const SizedBox(height: 200),
         Text(
           S.of(context).sign_in,
           style: TextStyle(
@@ -71,7 +71,7 @@ class _SignInPageState extends State<SignInPage> {
             controller: _usernameController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: 'Username',
+              hintText: "Email",
               hintStyle: AppTextStyle.poppins16Medium
                   .copyWith(color: AppColors.textGray),
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
@@ -82,15 +82,16 @@ class _SignInPageState extends State<SignInPage> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Container(
           height: 48,
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: TextFormField(
             controller: _passwordController,
             keyboardType: TextInputType.emailAddress,
+            obscureText: true,
             decoration: InputDecoration(
-              hintText: 'Password',
+              hintText: S.of(context).password,
               hintStyle: AppTextStyle.poppins16Medium
                   .copyWith(color: AppColors.textGray),
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
@@ -101,9 +102,70 @@ class _SignInPageState extends State<SignInPage> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        SizedBox(height: 32),
-        _buildSignButton(),
         const SizedBox(height: 16),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              BlocBuilder<SignInCubit, SignInState>(
+                buildWhen: (prev, cur) {
+                  return prev.checkBoxStatus != cur.checkBoxStatus;
+                },
+                builder: (context, state) {
+                  return InkWell(
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          value: checkBoxValue(state),
+                          onChanged: (value) {
+                            _cubit.checkBox(value);
+                          },
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          visualDensity:
+                              VisualDensity(horizontal: -4, vertical: -4),
+                          activeColor: Colors.white,
+                          checkColor: AppColors.primary,
+                          side: MaterialStateBorderSide.resolveWith(
+                            (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.selected)) {
+                                return BorderSide(
+                                    color: AppColors.white, width: 1.0);
+                              }
+                              return BorderSide(color: Colors.white, width: 1.0);
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Text("Remember me",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            )),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              Spacer(),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, Routers.forgotPassword);
+                },
+                child: Text("Forgot password?",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    )),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        _buildSignButton(),
+        Spacer(),
         InkWell(
           onTap: () {
             Navigator.pushNamed(context, Routers.signUp);
@@ -112,6 +174,7 @@ class _SignInPageState extends State<SignInPage> {
               style: AppTextStyle.poppins14Medium
                   .copyWith(color: AppColors.white)),
         ),
+        const SizedBox(height: 16),
       ],
     );
   }
@@ -155,5 +218,12 @@ class _SignInPageState extends State<SignInPage> {
     );
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  bool checkBoxValue(SignInState state) {
+    if (state.checkBoxStatus == CheckBoxStatus.UNCHECKED)
+      return false;
+    else
+      return true;
   }
 }

@@ -13,11 +13,14 @@ class ListUserCubit extends Cubit<ListUserState> {
   StreamSubscription? _subscriptionListUser;
   StreamSubscription? _subscriptionUser;
 
-  ListUserCubit({required this.repository}) : super(ListUserInitial());
+  ListUserCubit({required this.repository}) : super(ListUserInitial()) {
+    listenUsers();
+    listenCurrentUser();
+  }
 
   void listenCurrentUser() {
     _subscriptionUser = repository.getCurrentUser().listen((querySnapshot) {
-      emit(ListUserLoaded(
+      emit(ListUserSuccess(
           currentUser: querySnapshot.docs.map((e) => e.data()).toList()));
     }, onError: (e) {
       emit(ListUserFailure('Failed to get current user'));
@@ -46,6 +49,7 @@ class ListUserCubit extends Cubit<ListUserState> {
   @override
   Future<void> close() {
     _subscriptionListUser?.cancel();
+    _subscriptionUser?.cancel();
     return super.close();
   }
 }

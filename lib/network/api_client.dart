@@ -6,10 +6,9 @@ import 'package:vinhcine/network/constants/constant_urls.dart';
 import '../models/entities/movie.dart';
 import 'constants/endpoints.dart';
 
-part 'api_client.g.dart';
 
 abstract class ApiClient {
-  factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
+  // factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
   ///Setting
   @GET(EndPoints.setting)

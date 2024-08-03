@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinhcine/blocs/value_cubit.dart';
 import 'package:vinhcine/ui/components/app_button.dart';
-import 'package:vinhcine/ui/pages/sign_in/sign_in_cubit.dart';
+import 'package:vinhcine/ui/pages/sign_in/cubit/auth_cubit.dart';
 
 import '../../../commons/app_text_styles.dart';
 import '../../../configs/app_colors.dart';
 import '../../../generated/l10n.dart';
+import '../../../main.dart';
 import '../../../router/routers.dart';
 
 class SignInPage extends StatefulWidget {
@@ -19,27 +21,13 @@ class _SignInPageState extends State<SignInPage> {
   final _usernameController = TextEditingController(text: "acc1@gmail.com");
   final _passwordController = TextEditingController(text: "123456");
 
-  late SignInCubit _cubit;
+  late AuthCubit _cubit;
+  final ValueCubit<bool> _checkBoxCubit = ValueCubit<bool>(false);
 
   @override
   void initState() {
-    _cubit = context.read<SignInCubit>();
+    _cubit = context.read<AuthCubit>();
     super.initState();
-    _cubit.stream.listen((state) {
-      if (state.signInStatus == SignInStatus.FAILURE) {
-        _showMessage('Login failure');
-      } else if (state.signInStatus == SignInStatus.SUCCESS) {
-        Navigator.pushReplacementNamed(context, Routers.home);
-      } else if (state.signInStatus == SignInStatus.USERNAME_PASSWORD_INVALID) {
-        _showMessage('Wrong Username or Password');
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _cubit.close();
-    super.dispose();
   }
 
   @override
@@ -107,18 +95,16 @@ class _SignInPageState extends State<SignInPage> {
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             children: [
-              BlocBuilder<SignInCubit, SignInState>(
-                buildWhen: (prev, cur) {
-                  return prev.checkBoxStatus != cur.checkBoxStatus;
-                },
+              BlocBuilder<ValueCubit<bool>, bool>(
+                bloc: _checkBoxCubit,
                 builder: (context, state) {
                   return InkWell(
                     child: Row(
                       children: [
                         Checkbox(
-                          value: checkBoxValue(state),
+                          value: state,
                           onChanged: (value) {
-                            _cubit.checkBox(value);
+                            _checkBoxCubit.update(value ?? false);
                           },
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap,
@@ -132,7 +118,8 @@ class _SignInPageState extends State<SignInPage> {
                                 return BorderSide(
                                     color: AppColors.white, width: 1.0);
                               }
-                              return BorderSide(color: Colors.white, width: 1.0);
+                              return BorderSide(
+                                  color: Colors.white, width: 1.0);
                             },
                           ),
                         ),
@@ -180,18 +167,25 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget _buildSignButton() {
-    return BlocBuilder<SignInCubit, SignInState>(
-      buildWhen: (prev, current) {
-        return prev.signInStatus != current.signInStatus;
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state.authStatus == AuthStatus.failure) {
+          _showMessage(state.errorMess ?? 'Login failure');
+        } else if (state.authStatus == AuthStatus.success) {
+          hideLoading();
+          Navigator.pushReplacementNamed(context, Routers.home);
+        } else if (state.authStatus == AuthStatus.loading) {
+          showLoading();
+          _showMessage('Wrong Username or Password');
+        }
       },
       builder: (context, state) {
-        final isLoading = state.signInStatus == SignInStatus.LOADING;
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: AppWhiteButton(
             title: S.of(context).sign_in,
-            onPressed: isLoading ? null : _signIn,
-            isLoading: isLoading,
+            onPressed: _signIn,
+            isLoading: state.authStatus == AuthStatus.loading,
           ),
         );
       },
@@ -218,12 +212,5 @@ class _SignInPageState extends State<SignInPage> {
     );
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
-  bool checkBoxValue(SignInState state) {
-    if (state.checkBoxStatus == CheckBoxStatus.UNCHECKED)
-      return false;
-    else
-      return true;
   }
 }

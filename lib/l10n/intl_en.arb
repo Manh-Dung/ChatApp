@@ -15,7 +15,7 @@
   "notification": "Notification",
   "dark": "Dark",
   "light": "Light",
-  "setting_theme": "Setting theme"
+  "setting_theme": "Setting theme",
   "search": "Search",
   "write_a_message": "Write a message...",
   "chats": "Chats",
@@ -28,6 +28,5 @@
   "sign_up_failure": "Sign up failure",
   "sign_up_success": "Sign up success",
   "email_is_invalid": "Email is invalid",
-  "password_is_invalid": "Password is invalid",
-
+  "password_is_invalid": "Password is invalid"
 }

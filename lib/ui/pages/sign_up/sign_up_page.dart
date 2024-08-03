@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinhcine/main.dart';
+import 'package:vinhcine/ui/pages/sign_in/cubit/auth_cubit.dart';
+import 'package:vinhcine/ui/pages/sign_up/cubit/image_cubit.dart';
 
 import '../../../commons/app_text_styles.dart';
 import '../../../configs/app_colors.dart';
@@ -23,17 +26,17 @@ class _SignUpPageState extends State<SignUpPage> {
   final _passwordController = TextEditingController();
   File? selectedImage;
 
-  late SignUpCubit _cubit;
+  late AuthCubit _cubit;
 
   @override
   void initState() {
-    _cubit = context.read<SignUpCubit>();
+    _cubit = context.read<AuthCubit>();
     super.initState();
 
     _cubit.stream.listen((state) {
-      if (state.signUpStatus == SignUpStatus.FAILURE) {
+      if (state.authStatus == AuthStatus.failure) {
         _showMessage(S.of(context).sign_up_failure);
-      } else if (state.signUpStatus == SignUpStatus.SUCCESS) {
+      } else if (state.authStatus == AuthStatus.success) {
         _showMessage(S.of(context).sign_up_success);
         Navigator.pop(context);
       }
@@ -50,7 +53,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: _buildBodyWidget(),
+      body: BlocProvider(
+        create: (context) => ImageCubit(),
+        child: _buildBodyWidget(),
+      ),
     );
   }
 
@@ -66,21 +72,18 @@ class _SignUpPageState extends State<SignUpPage> {
     return Column(
       children: [
         const SizedBox(height: 150),
-        BlocBuilder<SignUpCubit, SignUpState>(
-          buildWhen: (prev, current) {
-            return prev.pickImageStatus != current.pickImageStatus;
-          },
+        BlocBuilder<ImageCubit, ImageState>(
           builder: (context, state) {
             return InkWell(
               onTap: () async {
-                selectedImage = await _cubit.pickImage();
+                context.read<ImageCubit>().pickImage();
               },
               child: CircleAvatar(
                 radius: MediaQuery.of(context).size.width * 0.15,
-                backgroundImage: selectedImage != null
-                    ? FileImage(selectedImage!)
-                    : NetworkImage(ConstantUrls.placeholderImageUrl)
-                        as ImageProvider,
+                backgroundImage: state.whenOrNull(
+                    success: (image) => FileImage(image),
+                    failure: (message) =>
+                        NetworkImage(ConstantUrls.placeholderImageUrl)),
               ),
             );
           },
@@ -142,7 +145,6 @@ class _SignUpPageState extends State<SignUpPage> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-
         const SizedBox(height: 24),
         _buildSignUpButton(),
         Spacer(),
@@ -160,18 +162,26 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildSignUpButton() {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (prev, current) {
-        return prev.signUpStatus != current.signUpStatus;
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state.authStatus == AuthStatus.failure) {
+          hideLoading();
+          _showMessage(S.of(context).sign_up_failure);
+        } else if (state.authStatus == AuthStatus.success) {
+          hideLoading();
+          _showMessage(S.of(context).sign_up_success);
+          Navigator.pop(context);
+        } else if (state.authStatus == AuthStatus.loading) {
+          showLoading();
+        }
       },
       builder: (context, state) {
-        final isLoading = state.signUpStatus == SignUpStatus.LOADING;
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: AppWhiteButton(
             title: S.of(context).sign_up,
-            onPressed: isLoading ? null : _signUp,
-            isLoading: isLoading,
+            onPressed: state.authStatus == AuthStatus.loading ? null : _signUp,
+            isLoading: state.authStatus == AuthStatus.loading,
           ),
         );
       },
@@ -182,6 +192,9 @@ class _SignUpPageState extends State<SignUpPage> {
     final fullName = _fullNameController.text;
     final username = _emailController.text;
     final password = _passwordController.text;
+
+    final image = context.watch<ImageCubit>().state;
+
     if (username.isEmpty) {
       _showMessage(S.of(context).email_is_invalid);
       return;
@@ -191,7 +204,7 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
     await _cubit.signUp(
-        file: selectedImage ?? null,
+        file: image.whenOrNull(success: (file) => file) ?? null,
         fullName: fullName,
         email: username,
         password: password);

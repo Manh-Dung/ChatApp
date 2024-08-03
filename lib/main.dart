@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -14,6 +15,7 @@ import 'package:vinhcine/firebase_options.dart';
 import 'package:vinhcine/network/api_util.dart';
 import 'package:vinhcine/network/constants/constant_urls.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
+import 'package:vinhcine/ui/pages/sign_in/cubit/auth_cubit.dart';
 
 import 'generated/l10n.dart';
 import 'network/api_client.dart';
@@ -78,7 +80,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _apiClient = ApiUtil.getApiClient();
+    // _apiClient = ApiUtil.getApiClient();
     super.initState();
   }
 
@@ -100,7 +102,16 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MessageRepositoryImpl()),
       ],
       child: MultiBlocProvider(
-        providers: [BlocProvider<AppCubit>(create: (context) => AppCubit())],
+        providers: [
+          BlocProvider<AppCubit>(
+            create: (context) => AppCubit(),
+          ),
+          BlocProvider(
+            create: (context) => AuthCubit(
+              repository: AuthRepositoryImpl(_apiClient),
+            ),
+          ),
+        ],
         child: materialApp(),
       ),
     );
@@ -134,4 +145,12 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+}
+
+showLoading() {
+  EasyLoading.show();
+}
+
+hideLoading() {
+  EasyLoading.dismiss();
 }

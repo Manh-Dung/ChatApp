@@ -32,7 +32,6 @@ class SignInCubit extends Cubit<SignInState> {
 
   void initCheckBoxStatus() async {
     final preferences = await Preferences.getInstance();
-
   }
 
   void checkBox(bool? value) {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path/path.dart';
 import 'package:vinhcine/ui/pages/message/message_cubit.dart';
 import 'package:vinhcine/ui/pages/message/message_page.dart';
 import 'package:vinhcine/ui/pages/sign_up/sign_up_cubit.dart';
@@ -31,14 +32,8 @@ class Pages {
           (context) => SplashCubit(
               repository: RepositoryProvider.of<AuthRepository>(context)),
           SplashPage()),
-      Routers.signIn: _blocProvider(
-          (context) => SignInCubit(
-              repository: RepositoryProvider.of<AuthRepository>(context)),
-          SignInPage()),
-      Routers.signUp: _blocProvider((p0) {
-        return SignUpCubit(
-            repository: RepositoryProvider.of<AuthRepository>(p0));
-      }, SignUpPage()),
+      Routers.signIn: (context) => SignInPage(),
+      Routers.signUp: (context) => SignUpPage(),
       Routers.forgotPassword: (context) => ForgotPasswordPage(),
       Routers.home: _blocProvider((context) => HomeCubit(), HomePage()),
       Routers.chat: _blocProvider((context) {

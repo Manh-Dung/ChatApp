@@ -220,7 +220,7 @@ class S {
     );
   }
 
-  /// Search
+  /// `Search`
   String get search {
     return Intl.message(
       'Search',
@@ -230,17 +230,7 @@ class S {
     );
   }
 
-  /// Chats
-  String get chats {
-    return Intl.message(
-      'Chats',
-      name: 'chats',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// Write a message...
+  /// `Write a message...`
   String get write_a_message {
     return Intl.message(
       'Write a message...',
@@ -250,7 +240,17 @@ class S {
     );
   }
 
-  /// Sign In
+  /// `Chats`
+  String get chats {
+    return Intl.message(
+      'Chats',
+      name: 'chats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign In`
   String get sign_in {
     return Intl.message(
       'Sign In',
@@ -260,7 +260,7 @@ class S {
     );
   }
 
-  /// Sign Up
+  /// `Sign Up`
   String get sign_up {
     return Intl.message(
       'Sign Up',
@@ -270,18 +270,17 @@ class S {
     );
   }
 
-  /// Don't have an account? Sign Up
+  /// `Don't have an account? Sign Up`
   String get dont_have_an_account {
     return Intl.message(
-      "Don't have an account? Sign Up",
+      'Don\'t have an account? Sign Up',
       name: 'dont_have_an_account',
       desc: '',
       args: [],
     );
   }
 
-
-  /// Already have an account? Sign In
+  /// `Already have an account? Sign In`
   String get already_have_an_account {
     return Intl.message(
       'Already have an account? Sign In',
@@ -291,17 +290,7 @@ class S {
     );
   }
 
-  /// Full Name
-  String get full_name {
-    return Intl.message(
-      'Full Name',
-      name: 'full_name',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// Password
+  /// `Password`
   String get password {
     return Intl.message(
       'Password',
@@ -311,7 +300,17 @@ class S {
     );
   }
 
-  /// Sign up failure
+  /// `Full Name`
+  String get full_name {
+    return Intl.message(
+      'Full Name',
+      name: 'full_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up failure`
   String get sign_up_failure {
     return Intl.message(
       'Sign up failure',
@@ -321,7 +320,7 @@ class S {
     );
   }
 
-  /// Sign up success
+  /// `Sign up success`
   String get sign_up_success {
     return Intl.message(
       'Sign up success',
@@ -331,7 +330,7 @@ class S {
     );
   }
 
-  /// Email is invalid
+  /// `Email is invalid`
   String get email_is_invalid {
     return Intl.message(
       'Email is invalid',
@@ -341,7 +340,7 @@ class S {
     );
   }
 
-  /// Password is invalid
+  /// `Password is invalid`
   String get password_is_invalid {
     return Intl.message(
       'Password is invalid',

@@ -134,6 +134,7 @@ class _MyAppState extends State<MyApp> {
           // navigatorObservers: [
           //   NavigationObserver(context.bloc<NavigationCubit>()),
           // ],
+          builder: EasyLoading.init(),
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:vinhcine/blocs/value_cubit.dart';
 import 'package:vinhcine/network/firebase/instance.dart';
 
+import '../../../../blocs/value_cubit.dart';
 import '../../../../repositories/repositories.dart';
 import '../../../../repositories/storage_repository.dart';
 import '../../../../utils/logger.dart';

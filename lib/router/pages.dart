@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path/path.dart';
 import 'package:vinhcine/ui/pages/message/message_cubit.dart';
 import 'package:vinhcine/ui/pages/message/message_page.dart';
-import 'package:vinhcine/ui/pages/sign_up/sign_up_cubit.dart';
+import 'package:vinhcine/ui/pages/sign_up/cubit/image_cubit.dart';
 
 import '../repositories/auth_repository.dart';
 import '../repositories/message_repository.dart';
@@ -12,7 +11,6 @@ import '../ui/pages/ai_chat/ai_chat_page.dart';
 import '../ui/pages/forgot_password/forgot_password_page.dart';
 import '../ui/pages/home/home_cubit.dart';
 import '../ui/pages/home/home_page.dart';
-import '../ui/pages/sign_in/sign_in_cubit.dart';
 import '../ui/pages/sign_in/sign_in_page.dart';
 import '../ui/pages/sign_up/sign_up_page.dart';
 import '../ui/pages/splash/splash_cubit.dart';
@@ -29,11 +27,16 @@ class Pages {
   static Map<String, WidgetBuilder> get pages {
     return {
       Routers.root: _blocProvider(
-          (context) => SplashCubit(
-              repository: RepositoryProvider.of<AuthRepository>(context)),
+              (context) =>
+              SplashCubit(
+                  repository: RepositoryProvider.of<AuthRepository>(context)),
           SplashPage()),
       Routers.signIn: (context) => SignInPage(),
-      Routers.signUp: (context) => SignUpPage(),
+      Routers.signUp: (context) =>
+          BlocProvider(
+            create: (context) => ImageCubit(),
+            child: SignUpPage(),
+          ),
       Routers.forgotPassword: (context) => ForgotPasswordPage(),
       Routers.home: _blocProvider((context) => HomeCubit(), HomePage()),
       Routers.chat: _blocProvider((context) {

@@ -11,7 +11,6 @@ import '../../../configs/app_colors.dart';
 import '../../../generated/l10n.dart';
 import '../../../network/constants/constant_urls.dart';
 import '../../components/app_button.dart';
-import 'sign_up_cubit.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -32,31 +31,13 @@ class _SignUpPageState extends State<SignUpPage> {
   void initState() {
     _cubit = context.read<AuthCubit>();
     super.initState();
-
-    _cubit.stream.listen((state) {
-      if (state.authStatus == AuthStatus.failure) {
-        _showMessage(S.of(context).sign_up_failure);
-      } else if (state.authStatus == AuthStatus.success) {
-        _showMessage(S.of(context).sign_up_success);
-        Navigator.pop(context);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _cubit.close();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: BlocProvider(
-        create: (context) => ImageCubit(),
-        child: _buildBodyWidget(),
-      ),
+      body: _buildBodyWidget(),
     );
   }
 
@@ -73,6 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         const SizedBox(height: 150),
         BlocBuilder<ImageCubit, ImageState>(
+          bloc: context.read<ImageCubit>(),
           builder: (context, state) {
             return InkWell(
               onTap: () async {
@@ -180,7 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: AppWhiteButton(
             title: S.of(context).sign_up,
-            onPressed: state.authStatus == AuthStatus.loading ? null : _signUp,
+            onPressed: _signUp,
             isLoading: state.authStatus == AuthStatus.loading,
           ),
         );
@@ -193,7 +175,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final username = _emailController.text;
     final password = _passwordController.text;
 
-    final image = context.watch<ImageCubit>().state;
+    final image = context.read<ImageCubit>().state;
 
     if (username.isEmpty) {
       _showMessage(S.of(context).email_is_invalid);

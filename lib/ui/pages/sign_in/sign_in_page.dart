@@ -176,7 +176,6 @@ class _SignInPageState extends State<SignInPage> {
           Navigator.pushReplacementNamed(context, Routers.home);
         } else if (state.authStatus == AuthStatus.loading) {
           showLoading();
-          _showMessage('Wrong Username or Password');
         }
       },
       builder: (context, state) {

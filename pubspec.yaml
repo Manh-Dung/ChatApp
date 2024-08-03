@@ -2,7 +2,7 @@ name: vinhcine
 description: ICTS custom software
 
 # The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
+# pub.dev using pub publish. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
@@ -48,13 +48,13 @@ dependencies:
   retrofit:
   http: ^1.2.1
   cookie_jar: ^4.0.8
-#  dio_cookie_manager: ^3.1.1
-#  dio: ^5.4.3+1
+  #  dio_cookie_manager: ^3.1.1
+  #  dio: ^5.4.3+1
   dio: ^5.4.3+1
   jwt_decoder: ^2.0.1
   flutter_local_notifications: ^17.0.1
   torch_controller:
-#  sensors_plus: ^5.0.1
+  #  sensors_plus: ^5.0.1
   #Json
   json_annotation: ^4.0.0
   #Hive
@@ -92,17 +92,26 @@ dependencies:
   #Flutter Gemini
   flutter_gemini: ^2.0.3
 
+  #Flutter Intl
+  flutter_easyloading: ^3.0.5
+
+  #Get It
+  get_it:
+
 #---------------------------- Dependency for dev ------------------------------#
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  freezed: ^2.5.1
   build_runner:
+  injectable_generator: ^2.6.1
   retrofit_generator:
   json_serializable:
+  flutter_gen_runner: ^5.4.0
 
 dependency_overrides:
-  build_resolvers: '2.1.0' #Resolve 'build_runner' not working
+#  build_resolvers: '2.1.0' #Resolve 'build_runner' not working
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -125,7 +134,7 @@ flutter:
     - assets/svg/
     - assets/gif/
 
-#--------------------------------- Assets -------------------------------------#
+  #--------------------------------- Assets -------------------------------------#
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -152,7 +161,7 @@ flutter:
         - asset: assets/fonts/Poppins-Bold.ttf
           weight: 700
 
-#---------------------------------- Font --------------------------------------#
+  #---------------------------------- Font --------------------------------------#
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
@@ -175,3 +184,15 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:
   enabled: true
+
+flutter_gen:
+  output: lib/src/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
+
+  integrations:
+    flutter_svg: true
+    lottie: true
+
+  assets:
+    outputs:
+      class_name: Assets

@@ -21,14 +21,21 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'vi';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "already_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Đã có tài khoản? Đăng Nhập"),
         "cancel": MessageLookupByLibrary.simpleMessage("Huỷ bỏ"),
+        "chats": MessageLookupByLibrary.simpleMessage("Trò chuyện"),
         "dark": MessageLookupByLibrary.simpleMessage("Tối"),
         "delete": MessageLookupByLibrary.simpleMessage("Xoá"),
         "do_you_want_to_delete": MessageLookupByLibrary.simpleMessage(
             "Bạn chắc chắn muốn xoá bộ phim này?"),
+        "dont_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Chưa có tài khoản? Đăng Ký"),
+        "email_is_invalid":
+            MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
+        "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "light": MessageLookupByLibrary.simpleMessage("Sáng"),
         "loading": MessageLookupByLibrary.simpleMessage("Đang tải"),
@@ -36,33 +43,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Thông báo"),
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
         "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
+        "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+        "password_is_invalid":
+            MessageLookupByLibrary.simpleMessage("Mật khẩu không hợp lệ"),
+        "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "setting": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "setting_language":
             MessageLookupByLibrary.simpleMessage("Cài đặt ngôn ngữ"),
         "setting_theme":
             MessageLookupByLibrary.simpleMessage("Cài đặt giao diện"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Đăng Nhập"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("Đăng Ký"),
+        "sign_up_failure":
+            MessageLookupByLibrary.simpleMessage("Đăng ký thất bại"),
+        "sign_up_success":
+            MessageLookupByLibrary.simpleMessage("Đăng ký thành công"),
         "tapAgainToLeave":
             MessageLookupByLibrary.simpleMessage("Nhấn lại để thoát"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
-        "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "write_a_message":
-            MessageLookupByLibrary.simpleMessage("Nhập tin nhắn..."),
-        "chats": MessageLookupByLibrary.simpleMessage("Trò chuyện"),
-        "sign_in": MessageLookupByLibrary.simpleMessage("Đăng Nhập"),
-        "sign_up": MessageLookupByLibrary.simpleMessage("Đăng Ký"),
-        "password": MessageLookupByLibrary.simpleMessage("Mật Khẩu"),
-        "full_name": MessageLookupByLibrary.simpleMessage("Họ và Tên"),
-        "dont_have_an_account":
-            MessageLookupByLibrary.simpleMessage("Chưa có tài khoản? Đăng Ký"),
-        "already_have_an_account":
-            MessageLookupByLibrary.simpleMessage("Đã có tài khoản? Đăng Nhập"),
-        "sign_up_success":
-            MessageLookupByLibrary.simpleMessage("Đăng ký thành công"),
-        "sign_up_failure":
-            MessageLookupByLibrary.simpleMessage("Đăng ký thất bại"),
-        "email_is_invalid":
-            MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
-        "password_is_invalid":
-            MessageLookupByLibrary.simpleMessage("Mật khẩu không hợp lệ"),
+            MessageLookupByLibrary.simpleMessage("Nhập tin nhắn...")
       };
 }

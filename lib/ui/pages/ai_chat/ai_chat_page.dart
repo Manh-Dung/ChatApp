@@ -6,7 +6,12 @@ import '../../../network/firebase/instance.dart';
 import 'ai_chat_cubit.dart';
 import 'widgets/message_button.dart';
 
-class AIChatPage extends StatelessWidget {
+class AIChatPage extends StatefulWidget {
+  @override
+  State<AIChatPage> createState() => _AIChatPageState();
+}
+
+class _AIChatPageState extends State<AIChatPage> {
   late AIChatCubit _cubit;
 
   ChatUser? currentUser = ChatUser(

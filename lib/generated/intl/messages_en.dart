@@ -21,14 +21,21 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "already_have_an_account": MessageLookupByLibrary.simpleMessage(
+            "Already have an account? Sign In"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "chats": MessageLookupByLibrary.simpleMessage("Chats"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "do_you_want_to_delete": MessageLookupByLibrary.simpleMessage(
             "Do you want to delete this item?"),
+        "dont_have_an_account": MessageLookupByLibrary.simpleMessage(
+            "Don\'t have an account? Sign Up"),
+        "email_is_invalid":
+            MessageLookupByLibrary.simpleMessage("Email is invalid"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "full_name": MessageLookupByLibrary.simpleMessage("Full Name"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "light": MessageLookupByLibrary.simpleMessage("Light"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
@@ -36,32 +43,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "password_is_invalid":
+            MessageLookupByLibrary.simpleMessage("Password is invalid"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "setting_language":
             MessageLookupByLibrary.simpleMessage("Setting language"),
         "setting_theme": MessageLookupByLibrary.simpleMessage("Setting theme"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "sign_up_failure":
+            MessageLookupByLibrary.simpleMessage("Sign up failure"),
+        "sign_up_success":
+            MessageLookupByLibrary.simpleMessage("Sign up success"),
         "tapAgainToLeave":
             MessageLookupByLibrary.simpleMessage("Tap again to leave"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese"),
-        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "write_a_message":
-            MessageLookupByLibrary.simpleMessage("Write a message..."),
-        "chats": MessageLookupByLibrary.simpleMessage("Chats"),
-        "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
-        "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
-        "password": MessageLookupByLibrary.simpleMessage("Password"),
-        "full_name": MessageLookupByLibrary.simpleMessage("Full Name"),
-        "dont_have_an_account": MessageLookupByLibrary.simpleMessage(
-            "Don't have an account? Sign Up"),
-        "already_have_an_account": MessageLookupByLibrary.simpleMessage(
-            "Already have an account? Sign In"),
-        "sign_up_success":
-            MessageLookupByLibrary.simpleMessage("Sign up success"),
-        "sign_up_failure":
-            MessageLookupByLibrary.simpleMessage("Sign up failure"),
-        "email_is_invalid":
-            MessageLookupByLibrary.simpleMessage("Email is invalid"),
-        "password_is_invalid":
-            MessageLookupByLibrary.simpleMessage("Password is invalid"),
+            MessageLookupByLibrary.simpleMessage("Write a message...")
       };
 }

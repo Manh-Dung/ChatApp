@@ -84,7 +84,8 @@ dependencies:
   image_picker: ^1.1.1
 
   #Dash chat
-  dash_chat_2: ^0.0.20
+  dash_chat_2:
+    path: Dash-Chat-2-main
 
   #Path
   path: ^1.9.0

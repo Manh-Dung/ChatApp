@@ -9,6 +9,7 @@ import '../../../models/entities/chat.dart';
 import '../../../models/entities/message.dart';
 import '../../../models/entities/user_model.dart';
 import '../../../network/firebase/instance.dart';
+import '../../../src/gen/assets.gen.dart';
 import 'message_cubit.dart';
 import 'widgets/message_button.dart';
 
@@ -60,6 +61,13 @@ class MessagePage extends StatelessWidget {
               }
 
               return DashChat(
+                emptyWidget: messages.length == 0
+                    ? Assets.images.imgEmptyMessage.image(
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.contain,
+                    )
+                    : null,
                 messageOptions: MessageOptions(
                   showOtherUsersName: false,
                   showTime: true,

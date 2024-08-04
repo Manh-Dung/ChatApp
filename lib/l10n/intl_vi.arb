@@ -28,5 +28,5 @@
   "email_is_invalid": "Email không hợp lệ",
   "password_is_invalid": "Mật khẩu không hợp lệ",
   "sign_up_failure": "Đăng ký thất bại",
-  "sign_up_success": "Đăng ký thành công",
+  "sign_up_success": "Đăng ký thành công"
 }

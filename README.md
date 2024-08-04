@@ -5,6 +5,8 @@
 [![Cubit](https://img.shields.io/badge/Cubit-37455F?style=for-the-badge&logo=cubit&logoColor=white)](https://pub.dev/packages/cubit)
 [![Gemini](https://img.shields.io/badge/Gemini-purple?style=for-the-badge&logo=gemini&logoColor=white)](https://pub.dev/packages/gemini)
 [![Hive](https://img.shields.io/badge/Hive-yellow?style=for-the-badge&logo=hive&logoColor=black)](https://pub.dev/packages/hive)
+[![GetIt](https://img.shields.io/badge/GetIt-blue?style=for-the-badge&logo=dart&logoColor=white)](https://pub.dev/packages/get_it)
+[![Injection](https://img.shields.io/badge/Injection-green?style=for-the-badge&logo=dart&logoColor=white)](https://pub.dev/packages/injectable)
 
 ![App Preview](https://via.placeholder.com/468x300?text=App+Preview+Image)
 
@@ -28,6 +30,8 @@ The application is built using the following technologies:
 - [BloC Pattern](https://pub.dev/packages/bloc) - Software architectural pattern for state management
 - [Gemini](https://pub.dev/packages/gemini) - AI assistant integration
 - [Hive](https://pub.dev/packages/hive) - Lightweight and fast key-value database
+- [GetIt](https://pub.dev/packages/get_it) - Service locator for dependency injection
+- [Injectable](https://pub.dev/packages/injectable) - Code generation for dependency injection
 
 ## 📁 Source Code
 
@@ -40,7 +44,10 @@ To get started with the project, follow these steps:
 1. Clone the repository: `git clone https://github.com/Manh-Dung/ChatApp.git`
 2. Navigate to the project directory: `cd ChatApp`
 3. Install dependencies: `flutter pub get`
-4. Run the app: `flutter run`
+4. Generate necessary files:
+    - Run `flutter pub run build_runner build --delete-conflicting-outputs` to generate code for dependency injection and other generated files.
+    - Run `flutter gen-l10n` to generate localization files.
+5. Run the app: `flutter run`
 
 ## 📝 Contributing
 

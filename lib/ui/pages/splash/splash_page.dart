@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/router/routers.dart';
 import 'package:vinhcine/ui/pages/splash/splash_cubit.dart';
@@ -25,6 +26,13 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     _cubit.checkLogin();
     _appCubit.fetchData();
+
+    initPermission();
+  }
+
+  void initPermission() async {
+    await Permission.photos.request();
+    await Permission.storage.request();
   }
 
   @override

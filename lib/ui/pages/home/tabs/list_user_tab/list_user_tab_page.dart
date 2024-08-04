@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/list_user_cubit.dart';
+import 'package:vinhcine/blocs/value_cubit.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/widgets/user_widget.dart';
 
 import '../../../../../configs/app_colors.dart';
 import '../../../../../models/entities/index.dart';
 import '../../../../../network/firebase/instance.dart';
 import '../../../../../router/routers.dart';
+import 'cubit/current_user/current_user_cubit.dart';
+import 'cubit/list_user/list_user_cubit.dart';
 import 'widgets/list_user_avatar_widget.dart';
 import 'widgets/list_user_gemini.dart';
 import 'widgets/list_user_header.dart';
 import 'widgets/list_user_search_bar.dart';
 
 class ListUserTabPage extends StatelessWidget {
-  const ListUserTabPage({Key? key}) : super(key: key);
+  ListUserTabPage({Key? key}) : super(key: key);
+  final _shimmerCubit = ValueCubit<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -26,54 +29,66 @@ class ListUserTabPage extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     final cubit = context.read<ListUserCubit>();
+    final currentUserCubit = context.read<CurrentUserCubit>();
 
-    return BlocBuilder<ListUserCubit, ListUserState>(
-      buildWhen: (previous, current) {
-        return current is ListUserLoaded || current is ListUserInitial;
-      },
-      builder: (context, state) {
-        if (state is ListUserInitial) {
-          cubit.listenUsers();
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const SizedBox(height: 32),
-              ListUserHeader(isShimmer: true),
-              Shimmer.fromColors(
-                  baseColor: AppColors.baseColor,
-                  highlightColor: AppColors.highlightColor,
-                  child: ListUserSearchBar()),
-              Container(
+    _shimmerCubit.stream.listen((loading) {
+      _shimmerCubit.update(!(cubit.state.status == FetchUserStatus.success) ||
+          !(currentUserCubit.state.status == FetchUserStatus.success));
+    });
+
+    return BlocBuilder<ValueCubit<bool>, bool>(
+      bloc: _shimmerCubit,
+      builder: (context, loadingState) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const SizedBox(height: 32),
+            BlocBuilder<CurrentUserCubit, CurrentUserState>(
+              bloc: currentUserCubit,
+              builder: (context, state) {
+                return ListUserHeader(
+                  isShimmer: loadingState,
+                  user: state.user,
+                );
+              },
+            ),
+            loadingState
+                ? Shimmer.fromColors(
+                    baseColor: AppColors.baseColor,
+                    highlightColor: AppColors.highlightColor,
+                    child: ListUserSearchBar())
+                : ListUserSearchBar(),
+            BlocBuilder<ListUserCubit, ListUserState>(
+              bloc: cubit,
+              builder: (context, state) {
+                return Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   constraints: BoxConstraints(maxHeight: 120),
-                  child: _buildUserListHorizontal()),
-              Expanded(child: _buildUserListVertical()),
-            ],
-          );
-        }
-        if (state is ListUserFailure) {
-          return Center(child: Text(state.message));
-        }
-        if (state is ListUserLoaded) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const SizedBox(height: 32),
-              ListUserHeader(user: state.currentUser?.first),
-              ListUserSearchBar(),
-              Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  constraints: BoxConstraints(maxHeight: 120),
-                  child: _buildUserListHorizontal(users: state.users)),
-              Expanded(child: _buildUserListVertical(users: state.users)),
-            ],
-          );
-        }
-        return const SizedBox();
+                  child: _buildUserListHorizontal(
+                    users: state.status == FetchUserStatus.success
+                        ? state.users
+                        : null,
+                    isShimmer: loadingState,
+                  ),
+                );
+              },
+            ),
+            BlocBuilder<ListUserCubit, ListUserState>(
+              builder: (context, state) {
+                return Expanded(
+                  child: _buildUserListVertical(
+                    isShimmer: loadingState,
+                    users: state.status == FetchUserStatus.success
+                        ? state.users
+                        : null,
+                  ),
+                );
+              },
+            ),
+          ],
+        );
       },
     );
   }
@@ -95,8 +110,9 @@ class ListUserTabPage extends StatelessWidget {
     Navigator.pushNamed(context, Routers.chat, arguments: {"user": user});
   }
 
-  Widget _buildUserListVertical({List<UserModel>? users}) {
-    if (users == null) {
+  Widget _buildUserListVertical(
+      {List<UserModel>? users, bool isShimmer = false}) {
+    if (isShimmer) {
       return ListView.builder(
           itemBuilder: (_, __) => UserWidget(isShimmer: true),
           padding: EdgeInsets.zero,
@@ -108,7 +124,7 @@ class ListUserTabPage extends StatelessWidget {
         if (index == 0) {
           return ListUserGemini();
         } else {
-          final user = users[index - 1];
+          final user = users?[index - 1];
           return UserWidget(
             user: user,
             onTap: () => _userOnTap(context, user),
@@ -116,13 +132,14 @@ class ListUserTabPage extends StatelessWidget {
         }
       },
       padding: EdgeInsets.zero,
-      itemCount: users.length,
+      itemCount: users?.length ?? 0,
       shrinkWrap: true,
     );
   }
 
-  Widget _buildUserListHorizontal({List<UserModel>? users}) {
-    if (users == null) {
+  Widget _buildUserListHorizontal(
+      {List<UserModel>? users, bool isShimmer = false}) {
+    if (isShimmer) {
       return ListView.separated(
           separatorBuilder: (_, __) => const SizedBox(width: 24),
           scrollDirection: Axis.horizontal,
@@ -135,14 +152,14 @@ class ListUserTabPage extends StatelessWidget {
       separatorBuilder: (_, __) => const SizedBox(width: 24),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        final user = users[index];
+        final user = users?[index];
         return ListUserAvatartWidget(
           user: user,
           onPressed: () => _userOnTap(context, user),
         );
       },
       padding: EdgeInsets.zero,
-      itemCount: users.length,
+      itemCount: users?.length ?? 0,
     );
   }
 }

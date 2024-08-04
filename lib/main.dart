@@ -12,7 +12,6 @@ import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/commons/app_environment.dart';
 import 'package:vinhcine/commons/app_themes.dart';
 import 'package:vinhcine/firebase_options.dart';
-import 'package:vinhcine/network/api_util.dart';
 import 'package:vinhcine/network/constants/constant_urls.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
 import 'package:vinhcine/ui/pages/sign_in/cubit/auth_cubit.dart';
@@ -148,8 +147,8 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-showLoading() {
-  EasyLoading.show();
+showLoading({String? status}) {
+  EasyLoading.show(status: status);
 }
 
 hideLoading() {

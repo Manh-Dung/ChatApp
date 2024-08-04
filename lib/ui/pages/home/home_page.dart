@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/repositories/user_repository.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
 import 'package:vinhcine/ui/pages/home/home_cubit.dart';
+import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/cubit/current_user/current_user_cubit.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/list_user_tab_page.dart';
 import 'package:vinhcine/ui/pages/home/tabs/notification_tab/notification_tab_page.dart';
 import 'package:vinhcine/ui/pages/home/tabs/setting_tab/setting_tab_page.dart';
@@ -12,7 +13,7 @@ import 'package:vinhcine/utils/logger.dart';
 import '../../../configs/app_colors.dart';
 import '../../../generated/l10n.dart';
 import '../../../repositories/auth_repository.dart';
-import 'tabs/list_user_tab/list_user_cubit.dart';
+import 'tabs/list_user_tab/cubit/list_user/list_user_cubit.dart';
 import 'tabs/setting_tab/setting_tab_cubit.dart';
 
 class HomePage extends StatefulWidget {
@@ -96,11 +97,23 @@ extension TabsExtension on Tabs {
     switch (this) {
       case Tabs.HOME:
         return KeepAlivePage(
-          child: BlocProvider(
-            create: (context) {
-              final repository = RepositoryProvider.of<UserRepository>(context);
-              return ListUserCubit(repository: repository);
-            },
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<CurrentUserCubit>(
+                create: (context) {
+                  final repository =
+                      RepositoryProvider.of<UserRepository>(context);
+                  return CurrentUserCubit(repository);
+                },
+              ),
+              BlocProvider<ListUserCubit>(
+                create: (context) {
+                  final repository =
+                      RepositoryProvider.of<UserRepository>(context);
+                  return ListUserCubit(repository);
+                },
+              ),
+            ],
             child: ListUserTabPage(),
           ),
         );

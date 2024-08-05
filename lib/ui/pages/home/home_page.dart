@@ -33,6 +33,9 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
+    _tabCubit.stream.listen((event) {
+      _pageController.jumpToPage(event);
+    });
   }
 
   @override
@@ -50,7 +53,6 @@ class _HomePageState extends State<HomePage>
       children: tabs.map((e) => e.page).toList(),
       onPageChanged: (index) {
         _tabCubit.update(index);
-        _pageController.jumpToPage(index);
       },
     );
   }

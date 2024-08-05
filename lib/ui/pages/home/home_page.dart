@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinhcine/blocs/value_cubit.dart';
 import 'package:vinhcine/repositories/user_repository.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
-import 'package:vinhcine/ui/pages/home/home_cubit.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/cubit/current_user/current_user_cubit.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/list_user_tab_page.dart';
 import 'package:vinhcine/ui/pages/home/tabs/notification_tab/notification_tab_page.dart';
 import 'package:vinhcine/ui/pages/home/tabs/setting_tab/setting_tab_page.dart';
 import 'package:vinhcine/ui/widgets/keep_alive_widget.dart';
-import 'package:vinhcine/utils/logger.dart';
 
 import '../../../configs/app_colors.dart';
 import '../../../generated/l10n.dart';
@@ -29,16 +28,11 @@ class _HomePageState extends State<HomePage>
 
   final tabs = [Tabs.HOME, Tabs.NOTIFICATION, Tabs.SETTING];
 
-  late HomeCubit _cubit;
+  final _tabCubit = ValueCubit<int>(0);
 
   @override
   void initState() {
-    _cubit = context.read<HomeCubit>();
     super.initState();
-    _cubit.stream.listen((state) {
-      logger.d('Change tab1 ${state.currentTabIndex}');
-      _pageController.jumpToPage(state.currentTabIndex ?? 0);
-    });
   }
 
   @override
@@ -55,21 +49,20 @@ class _HomePageState extends State<HomePage>
       controller: _pageController,
       children: tabs.map((e) => e.page).toList(),
       onPageChanged: (index) {
-        _cubit.changeTab(index);
+        _tabCubit.update(index);
+        _pageController.jumpToPage(index);
       },
     );
   }
 
   Widget _buildBottomNavigationBar() {
-    return BlocBuilder<HomeCubit, HomeState>(
-      buildWhen: (prev, current) {
-        return prev.currentTabIndex != current.currentTabIndex;
-      },
+    return BlocBuilder<ValueCubit<int>, int>(
+      bloc: _tabCubit,
       builder: (context, state) {
         return Theme(
           data: ThemeData(),
           child: BottomNavigationBar(
-            currentIndex: state.currentTabIndex ?? 0,
+            currentIndex: state,
             selectedLabelStyle:
                 TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             unselectedLabelStyle: TextStyle(fontSize: 12),
@@ -77,7 +70,7 @@ class _HomePageState extends State<HomePage>
             selectedItemColor: AppColors.primary,
             items: tabs.map((e) => e.tab).toList(),
             onTap: (index) {
-              _cubit.changeTab(index);
+              _tabCubit.update(index);
             },
           ),
         );

@@ -18,7 +18,6 @@ import 'package:vinhcine/ui/components/app_context.dart';
 import 'package:vinhcine/ui/pages/sign_in/cubit/auth_cubit.dart';
 
 import 'generated/l10n.dart';
-import 'network/api_client.dart';
 import 'network/firebase/firebase_api.dart';
 import 'repositories/repositories.dart';
 import 'router/pages.dart';

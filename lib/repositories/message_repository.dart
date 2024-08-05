@@ -29,14 +29,14 @@ class MessageRepositoryImpl extends MessageRepository {
   }
 
   void setUpCollectionReference() {
-    _userCollection = Instances.firestore
+    _userCollection = Instances.fireStore
         .collection(CollectionTag.users)
         .withConverter<UserModel>(
             fromFirestore: (snapshot, _) =>
                 UserModel.fromJson(snapshot.data()!),
             toFirestore: (user, _) => user.toJson());
 
-    _chatCollection = Instances.firestore
+    _chatCollection = Instances.fireStore
         .collection(CollectionTag.chats)
         .withConverter<Chat>(
             fromFirestore: (snapshot, _) => Chat.fromJson(snapshot.data()!),

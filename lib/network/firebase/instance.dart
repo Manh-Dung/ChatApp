@@ -6,12 +6,10 @@ import 'package:injectable/injectable.dart';
 
 @singleton
 class Instances {
-  Instances._();
-
   Instances();
 
   static final FirebaseMessaging messaging = FirebaseMessaging.instance;
-  static final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore fireStore = FirebaseFirestore.instance;
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final FirebaseStorage storage = FirebaseStorage.instance;
 }

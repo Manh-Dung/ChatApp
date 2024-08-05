@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:vinhcine/configs/app_config.dart';
 import 'package:vinhcine/database/preferences.dart';
-import 'package:vinhcine/network/api_client.dart';
 import 'package:vinhcine/network/constants/collection_tag.dart';
 import 'package:vinhcine/repositories/storage_repository.dart';
 
@@ -119,7 +118,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   void setUpCollectionReference() {
-    _userCollection = Instances.firestore
+    _userCollection = Instances.fireStore
         .collection(CollectionTag.users)
         .withConverter<UserModel>(
             fromFirestore: (snapshot, _) =>

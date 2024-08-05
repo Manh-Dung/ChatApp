@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 import 'package:vinhcine/configs/app_config.dart';
 import 'package:vinhcine/database/preferences.dart';
 import 'package:vinhcine/network/api_client.dart';
@@ -33,11 +34,9 @@ abstract class AuthRepository {
   Future<void> signOut();
 }
 
+@Injectable(as: AuthRepository)
 class AuthRepositoryImpl extends AuthRepository {
-  ApiClient? _apiClient;
-
-  AuthRepositoryImpl(ApiClient? client) {
-    _apiClient = client;
+  AuthRepositoryImpl() {
     setUpCollectionReference();
   }
 

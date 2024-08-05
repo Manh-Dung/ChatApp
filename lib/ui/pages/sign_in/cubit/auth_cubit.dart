@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:vinhcine/network/firebase/instance.dart';
 
 import '../../../../blocs/value_cubit.dart';
@@ -15,11 +16,17 @@ part 'auth_cubit.freezed.dart';
 
 enum AuthStatus { initial, loading, success, failure }
 
+@singleton
 class AuthCubit extends ValueCubit<AuthState> {
-  AuthCubit({required this.repository}) : super(AuthState());
+  AuthCubit({
+    required this.repository,
+    required this.storageRepository,
+    required this.firebaseInstance,
+  }) : super(AuthState());
 
   final AuthRepository repository;
-  final StorageRepository storageRepository = StorageRepositoryImpl();
+  final StorageRepository storageRepository;
+  final Instances firebaseInstance;
 
   Future<void> checkAuthState() async {
     Instances.auth.authStateChanges().listen((User? user) {

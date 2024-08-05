@@ -11,6 +11,7 @@ import 'package:torch_controller/torch_controller.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/commons/app_environment.dart';
 import 'package:vinhcine/commons/app_themes.dart';
+import 'package:vinhcine/configs/di.dart';
 import 'package:vinhcine/firebase_options.dart';
 import 'package:vinhcine/network/constants/constant_urls.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
@@ -42,6 +43,8 @@ Future<void> loadApp() async {
   await Gemini.init(
     apiKey: ConstantUrls.apiKey,
   );
+
+  configureDependencies();
 
   /// AWAIT SERVICES INITIALIZATION.
   await initServices();
@@ -75,11 +78,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ApiClient? _apiClient;
-
   @override
   void initState() {
-    // _apiClient = ApiUtil.getApiClient();
     super.initState();
   }
 
@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthRepository>(
-            create: (context) => AuthRepositoryImpl(_apiClient)),
+            create: (context) => AuthRepositoryImpl()),
         RepositoryProvider<UserRepository>(
             create: (context) => UserRepositoryImpl()),
         RepositoryProvider<MessageRepository>(
@@ -106,9 +106,7 @@ class _MyAppState extends State<MyApp> {
             create: (context) => AppCubit(),
           ),
           BlocProvider(
-            create: (context) => AuthCubit(
-              repository: AuthRepositoryImpl(_apiClient),
-            ),
+            create: (context) => getIt<AuthCubit>(),
           ),
         ],
         child: materialApp(),

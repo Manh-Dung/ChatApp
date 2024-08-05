@@ -236,7 +236,7 @@
         <entry key="dart_style">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dart_style-2.3.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dart_style-2.3.6/lib" />
             </list>
           </value>
         </entry>
@@ -244,13 +244,6 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dartx-1.2.0/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="dash_chat_2">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dash_chat_2-0.0.20/lib" />
             </list>
           </value>
         </entry>
@@ -478,6 +471,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_lints">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_local_notifications">
           <value>
             <list>
@@ -509,7 +509,7 @@
         <entry key="flutter_markdown">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_markdown-0.6.23/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_markdown-0.7.3/lib" />
             </list>
           </value>
         </entry>
@@ -800,6 +800,13 @@
             </list>
           </value>
         </entry>
+        <entry key="lints">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/lints-2.1.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="logging">
           <value>
             <list>
@@ -1049,6 +1056,7 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/rxdart-0.27.7/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/rxdart-0.28.0/lib" />
             </list>
           </value>
         </entry>
@@ -1487,9 +1495,8 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/crypto-3.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/csslib-1.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.8/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_style-2.3.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_style-2.3.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dartx-1.2.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dash_chat_2-0.0.20/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dbus-0.7.10/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.5.0+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dio_web_adapter-1.0.1/lib" />
@@ -1521,10 +1528,11 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_gemini-2.0.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_gen_core-5.6.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_gen_runner-5.6.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.1+2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_local_notifications_linux-4.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_local_notifications_platform_interface-7.2.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_markdown-0.6.23/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_markdown-0.7.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_parsed_text-2.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.19/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_spinkit-5.2.1/lib" />
@@ -1564,6 +1572,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/leak_tracker-10.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/leak_tracker_flutter_testing-2.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/leak_tracker_testing-2.0.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/lints-2.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/logging-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/markdown-7.2.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/matcher-0.12.16+1/lib" />
@@ -1600,6 +1609,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/retrofit-4.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/retrofit_generator-8.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rxdart-0.27.7/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rxdart-0.28.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/share-2.0.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences-2.2.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences_android-2.2.2/lib" />

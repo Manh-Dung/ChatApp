@@ -99,6 +99,9 @@ dependencies:
   #Get It
   get_it:
 
+  #Injectable
+  injectable:
+
 #---------------------------- Dependency for dev ------------------------------#
 
 dev_dependencies:

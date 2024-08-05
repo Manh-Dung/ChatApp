@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:injectable/injectable.dart';
 import "package:path/path.dart" as Path;
 
 import '../network/firebase/instance.dart';
@@ -15,6 +16,7 @@ abstract class StorageRepository {
       {required File file, required String chatId});
 }
 
+@Injectable(as: StorageRepository)
 class StorageRepositoryImpl extends StorageRepository {
   @override
   Future<String?> uploadImage({required File file, required String uid}) async {

@@ -6,6 +6,7 @@ import 'package:vinhcine/ui/pages/sign_in/cubit/auth_cubit.dart';
 
 import '../../../commons/app_text_styles.dart';
 import '../../../configs/app_colors.dart';
+import '../../../configs/di.dart';
 import '../../../generated/l10n.dart';
 import '../../../main.dart';
 import '../../../router/routers.dart';
@@ -21,12 +22,10 @@ class _SignInPageState extends State<SignInPage> {
   final _usernameController = TextEditingController(text: "acc1@gmail.com");
   final _passwordController = TextEditingController(text: "123456");
 
-  late AuthCubit _cubit;
   final ValueCubit<bool> _checkBoxCubit = ValueCubit<bool>(false);
 
   @override
   void initState() {
-    _cubit = context.read<AuthCubit>();
     super.initState();
   }
 
@@ -202,7 +201,7 @@ class _SignInPageState extends State<SignInPage> {
       _showMessage('Password is invalid');
       return;
     }
-    _cubit.signIn(username, password);
+    getIt<AuthCubit>().signIn(username, password);
   }
 
   void _showMessage(String message) {

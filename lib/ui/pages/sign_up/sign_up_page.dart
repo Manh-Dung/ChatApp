@@ -6,6 +6,7 @@ import 'package:vinhcine/ui/pages/sign_up/cubit/image_cubit.dart';
 
 import '../../../commons/app_text_styles.dart';
 import '../../../configs/app_colors.dart';
+import '../../../configs/di.dart';
 import '../../../generated/l10n.dart';
 import '../../../network/constants/constant_urls.dart';
 import '../../components/app_button.dart';
@@ -22,11 +23,11 @@ class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  late AuthCubit _cubit;
+  // late AuthCubit _cubit;
 
   @override
   void initState() {
-    _cubit = context.read<AuthCubit>();
+    // _cubit = context.read<AuthCubit>();
     super.initState();
   }
 
@@ -182,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
       _showMessage(S.of(context).password_is_invalid);
       return;
     }
-    await _cubit.signUp(
+    await getIt<AuthCubit>().signUp(
         file: image.whenOrNull(success: (file) => file) ?? null,
         fullName: fullName,
         email: username,

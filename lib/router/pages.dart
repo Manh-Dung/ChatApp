@@ -4,6 +4,7 @@ import 'package:vinhcine/ui/pages/message/message_cubit.dart';
 import 'package:vinhcine/ui/pages/message/message_page.dart';
 import 'package:vinhcine/ui/pages/sign_up/cubit/image_cubit.dart';
 
+import '../configs/di.dart';
 import '../repositories/auth_repository.dart';
 import '../repositories/message_repository.dart';
 import '../ui/pages/ai_chat/ai_chat_cubit.dart';
@@ -43,7 +44,7 @@ class Pages {
         return MessageCubit(
             repository: RepositoryProvider.of<MessageRepository>(context));
       }, MessagePage()),
-      Routers.aiChat: _blocProvider((context) => AIChatCubit(), AIChatPage()),
+      Routers.aiChat: _blocProvider((context) => getIt<AIChatCubit>(), AIChatPage()),
     };
   }
 }

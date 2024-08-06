@@ -18,7 +18,7 @@ class SettingTabCubit extends BaseCubit<SettingTabState> {
       await Future.delayed(Duration(seconds: 2));
       emit(SignedOutSuccessfully());
     } on Exception {
-      ///todo do something here
+      emit(DidAnythingFail());
     }
   }
 }

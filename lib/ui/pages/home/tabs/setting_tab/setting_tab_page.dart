@@ -8,7 +8,7 @@ import 'package:vinhcine/generated/l10n.dart';
 import 'package:vinhcine/main.dart';
 import 'package:vinhcine/router/routers.dart';
 import 'package:vinhcine/ui/components/app_button.dart';
-import 'package:vinhcine/ui/pages/home/tabs/setting_tab/setting_tab_cubit.dart';
+import 'package:vinhcine/ui/pages/sign_in/cubit/auth_cubit.dart';
 import 'package:vinhcine/ui/widgets/app_bar_widget.dart';
 import 'package:vinhcine/ui/widgets/customized_scaffold_widget.dart';
 import 'package:vinhcine/ui/widgets/debounce_gesture_detector.dart';
@@ -21,22 +21,13 @@ class SettingTabPage extends StatefulWidget {
 }
 
 class _SettingTabPageState extends State<SettingTabPage> {
-  late SettingTabCubit _cubit;
-  late AppCubit _appCubit = getIt<AppCubit>();
+  final AuthCubit _cubit = getIt<AuthCubit>();
+  final AppCubit _appCubit = getIt<AppCubit>();
 
   @override
   void initState() {
-    // _appCubit = context.read<AppCubit>();
-    // Truy cập vào SettingTabCubit hiện có
-    _cubit = context.read<SettingTabCubit>();
     super.initState();
     _appCubit.fetchData();
-  }
-
-  @override
-  void dispose() {
-    _cubit.close();
-    super.dispose();
   }
 
   @override
@@ -59,16 +50,15 @@ class _SettingTabPageState extends State<SettingTabPage> {
   }
 
   Widget _buildSignOutButton() {
-    return BlocConsumer<SettingTabCubit, SettingTabState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is WaitingForSigningOut) {
+        if (state.authStatus == AuthStatus.loading) {
           showLoading();
-        } else if (state is SignedOutSuccessfully) {
+        } else if (state.authStatus == AuthStatus.initial) {
           hideLoading();
-          _onSignOutSuccess();
-        } else if (state is DidAnythingFail) {
+        } else if (state.authStatus == AuthStatus.failure) {
           hideLoading();
-          showLoading(status: 'Something went wrong');
+          showLoading(status: state.errorMess);
         }
       },
       builder: (context, state) {
@@ -76,8 +66,8 @@ class _SettingTabPageState extends State<SettingTabPage> {
           margin: EdgeInsets.symmetric(horizontal: AppDimens.M),
           child: AppTintButton(
             title: S.of(context).logout,
-            isLoading: state is WaitingForSigningOut,
-            onPressed: state is WaitingForSigningOut ? null : _handleSignOut,
+            isLoading: state.authStatus == AuthStatus.loading,
+            onPressed: _handleSignOut,
           ),
         );
       },
@@ -234,9 +224,11 @@ class _SettingTabPageState extends State<SettingTabPage> {
                         ),
                       ),
                       SizedBox(width: 10),
-                      Text(S.of(context).dark,
-                          style: AppTextStyle.poppins16Regular
-                              .copyWith(color: Colors.black)),
+                      Text(
+                        S.of(context).dark,
+                        style: AppTextStyle.poppins16Regular
+                            .copyWith(color: Colors.black),
+                      ),
                     ],
                   ),
                 ),
@@ -248,12 +240,15 @@ class _SettingTabPageState extends State<SettingTabPage> {
     );
   }
 
-  void _handleSignOut() {
-    _cubit.signOut();
+  void _handleSignOut() async {
+    await _cubit.signOut();
+    _onSignOutSuccess();
   }
 
   void _onSignOutSuccess() {
-    Navigator.pushNamedAndRemoveUntil(
-        context, Routers.root, (route) => route.settings.name == Routers.root);
+    Navigator.pushReplacementNamed(
+      context,
+      Routers.splash,
+    );
   }
 }

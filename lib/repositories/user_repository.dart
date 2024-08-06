@@ -16,8 +16,6 @@ abstract class UserRepository {
   Future<bool> checkChatExist({required String? uid1, required String? uid2});
 
   Future<void> createChat({required String? uid1, required String? uid2});
-
-
 }
 
 class UserRepositoryImpl extends UserRepository {

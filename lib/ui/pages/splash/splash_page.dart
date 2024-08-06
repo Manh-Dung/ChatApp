@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
+import 'package:vinhcine/configs/di.dart';
 import 'package:vinhcine/router/routers.dart';
-import 'package:vinhcine/ui/pages/splash/splash_cubit.dart';
+import 'package:vinhcine/ui/pages/sign_in/cubit/auth_cubit.dart';
 import 'package:vinhcine/ui/widgets/loading_indicator_widget.dart';
 
 import '../../../configs/app_colors.dart';
@@ -16,16 +17,14 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  late SplashCubit _cubit;
-  late AppCubit _appCubit;
+  final AppCubit _appCubit = getIt<AppCubit>();
+  final AuthCubit _authCubit = getIt<AuthCubit>();
 
   @override
   void initState() {
-    _cubit = context.read<SplashCubit>();
-    _appCubit = context.read<AppCubit>();
     super.initState();
-    _cubit.checkLogin();
     _appCubit.fetchData();
+    _authCubit.checkAuthState();
 
     initPermission();
   }
@@ -36,46 +35,30 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   @override
-  void dispose() {
-    _cubit.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: MultiBlocListener(
-        listeners: [
-          BlocListener<AppCubit, AppState>(
-            listener: (context, state) {
-              if (state is FetchedFullDataSuccessfully) {
-                // do nothing
-              }
-            },
-          ),
-          BlocListener<SplashCubit, SplashState>(
-            listener: (context, state) {
-              if (state is NeedToGoHome) {
-                showHome();
-              } else if (state is NeedToSignOut) {
-                showSignIn();
-              }
-            },
-          ),
-        ],
-        child: Center(
-          child: LoadingIndicatorWidget(color: Colors.white),
-        ),
+      body: BlocListener<AuthCubit, AuthState>(
+        bloc: _authCubit,
+        listener: (context, state) {
+          if (state.authStatus == AuthStatus.success) {
+            showHome();
+          } else if (state.authStatus == AuthStatus.initial) {
+            showSignIn();
+          }
+        },
+        child: LoadingIndicatorWidget(color: Colors.white),
       ),
     );
   }
 
   ///Navigate
   void showSignIn() async {
-    Navigator.pushNamedAndRemoveUntil(context, Routers.signIn,
-        (route) => route.settings.name == Routers.signIn);
-    _cubit.checkLogin();
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      Routers.signIn,
+      (route) => route.settings.name == Routers.signIn,
+    );
   }
 
   void showHome() {

@@ -7,7 +7,6 @@ import 'package:vinhcine/network/firebase/instance.dart';
 
 import '../../../../blocs/value_cubit.dart';
 import '../../../../repositories/repositories.dart';
-import '../../../../repositories/storage_repository.dart';
 import '../../../../utils/logger.dart';
 
 part 'auth_state.dart';
@@ -21,15 +20,14 @@ class AuthCubit extends ValueCubit<AuthState> {
   AuthCubit({
     required this.repository,
     required this.storageRepository,
-    required this.firebaseInstance,
   }) : super(AuthState());
 
   final AuthRepository repository;
   final StorageRepository storageRepository;
-  final Instances firebaseInstance;
 
   Future<void> checkAuthState() async {
     Instances.auth.authStateChanges().listen((User? user) {
+      emit(state.copyWith(authStatus: AuthStatus.loading));
       if (user == null) {
         emit(state.copyWith(authStatus: AuthStatus.initial));
       } else {
@@ -42,7 +40,6 @@ class AuthCubit extends ValueCubit<AuthState> {
     update(state.copyWith(authStatus: AuthStatus.loading));
     try {
       final result = await repository.signIn(username, password);
-      await repository.saveToken(result.uid);
       update(state.copyWith(authStatus: AuthStatus.success));
     } catch (error) {
       logger.e(error);
@@ -66,6 +63,22 @@ class AuthCubit extends ValueCubit<AuthState> {
       var res = await repository.signUp(file, fullName, email, password);
       await repository.saveToken(res.uid);
       update(state.copyWith(authStatus: AuthStatus.success));
+    } catch (e) {
+      logger.e(e);
+      update(
+        state.copyWith(
+          authStatus: AuthStatus.failure,
+          errorMess: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> signOut() async {
+    update(state.copyWith(authStatus: AuthStatus.loading));
+    try {
+      await repository.signOut();
+      update(state.copyWith(authStatus: AuthStatus.initial));
     } catch (e) {
       logger.e(e);
       update(

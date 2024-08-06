@@ -11,9 +11,7 @@ import 'package:vinhcine/ui/widgets/keep_alive_widget.dart';
 
 import '../../../configs/app_colors.dart';
 import '../../../generated/l10n.dart';
-import '../../../repositories/auth_repository.dart';
 import 'tabs/list_user_tab/cubit/list_user/list_user_cubit.dart';
-import 'tabs/setting_tab/setting_tab_cubit.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -115,14 +113,7 @@ extension TabsExtension on Tabs {
       case Tabs.NOTIFICATION:
         return NotificationTabPage();
       case Tabs.SETTING:
-        // BlocProvider tạo 1 instance của SettingTabCubit cho SettingTabPage
-        return BlocProvider(
-          create: (context) {
-            final repository = RepositoryProvider.of<AuthRepository>(context);
-            return SettingTabCubit(repository: repository);
-          },
-          child: SettingTabPage(),
-        );
+        return SettingTabPage();
     }
   }
 

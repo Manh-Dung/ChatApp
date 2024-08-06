@@ -122,7 +122,7 @@ class _MyAppState extends State<MyApp> {
           navigatorKey: AppContext.navigatorKey,
           theme: AppThemes.theme,
           // onGenerateRoute: Application.router?.generator,
-          initialRoute: Routers.root,
+          initialRoute: Routers.splash,
           routes: Pages.pages,
           // navigatorObservers: [
           //   NavigationObserver(context.bloc<NavigationCubit>()),

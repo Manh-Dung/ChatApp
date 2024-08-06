@@ -1,7 +1,7 @@
 class Routers {
   Routers._();
 
-  static String root = "/";
+  static String splash = "/";
 
   ///Auth
   static String signIn = "/signIn";

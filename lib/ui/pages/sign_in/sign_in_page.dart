@@ -169,6 +169,7 @@ class _SignInPageState extends State<SignInPage> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.authStatus == AuthStatus.failure) {
+          hideLoading();
           _showMessage(state.errorMess ?? 'Login failure');
         } else if (state.authStatus == AuthStatus.success) {
           hideLoading();

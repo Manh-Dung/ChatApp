@@ -13,7 +13,6 @@ import '../ui/pages/forgot_password/forgot_password_page.dart';
 import '../ui/pages/home/home_page.dart';
 import '../ui/pages/sign_in/sign_in_page.dart';
 import '../ui/pages/sign_up/sign_up_page.dart';
-import '../ui/pages/splash/splash_cubit.dart';
 import '../ui/pages/splash/splash_page.dart';
 import 'routers.dart';
 
@@ -26,10 +25,7 @@ class Pages {
 
   static Map<String, WidgetBuilder> get pages {
     return {
-      Routers.root: _blocProvider(
-          (context) => SplashCubit(
-              repository: RepositoryProvider.of<AuthRepository>(context)),
-          SplashPage()),
+      Routers.splash: (context) => SplashPage(),
       Routers.signIn: (context) => SignInPage(),
       Routers.signUp: (context) => BlocProvider(
             create: (context) => ImageCubit(),

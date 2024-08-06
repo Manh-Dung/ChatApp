@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/blocs/value_cubit.dart';
 import 'package:vinhcine/configs/di.dart';
-import 'package:vinhcine/repositories/user_repository.dart';
 import 'package:vinhcine/ui/components/app_context.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/cubit/current_user/current_user_cubit.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/list_user_tab_page.dart';

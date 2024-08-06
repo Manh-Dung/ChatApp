@@ -5,7 +5,6 @@ import 'package:vinhcine/ui/pages/message/message_page.dart';
 import 'package:vinhcine/ui/pages/sign_up/cubit/image_cubit.dart';
 
 import '../configs/di.dart';
-import '../repositories/auth_repository.dart';
 import '../repositories/message_repository.dart';
 import '../ui/pages/ai_chat/ai_chat_cubit.dart';
 import '../ui/pages/ai_chat/ai_chat_page.dart';

@@ -39,7 +39,7 @@ class AuthCubit extends ValueCubit<AuthState> {
   void signIn(String username, String password) async {
     update(state.copyWith(authStatus: AuthStatus.loading));
     try {
-      final result = await repository.signIn(username, password);
+      await repository.signIn(username, password);
       update(state.copyWith(authStatus: AuthStatus.success));
     } catch (error) {
       logger.e(error);

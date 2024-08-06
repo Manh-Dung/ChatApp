@@ -141,8 +141,8 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-showLoading({String? status}) {
-  EasyLoading.show(status: status);
+showLoading() {
+  EasyLoading.show();
 }
 
 hideLoading() {

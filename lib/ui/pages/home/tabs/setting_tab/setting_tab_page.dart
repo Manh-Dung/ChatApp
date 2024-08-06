@@ -58,7 +58,6 @@ class _SettingTabPageState extends State<SettingTabPage> {
           hideLoading();
         } else if (state.authStatus == AuthStatus.failure) {
           hideLoading();
-          showLoading(status: state.errorMess);
         }
       },
       builder: (context, state) {

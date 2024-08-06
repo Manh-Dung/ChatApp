@@ -5,6 +5,7 @@ import 'package:vinhcine/blocs/value_cubit.dart';
 import 'package:vinhcine/ui/pages/home/tabs/list_user_tab/widgets/user_widget.dart';
 
 import '../../../../../configs/app_colors.dart';
+import '../../../../../configs/di.dart';
 import '../../../../../models/entities/index.dart';
 import '../../../../../network/firebase/instance.dart';
 import '../../../../../router/routers.dart';
@@ -28,8 +29,8 @@ class ListUserTabPage extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    final cubit = context.read<ListUserCubit>();
-    final currentUserCubit = context.read<CurrentUserCubit>();
+    final cubit = getIt<ListUserCubit>();
+    final currentUserCubit = getIt<CurrentUserCubit>();
 
     _shimmerCubit.stream.listen((loading) {
       _shimmerCubit.update(!(cubit.state.status == FetchUserStatus.success) ||

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:vinhcine/network/constants/collection_tag.dart';
 
 import '../models/entities/chat.dart';
@@ -18,6 +19,7 @@ abstract class UserRepository {
   Future<void> createChat({required String? uid1, required String? uid2});
 }
 
+@Injectable(as: UserRepository)
 class UserRepositoryImpl extends UserRepository {
   UserRepositoryImpl() {
     setUpCollectionReference();

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../../../../blocs/value_cubit.dart';
 import '../../../../../../../models/entities/index.dart';
@@ -11,6 +12,7 @@ part 'list_user_state.dart';
 
 part 'list_user_cubit.freezed.dart';
 
+@injectable
 class ListUserCubit extends ValueCubit<ListUserState> {
   ListUserCubit(this.repository) : super(const ListUserState()) {
     listenUsers();

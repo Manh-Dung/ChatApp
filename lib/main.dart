@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<AuthRepository>(
             create: (context) => getIt<AuthRepository>()),
         RepositoryProvider<UserRepository>(
-            create: (context) => UserRepositoryImpl()),
+            create: (context) => getIt<UserRepository>()),
         RepositoryProvider<MessageRepository>(
             create: (context) => MessageRepositoryImpl()),
       ],

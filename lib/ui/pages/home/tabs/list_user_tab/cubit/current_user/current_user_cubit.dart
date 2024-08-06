@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:vinhcine/blocs/value_cubit.dart';
 import 'package:vinhcine/repositories/repositories.dart';
 
@@ -12,6 +13,7 @@ part 'current_user_cubit.freezed.dart';
 
 enum FetchUserStatus { initial, loading, success, error }
 
+@injectable
 class CurrentUserCubit extends ValueCubit<CurrentUserState> {
   CurrentUserCubit(this.repository) : super(const CurrentUserState()) {
     listenCurrentUser();

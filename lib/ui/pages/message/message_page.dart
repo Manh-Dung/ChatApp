@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/configs/app_colors.dart';
 import 'package:vinhcine/configs/di.dart';
 import 'package:vinhcine/network/constants/constant_urls.dart';

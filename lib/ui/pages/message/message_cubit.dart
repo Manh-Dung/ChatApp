@@ -53,5 +53,6 @@ class MessageCubit extends Cubit<MessageState> {
       emit(MessageFailure(e.toString()));
       return null;
     }
+    return null;
   }
 }

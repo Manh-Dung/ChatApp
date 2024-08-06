@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../models/entities/message.dart';
 import '../../../repositories/message_repository.dart';
@@ -7,11 +8,15 @@ import '../../../repositories/storage_repository.dart';
 
 part 'message_state.dart';
 
+@injectable
 class MessageCubit extends Cubit<MessageState> {
   final MessageRepository repository;
-  final StorageRepository storageRepository = StorageRepositoryImpl();
+  final StorageRepository storageRepository;
 
-  MessageCubit({required this.repository}) : super(MessageInitial());
+  MessageCubit({
+    required this.repository,
+    required this.storageRepository,
+  }) : super(MessageInitial());
 
   Future<void> sendMessage(String uid1, String uid2, Message message) async {
     emit(MessageLoading());

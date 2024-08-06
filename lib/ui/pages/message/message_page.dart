@@ -3,6 +3,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/configs/app_colors.dart';
+import 'package:vinhcine/configs/di.dart';
 import 'package:vinhcine/network/constants/constant_urls.dart';
 
 import '../../../models/entities/chat.dart';
@@ -13,16 +14,20 @@ import '../../../src/gen/assets.gen.dart';
 import 'message_cubit.dart';
 import 'widgets/message_button.dart';
 
-class MessagePage extends StatelessWidget {
+class MessagePage extends StatefulWidget {
   MessagePage({super.key});
 
-  late MessageCubit _cubit;
+  @override
+  State<MessagePage> createState() => _MessagePageState();
+}
+
+class _MessagePageState extends State<MessagePage> {
+  final MessageCubit _cubit = getIt<MessageCubit>();
 
   ChatUser? currentUser, otherUser;
 
   @override
   Widget build(BuildContext context) {
-    _cubit = context.read<MessageCubit>();
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, UserModel?>?;
     final UserModel? user = args?['user'];
@@ -63,10 +68,10 @@ class MessagePage extends StatelessWidget {
               return DashChat(
                 emptyWidget: messages.length == 0
                     ? Assets.images.imgEmptyMessage.image(
-                      width: 200,
-                      height: 200,
-                      fit: BoxFit.contain,
-                    )
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.contain,
+                      )
                     : null,
                 messageOptions: MessageOptions(
                   showOtherUsersName: false,

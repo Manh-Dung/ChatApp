@@ -32,12 +32,14 @@ class Pages {
           ),
       Routers.forgotPassword: (context) => ForgotPasswordPage(),
       Routers.home: (context) => HomePage(),
-      Routers.chat: _blocProvider((context) {
-        return MessageCubit(
-            repository: RepositoryProvider.of<MessageRepository>(context));
-      }, MessagePage()),
-      Routers.aiChat:
-          _blocProvider((context) => getIt<AIChatCubit>(), AIChatPage()),
+      Routers.chat: _blocProvider(
+        (context) => getIt<MessageCubit>(),
+        MessagePage(),
+      ),
+      Routers.aiChat: _blocProvider(
+        (context) => getIt<AIChatCubit>(),
+        AIChatPage(),
+      ),
     };
   }
 }

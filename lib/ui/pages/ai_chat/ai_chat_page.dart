@@ -1,8 +1,10 @@
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinhcine/configs/di.dart';
 
 import '../../../network/firebase/instance.dart';
+import '../../../src/gen/assets.gen.dart';
 import 'ai_chat_cubit.dart';
 import 'widgets/message_button.dart';
 
@@ -12,7 +14,7 @@ class AIChatPage extends StatefulWidget {
 }
 
 class _AIChatPageState extends State<AIChatPage> {
-  late AIChatCubit _cubit;
+  final AIChatCubit _cubit = getIt<AIChatCubit>();
 
   ChatUser? currentUser = ChatUser(
     id: Instances.auth.currentUser?.uid ?? '',
@@ -21,8 +23,6 @@ class _AIChatPageState extends State<AIChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    _cubit = context.read<AIChatCubit>();
-
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -47,9 +47,16 @@ class _AIChatPageState extends State<AIChatPage> {
 
   Widget _buildUI() {
     return BlocBuilder<AIChatCubit, AIChatState>(
-      buildWhen: (previous, current) => current is AIChatSuccess,
+      bloc: _cubit,
       builder: (context, state) {
         return DashChat(
+          emptyWidget: state.messages.length == 0
+              ? Assets.images.imgEmptyMessage.image(
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.contain,
+                )
+              : null,
           messageOptions: MessageOptions(
             showOtherUsersName: false,
             showTime: true,

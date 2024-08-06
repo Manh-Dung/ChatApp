@@ -93,7 +93,7 @@ class _MyAppState extends State<MyApp> {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthRepository>(
-            create: (context) => AuthRepositoryImpl()),
+            create: (context) => getIt<AuthRepository>()),
         RepositoryProvider<UserRepository>(
             create: (context) => UserRepositoryImpl()),
         RepositoryProvider<MessageRepository>(
@@ -102,7 +102,7 @@ class _MyAppState extends State<MyApp> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<AppCubit>(
-            create: (context) => AppCubit(),
+            create: (context) => getIt<AppCubit>(),
           ),
           BlocProvider(
             create: (context) => getIt<AuthCubit>(),
@@ -115,9 +115,6 @@ class _MyAppState extends State<MyApp> {
 
   BlocBuilder<AppCubit, AppState> materialApp() {
     return BlocBuilder<AppCubit, AppState>(
-      buildWhen: (prev, current) =>
-          current is ChangedLanguageSuccessfully ||
-          current is FetchedLanguageSuccessfully,
       builder: (context, state) {
         return MaterialApp(
           themeMode: ThemeMode.system,

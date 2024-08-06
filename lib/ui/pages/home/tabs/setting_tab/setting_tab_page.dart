@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
 import 'package:vinhcine/commons/app_dimens.dart';
 import 'package:vinhcine/commons/app_text_styles.dart';
+import 'package:vinhcine/configs/di.dart';
 import 'package:vinhcine/generated/l10n.dart';
+import 'package:vinhcine/main.dart';
 import 'package:vinhcine/router/routers.dart';
 import 'package:vinhcine/ui/components/app_button.dart';
 import 'package:vinhcine/ui/pages/home/tabs/setting_tab/setting_tab_cubit.dart';
@@ -20,16 +22,15 @@ class SettingTabPage extends StatefulWidget {
 
 class _SettingTabPageState extends State<SettingTabPage> {
   late SettingTabCubit _cubit;
-  late AppCubit _appCubit;
+  late AppCubit _appCubit = getIt<AppCubit>();
 
   @override
   void initState() {
-    _appCubit = context.read<AppCubit>();
+    // _appCubit = context.read<AppCubit>();
     // Truy cập vào SettingTabCubit hiện có
     _cubit = context.read<SettingTabCubit>();
     super.initState();
-    _appCubit.fetchAppLanguage();
-    _appCubit.fetchAppTheme();
+    _appCubit.fetchData();
   }
 
   @override
@@ -59,14 +60,16 @@ class _SettingTabPageState extends State<SettingTabPage> {
 
   Widget _buildSignOutButton() {
     return BlocConsumer<SettingTabCubit, SettingTabState>(
-      listenWhen: (prev, current) {
-        return prev != current;
-      },
       listener: (context, state) {
-        if (state is SignedOutSuccessfully) _onSignOutSuccess();
-      },
-      buildWhen: (prev, current) {
-        return prev != current;
+        if (state is WaitingForSigningOut) {
+          showLoading();
+        } else if (state is SignedOutSuccessfully) {
+          hideLoading();
+          _onSignOutSuccess();
+        } else if (state is DidAnythingFail) {
+          hideLoading();
+          showLoading(status: 'Something went wrong');
+        }
       },
       builder: (context, state) {
         return Container(
@@ -83,10 +86,6 @@ class _SettingTabPageState extends State<SettingTabPage> {
 
   Widget _buildLanguageSection() {
     return BlocBuilder<AppCubit, AppState>(
-      buildWhen: (prev, current) {
-        return current is ChangedLanguageSuccessfully ||
-            current is FetchedLanguageSuccessfully;
-      },
       builder: (context, state) {
         return Container(
           padding: EdgeInsets.only(left: AppDimens.M, top: AppDimens.M),
@@ -256,7 +255,5 @@ class _SettingTabPageState extends State<SettingTabPage> {
   void _onSignOutSuccess() {
     Navigator.pushNamedAndRemoveUntil(
         context, Routers.root, (route) => route.settings.name == Routers.root);
-
-
   }
 }

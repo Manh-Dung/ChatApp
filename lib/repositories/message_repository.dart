@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:vinhcine/models/entities/message.dart';
 import 'package:vinhcine/network/constants/collection_tag.dart';
 
@@ -23,6 +24,7 @@ abstract class MessageRepository {
       {required String uid1, required String uid2});
 }
 
+@Injectable(as: MessageRepository)
 class MessageRepositoryImpl extends MessageRepository {
   MessageRepositoryImpl() {
     setUpCollectionReference();

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vinhcine/generated/l10n.dart';
 
@@ -10,6 +11,7 @@ import '../models/base/base_cubit.dart';
 
 part 'app_state.dart';
 
+@singleton
 class AppCubit extends BaseCubit<AppState> {
   AppCubit() : super(WaitingForWarmingUp(), null);
   late SharedPreferences prefs;
@@ -18,8 +20,8 @@ class AppCubit extends BaseCubit<AppState> {
     prefs = await SharedPreferences.getInstance();
 
     ///Language
-    String languageCode =
-        prefs.getString('languageCode') ?? window.locale.languageCode;
+    String languageCode = prefs.getString('languageCode') ??
+        PlatformDispatcher.instance.locale.languageCode;
     var locale = S.delegate.supportedLocales.firstWhere(
       (element) => element.languageCode == languageCode,
       orElse: () => Locale.fromSubtags(languageCode: 'en'),
@@ -36,26 +38,9 @@ class AppCubit extends BaseCubit<AppState> {
         currentTheme: currentTheme));
   }
 
-  void fetchAppLanguage() async {
-    emit(WaitingForFetchingLanguage());
-
-    ///Language
-    var currentLocale = await getLanguageFromLocalStorage();
-    emit(FetchedLanguageSuccessfully(currentLocale: currentLocale));
-  }
-
-  void fetchAppTheme() async {
-    emit(WaitingForFetchingTheme());
-
-    ///Theme
-    var currentTheme = await getThemeFromLocalStorage();
-    emit(FetchedThemeSuccessfully(currentTheme: currentTheme));
-  }
-
   Future<ThemeMode> getThemeFromLocalStorage() async {
     prefs = await SharedPreferences.getInstance();
 
-    ///Theme
     String themeModeCode = prefs.getString("themeCode") ?? ThemeMode.light.code;
     final themeMode = ThemeModeExtension.fromCode(themeModeCode);
     // currentThemeMode.value = themeMode;

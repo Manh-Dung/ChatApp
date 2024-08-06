@@ -13,7 +13,9 @@ import '../network/firebase/instance.dart';
 
 abstract class AuthRepository {
   late final CollectionReference? _userCollection;
-  final StorageRepository storageRepository = StorageRepositoryImpl();
+  final StorageRepository storageRepository;
+
+  AuthRepository({required this.storageRepository});
 
   Future<String?> getToken();
 
@@ -35,7 +37,7 @@ abstract class AuthRepository {
 
 @Injectable(as: AuthRepository)
 class AuthRepositoryImpl extends AuthRepository {
-  AuthRepositoryImpl() {
+  AuthRepositoryImpl({required super.storageRepository}) {
     setUpCollectionReference();
   }
 
